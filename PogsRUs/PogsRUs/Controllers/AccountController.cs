@@ -19,9 +19,30 @@ namespace PogsRUs.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        public IActionResult Index()
+
+        [HttpGet]
+        public IActionResult Register() => View();
+
+        [HttpPost]
+        public async Task<IAsyncResult> Register(RegisterViewModel regViewM)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                //ToDo: Application new user here
+                ApplicationUser user = new ApplicationUser()
+                {
+
+                };
+
+
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(_userManager, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            return regViewM(regViewM);
         }
     }
 }
