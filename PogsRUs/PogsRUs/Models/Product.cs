@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace PogsRUs.Models
 {
+    public enum PogType
+    {      
+        Slammer = 0,
+        [Display(Name = "Milk Cap")]
+        MilkCap = 1,        
+    }
+
     /// <summary>
     /// Model for Products that will be sold.
     /// </summary>
@@ -20,6 +27,10 @@ namespace PogsRUs.Models
         [Required(ErrorMessage = "Please provide a name for your product")]
         [Display(Name = "Product Name")]
         public string Name { get; set; }
+
+        [Required(ErrorMessage = "Please select the type of pog.")]
+        [Display(Name = "Pog Type")]
+        public PogType PogType { get; set; }
 
         [Required(ErrorMessage = "Please provide a price for your product")]
         [Display(Name = "Product Price")]
