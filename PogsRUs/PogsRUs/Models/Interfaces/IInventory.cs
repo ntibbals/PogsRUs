@@ -27,8 +27,18 @@ namespace PogsRUs.Models.Interfaces
         /// <returns>List of Products</returns>
         Task<IEnumerable<Product>> GetProducts();
 
+        /// <summary>
+        /// Updates existing product.
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns>Task</returns>
+        Task UpdateProduct(Product product);
 
-
-
+        /// <summary>
+        /// Deletes existing product.
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
+        Task DeleteProduct(Product product);
     }
 }
