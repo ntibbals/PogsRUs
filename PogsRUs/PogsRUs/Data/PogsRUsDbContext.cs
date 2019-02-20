@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PogsRUs.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,6 @@ namespace PogsRUs.Data
         }
 
         //TODO: Add table references here.
-
+        public DbSet<Product> Products { get; set; }
     }
 }
