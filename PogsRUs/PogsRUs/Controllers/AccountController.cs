@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PogsRUs.Models;
+using PogsRUs.Models.ViewModels;
 
 namespace PogsRUs.Controllers
 {
@@ -24,7 +25,7 @@ namespace PogsRUs.Controllers
         public IActionResult Register() => View();
 
         [HttpPost]
-        public async Task<IAsyncResult> Register(RegisterViewModel regViewM)
+        public async Task<IActionResult> Register(RegisterViewModel regViewM)
         {
             if (ModelState.IsValid)
             {
@@ -39,15 +40,15 @@ namespace PogsRUs.Controllers
 
                 };
 
-
+                var result = await _userManager.CreateAsync(user, regViewM.Password);
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(_userManager, isPersistent: false);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }
             }
 
-            return regViewM(regViewM);
+            return View(regViewM);
         }
     }
 }
