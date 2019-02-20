@@ -16,10 +16,10 @@ namespace PogsRUs.Data
 
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            //TODO: Add Seeds here
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    //TODO: Add Seeds here
+        //}
 
         //TODO: Add table references here.
     }
