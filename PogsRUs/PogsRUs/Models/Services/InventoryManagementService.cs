@@ -1,4 +1,5 @@
-﻿using PogsRUs.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PogsRUs.Data;
 using PogsRUs.Models.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,8 @@ namespace PogsRUs.Models.Services
 {
     public class InventoryManagementService : IInventory
     {
+        //Injecting DB
+
         private readonly PogsRUsDbContext _context;
 
         public InventoryManagementService(PogsRUsDbContext context)
@@ -16,30 +19,56 @@ namespace PogsRUs.Models.Services
             _context = context;
         }
 
-
-        public Task CreateProduct(Product product)
+        /// <summary>
+        /// Create Product
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns>Task</returns>
+        public async Task CreateProduct(Product product)
         {
-            throw new NotImplementedException();
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
         }
 
-        public Task DeleteProduct(Product product)
+        /// <summary>
+        /// Deletes existing product.
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
+        public async Task DeleteProduct(Product product)
         {
-            throw new NotImplementedException();
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<Product> GetProduct(int id)
+        /// <summary>
+        /// Searches all products and returns product that matches input id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Product product</returns>
+        public async Task<Product> GetProduct(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Products.FirstOrDefaultAsync(p => p.ID == id);
         }
 
-        public Task<IEnumerable<Product>> GetProducts()
+        /// <summary>
+        /// Retreive all existing product and returns as a list.
+        /// </summary>
+        /// <returns>List of Products</returns>
+        public async Task<IEnumerable<Product>> GetProducts()
         {
-            throw new NotImplementedException();
+            return await _context.Products.ToListAsync();
         }
 
-        public Task UpdateProduct(Product product)
+        /// <summary>
+        /// Updates existing product.
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns>Task</returns>
+        public async Task UpdateProduct(Product product)
         {
-            throw new NotImplementedException();
+            _context.Products.Update(product);
+            await _context.SaveChangesAsync();
         }
     }
 }
