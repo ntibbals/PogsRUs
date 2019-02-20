@@ -31,6 +31,11 @@ namespace PogsRUs.Controllers
                 //ToDo: Application new user here
                 ApplicationUser user = new ApplicationUser()
                 {
+                    FirstName = regViewM.FirstName,
+                    LastName = regViewM.LastName,
+                    Birthday = regViewM.Birthday,
+                    UserName = regViewM.Email,
+                    Email = regViewM.Email
 
                 };
 
