@@ -11,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PogsRUs.Data;
 using PogsRUs.Models;
+using PogsRUs.Models.Interfaces;
+using PogsRUs.Models.Services;
 
 namespace PogsRUs
 {
@@ -39,8 +41,11 @@ namespace PogsRUs
             options.UseSqlServer(Configuration.GetConnectionString("IdentityDefaultConnection")));
 
             services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"])
-            //services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:ProductionConnection"])            
+            //services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:ProductionConnection"])                   
             );
+
+            //Add Dependency Injection Here
+            services.AddScoped<IInventory, InventoryManagementService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
