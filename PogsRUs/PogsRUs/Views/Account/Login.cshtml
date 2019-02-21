@@ -1,0 +1,24 @@
+﻿@model PogsRUs.Models.ViewModels.LoginViewModel
+@{
+}
+
+<div>
+    <form method="Post">
+
+        <div asp-validation-summary="All"></div>
+
+        <div>
+            <label asp-for="Email"></label>
+            <input asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div>
+            <label asp-for="Password"></label>
+            <input asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div>
+            <button type="submit">Login</button>
+        </div>
+    </form>
+</div>
