@@ -50,5 +50,25 @@ namespace PogsRUs.Controllers
 
             return View(regViewM);
         }
+
+        [HttpGet]
+        public IActionResult Login() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel loginVM)
+        {
+            if(ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(loginVM.Email, loginVM.Password, false, false);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+
+            return View(loginVM);
+        }
     }
 }
