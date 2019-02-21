@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PogsRUs.Models.Interfaces
 {
-    interface IInventory
+    public interface IInventory
     {
         /// <summary>
         /// Create Product
