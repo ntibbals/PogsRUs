@@ -7,29 +7,15 @@ using System.Threading.Tasks;
 
 namespace PogsRUs.Models.Handler
 {
-    public class ProfessionalRequirement : AuthorizationHandler<ProfessionalRequirement>, IAuthorizationRequirement
+    public class ProfessionalRequirement : IAuthorizationRequirement
     {
-        private string _isProfessional;
+        public string IsProfessional { get; set; }
 
         public ProfessionalRequirement(string isProfessional)
         {
-            _isProfessional = isProfessional;
+            IsProfessional = isProfessional;
         }
 
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, ProfessionalRequirement requirement)
-        {
-            if(!context.User.HasClaim(c => c.Type == ClaimTypes.Anonymous))
-            {
-                return Task.CompletedTask;
-            }
-
-            string proStatus = context.User.FindFirst(u => u.Type == ClaimTypes.Anonymous).ToString();
-
-            if (proStatus == _isProfessional)
-            {
-                context.Succeed(requirement);
-            }
-            return Task.CompletedTask;
-        }
+        
     }
 }
