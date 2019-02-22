@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace PogsRUs.Models.Handler
@@ -17,7 +18,18 @@ namespace PogsRUs.Models.Handler
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, ProfessionalRequirement requirement)
         {
-            throw new NotImplementedException();
+            if(!context.User.HasClaim(c => c.Type == ClaimTypes.Anonymous))
+            {
+                return Task.CompletedTask;
+            }
+
+            string proStatus = context.User.FindFirst(u => u.Type == ClaimTypes.Anonymous).ToString();
+
+            if (proStatus == _isProfessional)
+            {
+                context.Succeed(requirement);
+            }
+            return Task.CompletedTask;
         }
     }
 }
