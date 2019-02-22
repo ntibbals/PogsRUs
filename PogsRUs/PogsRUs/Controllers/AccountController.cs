@@ -48,7 +48,7 @@ namespace PogsRUs.Controllers
                     Claim fullNameClaim = new Claim("FullName", $"{user.FirstName} {user.LastName}");
                     Claim emailClaim = new Claim(ClaimTypes.Email, user.Email, ClaimValueTypes.Email);
                     Claim birthdayClaim = new Claim(ClaimTypes.DateOfBirth, new DateTime(user.Birthday.Year, user.Birthday.Month, user.Birthday.Day).ToString("u"), ClaimValueTypes.DateTime);
-                    Claim professionalClaim = new Claim(ClaimTypes.Anonymous, user.Professional, ClaimValueTypes.String);
+                    Claim professionalClaim = new Claim("Professional", user.Professional);
 
                     List<Claim> claims = new List<Claim> { fullNameClaim, emailClaim, birthdayClaim, professionalClaim };
 
