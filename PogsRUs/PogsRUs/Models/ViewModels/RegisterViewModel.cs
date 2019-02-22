@@ -25,6 +25,9 @@ namespace PogsRUs.Models.ViewModels
         public string Email { get; set; }
 
         [Required]
+        public string Professional { get; set; }
+
+        [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

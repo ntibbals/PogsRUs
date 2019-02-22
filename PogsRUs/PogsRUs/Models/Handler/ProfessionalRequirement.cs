@@ -8,9 +8,9 @@ namespace PogsRUs.Models.Handler
 {
     public class ProfessionalRequirement : AuthorizationHandler<ProfessionalRequirement>, IAuthorizationRequirement
     {
-        private bool _isProfessional;
+        private string _isProfessional;
 
-        public ProfessionalRequirement(bool isProfessional)
+        public ProfessionalRequirement(string isProfessional)
         {
             _isProfessional = isProfessional;
         }
