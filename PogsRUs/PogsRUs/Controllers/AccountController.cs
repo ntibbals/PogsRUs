@@ -44,7 +44,7 @@ namespace PogsRUs.Controllers
                 var result = await _userManager.CreateAsync(user, regViewM.Password);
                 if (result.Succeeded)
                 {
-                    Claim fullNameClaim = new Claim("FullName", $"{user.FirstName}{user.LastName}");
+                    Claim fullNameClaim = new Claim("FullName", $"{user.FirstName} {user.LastName}");
                     Claim emailClaim = new Claim(ClaimTypes.Email, user.Email, ClaimValueTypes.Email);
                     Claim birthdayClaim = new Claim(ClaimTypes.DateOfBirth, new DateTime(user.Birthday.Year, user.Birthday.Month, user.Birthday.Day).ToString("u"), ClaimValueTypes.DateTime);
 
