@@ -1,20 +1,28 @@
-﻿<div class="container" style="margin-left:10px">
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a asp-controller="Home" class="btn btn-dark shadow text-center" style="margin-right:10px" asp-action="Index">Home</a>
-        </li>
-        <li class="nav-item">
-            <a asp-controller="Account" class="btn btn-dark shadow text-center" style="margin-right:10px" asp-action="Register">Register</a>
-        </li>
-        <li class="nav-item">
-            <a asp-controller="Account" class="btn btn-dark shadow text-center" style="margin-right:10px" asp-action="Login">Login</a>
-        </li>
-        <li class="nav-item">
-            <a asp-controller="Product" class="btn btn-dark shadow text-center" style="margin-right:10px" asp-action="Index">Products</a>
-        </li>
-        <li class="nav-item">
-            <a asp-controller="Policy" class="btn btn-dark shadow text-center" style="margin-right:10px" asp-action="Professionals">Professionals</a>
-        </li>
-    </ul>
+﻿<div id="headcontain">
+    <div id="head-but-contain">
+        <a asp-controller="Home" class="btn btn-dark shadow text-center" asp-action="Index1">Home</a>
+            <a asp-controller="Account" class="btn btn-dark shadow text-center" asp-action="Register">Register</a>
+
+            <a asp-controller="Account" class="btn btn-dark shadow text-center"  asp-action="Login">Login</a>
+
+            <a asp-controller="Product" class="btn btn-dark shadow text-center" asp-action="Index">Products</a>
+
+            <a asp-controller="Policy" class="btn btn-dark shadow text-center" asp-action="Professionals">Professionals</a>
+    </div>
+    <nav id="hamburger" role="navigation">
+        <div id="navToggle">
+            <input type="checkbox" />
+            <span></span>
+            <span></span>
+            <span></span>
+            <ul id="nav">
+                <li><a id="links" href='/Home/Index1'> Home </a></li>
+                <li><a id="links" href='/Account/Register'> Register </a></li>
+                <li><a id="links" href='/Product/Index'> Products </a></li>
+                <li><a id="links" href='/Policy/Professionals'> Products </a></li>
+
+            </ul>
+        </div>
+    </nav>
+
 </div>
-<br />
