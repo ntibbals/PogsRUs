@@ -11,7 +11,7 @@ namespace PogsRUs.Models.Handler
     {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, ProfessionalRequirement requirement)
         {
-            if (!context.User.HasClaim(c => c.Type == ClaimTypes.Anonymous))
+            if (!context.User.HasClaim(c => c.Type == "Professional"))
             {
                 return Task.CompletedTask;
             }
