@@ -1,24 +1,24 @@
 ﻿@model PogsRUs.Models.ViewModels.LoginViewModel
 @{
+    ViewData["Title"] = "Login";
+    Layout = "_Layout";
 }
-
-<div>
-    <form method="Post">
-
+<div id="form-contain">
+    <form method="post" id="form">
         <div asp-validation-summary="All"></div>
 
         <div>
             <label asp-for="Email"></label>
-            <input asp-for="Email" />
+            <input asp-for="Email" id="input" />
             <span asp-validation-for="Email"></span>
         </div>
         <div>
             <label asp-for="Password"></label>
-            <input asp-for="Password" />
+            <input asp-for="Password" id="input" />
             <span asp-validation-for="Password"></span>
         </div>
-        <div>
-            <button type="submit">Login</button>
+        <div id="but-contain">
+            <button type="submit" id="button">Login</button>
         </div>
     </form>
 </div>

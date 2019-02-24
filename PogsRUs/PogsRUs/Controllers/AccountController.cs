@@ -25,6 +25,11 @@ namespace PogsRUs.Controllers
         [HttpGet]
         public IActionResult Register() => View();
 
+        /// <summary>
+        /// Method to register a user for the site
+        /// </summary>
+        /// <param name="regViewM">register view model</param>
+        /// <returns>Index view once user is regisered</returns>
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel regViewM)
         {
@@ -65,6 +70,11 @@ namespace PogsRUs.Controllers
         [HttpGet]
         public IActionResult Login() => View();
 
+        /// <summary>
+        /// Method to log user into site
+        /// </summary>
+        /// <param name="loginVM">Login View Model</param>
+        /// <returns>View of Home Page</returns>
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginVM)
         {

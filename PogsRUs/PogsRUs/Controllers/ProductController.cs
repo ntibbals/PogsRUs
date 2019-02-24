@@ -18,7 +18,11 @@ namespace PogsRUs.Controllers
             _context = context;
         }
 
-        /// Get Products
+        /// <summary>
+        /// Get Products for index page
+        /// </summary>
+        /// <param name="searchString">search criteria</param>
+        /// <returns>all products</returns>
         public async Task<IActionResult> Index(string searchString)
         {
             var product = await _context.GetProducts();
@@ -30,6 +34,11 @@ namespace PogsRUs.Controllers
             return View(product.ToList());
         }
 
+        /// <summary>
+        /// Get details for specific product
+        /// </summary>
+        /// <param name="id">product id</param>
+        /// <returns>details for specified product</returns>
         public async Task<IActionResult> Details(int id)
         {
             var product = await _context.GetProduct(id);
@@ -47,6 +56,11 @@ namespace PogsRUs.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Create new product method
+        /// </summary>
+        /// <param name="product">new product to bind/create</param>
+        /// <returns>product view</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID, Sku, Name, PogType, Price, Description, Image")] Product product)
@@ -66,6 +80,11 @@ namespace PogsRUs.Controllers
             }
         }
 
+        /// <summary>
+        /// Find product to edit
+        /// </summary>
+        /// <param name="id">product id to edit</param>
+        /// <returns>Edit view</returns>
         public async Task<IActionResult> Edit(int id)
         {
             var product = await _context.GetProduct(id);
@@ -73,6 +92,12 @@ namespace PogsRUs.Controllers
             return View(product);
         }
 
+        /// <summary>
+        /// Edit method for specified product
+        /// </summary>
+        /// <param name="id">product id</param>
+        /// <param name="product">product object</param>
+        /// <returns>Edited product detail view</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID, Sku, Name, PogType, Price, Description, Image")] Product product)
@@ -99,6 +124,11 @@ namespace PogsRUs.Controllers
 
         }
 
+        /// <summary>
+        /// Find product to delete
+        /// </summary>
+        /// <param name="id">product id</param>
+        /// <returns>product to delete</returns>
         public async Task<IActionResult> Delete(int id)
         {
             var product = await _context.GetProduct(id);
@@ -110,6 +140,11 @@ namespace PogsRUs.Controllers
             return View(product);
         }
 
+        /// <summary>
+        /// Delete product method
+        /// </summary>
+        /// <param name="id">product to delete</param>
+        /// <returns>Index view</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

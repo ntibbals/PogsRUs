@@ -1,14 +1,57 @@
-﻿<div class="container" style="margin-left:10px">
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a asp-controller="Home" class="btn btn-dark shadow text-center" style="margin-right:10px" asp-action="Index">Home</a>
-        </li>
-        <li class="nav-item">
-            <a asp-controller="Account" class="btn btn-dark shadow text-center" style="margin-right:10px" asp-action="Register">Register</a>
-        </li>
-        <li class="nav-item">
-            <a asp-controller="Account" class="btn btn-dark shadow text-center" style="margin-right:10px" asp-action="Login">Login</a>
-        </li>
-    </ul>
+﻿@using Microsoft.AspNetCore.Identity
+@using PogsRUs.Models
+@inject SignInManager<ApplicationUser> signInManager
+<div class="username-head">
+    @if (signInManager.IsSignedIn(User))
+    {
+        <span>Welcome @User.Claims.First(c => c.Type == "FullName").Value</span>
+    }
+    else
+    {
+        <p>YOU ARE NOT LOGGED IN!</p>
+    }
 </div>
-<br />
+<div id="headcontain">
+    <div id="head-but-contain">
+        <a asp-controller="Policy" id="button-new" asp-action="Professionals">Professionals</a>
+        <a asp-controller="Product" id="button-new" asp-action="Index">Cart</a>
+        <a asp-controller="Product" id="button-new" asp-action="Index">Products</a>
+        <a asp-controller="Account" id="button-new" asp-action="Login">Login</a>
+        <a asp-controller="Account" id="button-new" asp-action="Register">Register</a>
+        <a asp-controller="Home" id="button-new" asp-action="Index1">Home</a>
+    </div>
+    <nav id="hamburger" role="navigation">
+        <div id="navToggle">
+            <input type="checkbox" />
+            <span></span>
+            <span></span>
+            <span></span>
+            <ul id="nav">
+                <li><a id="links" href='/Home/Index1'> Home </a></li>
+                <li><a id="links" href='/Account/Login'> Login </a></li>
+                <li><a id="links" href='/Account/Register'> Register </a></li>
+                <li><a id="links" href='/Product/Index'> Products </a></li>
+                <li><a id="links" href='/Policy/Professionals'> Professionals </a></li>
+                <li><a id="links" href='/Home/Index1'> Cart </a></li>
+
+                <li>
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                    <li>
+                        Welcome @User.Claims.First(c => c.Type == "FullName").Value
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        YOU ARE NOT LOGGED IN!
+                    </li>
+                }
+                </ul>
+            </div>
+        </nav>
+        <div id="indexcontain">
+            <img src="~/assets/Logo.png" alt="Pogs R Us Logo" class="head-logo" />
+
+        </div>
+    </div>
