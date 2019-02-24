@@ -1,20 +1,37 @@
+![solution image](./Graphics/Logo.png)
 # Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+Pogs R Us offers a one stop shop for for all of you Pogs and Pog Accessories. We also offer a special set of merchandise for Professional Pog Competitors.
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+#### Link to Deployed Site
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+https://pogsrus.azurewebsites.net/
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+# Products Avaliable
+- Slammers
+- Milk Caps
+- Pog Receptacles
+- Swag
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://www.visualstudio.com/en-us/docs/git/create-a-readme). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+# Claims
+#### Fullname Claim
+- Name: fullNameClaim
+- Purpose: To enable a customized greeting for user experience.
+
+#### Email Claim
+- Name: emailClaim
+- Purpose: Future use (Admin capabilities mayhaps?)
+
+#### Birthday Claim
+- Name: birthdayClaim
+- Purpose: Future use (If you are under 30 you will probably need an introduction to what a pog even is...)
+
+#### Professional Claim
+- Name: professionalClaim
+- Purpose: To restrict access to a pros only page.
+
+# Policies
+
+#### Professionals Only Policy
+- Name: ProfessionalsOnly
+- Purpose: Only allows users who checked the Professional box on account creation to access the Professional Page.
+
