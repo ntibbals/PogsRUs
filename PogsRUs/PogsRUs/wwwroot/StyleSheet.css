@@ -86,16 +86,22 @@
 
 
 /*********MOBILE VERSION *****************/
-@media (max-width: 850px) {
+@media (max-width: 700px) {
 
     /******** PRODUCTS *******************/
+    .container {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        margin: 0 auto;
+    }
 
-    /*#post-contain {
+    .product-contain {
         display: block;
         margin: 0 auto;
         border: solid 2px #000;
         margin-top: 2vw;
-        width: 50vw;
+        width: 60vw;
         min-width: 350px;
         min-height: 450px;
         border-radius: .5em;
@@ -104,16 +110,16 @@
 
 
     #content-contain {
-        width: 100%;
+        width: 95%;
     }
 
     #post-image {
-        width: 50vw;
-        height: 40vw;
-        min-width: 350px;
-        min-height: 400px;
+        width: 30vw;
+        height: 30vw;
+        min-width: 300px;
+        min-height: 300px;
         border-radius: .3em;
-    }*/
+    }
 
     /********* REGISTER / LOGIN ****************/
     #form-contain {
