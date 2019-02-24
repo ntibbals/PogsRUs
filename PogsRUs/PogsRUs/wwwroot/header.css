@@ -1,32 +1,39 @@
-﻿/************* HEADER *******************/
+﻿body {
+    background-color: #fff;
+    color: #000;
+    text-align: center;
+    font-family: 'Merienda One', cursive;
+}
+
+font-family: 'Kaushan Script', cursive;
+font-family: 'Yeseva One', cursive;
+font-family: 'Merienda One', cursive;
+font-family: 'Sue Ellen Francisco', cursive;
+font-family: 'IM Fell English SC', serif;
+/************* HEADER *******************/
 #headcontain {
     text-align: left;
     width: 20vw;
 }
 
-.username-head{
-    float: left;
-    margin-left: 2vw;
-}
 header {
     background-color: #fff;
-    height: 6vw;
-    min-height: 40px;
+    height: 5vw;
+    min-height: 95px;
     color: #000;
     text-align: left;
     /*border: solid 2px #000;*/
-    animation: animate-flame linear 7s infinite;
     box-shadow: 4px 4px 4px black;
 }
 
 a {
     text-decoration: none;
-    color: orangered;
+    color: red;
     transition: color 0.3s ease;
 }
 
 span {
-    background-color: #000;
+    background-color: #fff;
 }
 
 a:hover {
@@ -60,10 +67,6 @@ a:hover {
 
 #navToggle {
     display: block;
-    /*position: absolute;
-    top: 8px;
-    z-index: 1;
-    margin-left: 2vw;*/
     position: relative;
     margin-right: 5vw;
     padding-top: 1vw;
@@ -90,7 +93,7 @@ a:hover {
         height: 4px;
         margin-bottom: 5px;
         position: relative;
-        background: #fff;
+        background: #000;
         border-radius: 3px;
         z-index: 1;
         transform-origin: 4px 0px;
@@ -117,36 +120,80 @@ navToggle span:first-child {
     #navToggle input:checked ~ span:nth-last-child(2) {
         transform: rotate(-45deg) translate(0, -1px);
     }
-#head-but-contain{
-    padding-top: 2.5vw;
-    margin-left: 4vw;
-    width: 50vw;
-    min-width: 700px;
-    z-index: 1;
+
+    .head-logo{
+        height: 4vw;
+        min-height: 45px;
+    }
+#indexcontain {
+    margin-top: 0vw;
+    margin-left: 1vw;
+    margin-bottom: 1vw;
+    height: 4vw;
+    min-height: 40px;
+    font-family: 'Yeseva One', cursive;
 }
 
-.head-logo {
-    height: 5.5vw;
-    float: left;
-    padding-left: 1vw;
-    padding-right: 1vw;
-    z-index:0;
+#head-but-contain{
+    padding-top: 1vw;
+    padding-right: 1.5vw;
+    text-align: right;
 }
-@media (max-width: 700px) {
+
+
+#button-new {
+    padding: .3vw;
+    background-color: #fff;
+    padding-left: .7vw;
+    padding-right: .7vw;
+    border: solid 2px #000;
+    border-radius: .5em;
+    font-size: 1.5vw;
+    float: right;
+}
+
+    #button-new:hover {
+        color: #000;
+    }
+
+.username-head {
+    float: right;
+    margin-right: 1.5vw;
+    text-align: right;
+}
+.header-outer{
+    min-width: 400px;
+}
+footer {
+    padding-top: 2vw;
+}
+
+@media (max-width: 850px) {
+    header{
+        min-height: 50px;
+    }
+
+    #indexcontain {
+        height: 14vw;
+        min-height: 50px;
+        font-family: 'Yeseva One', cursive;
+    }
 
     #navToggle span {
         display: block;
     }
+    .username-head {
+        display: none;
 
-    #post-contain {
-        display: block;
-        margin: 0 auto;
-        border: solid 2px #000;
-        margin-top: 2vw;
-        width: 50vw;
-        min-width: 350px;
-        min-height: 450px;
-        border-radius: .5em;
-        padding: 0;
+    }
+
+    #button-new {
+        display: none;
+    }
+
+    footer {
+        padding-top: 4vw;
     }
 }
+
+
