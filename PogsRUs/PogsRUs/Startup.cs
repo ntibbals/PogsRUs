@@ -5,10 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PogsRUs.Data;
+using PogsRUs.Models;
+using PogsRUs.Models.Handler;
+using PogsRUs.Models.Interfaces;
+using PogsRUs.Models.Services;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace PogsRUs
 {
@@ -29,17 +36,39 @@ namespace PogsRUs
         {
             services.AddMvc();
 
-            services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:ProductionConnection"])
-            );
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("IdentityDefaultConnection")));
+
+            //services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+            services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:ProductionConnection"]));
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ProfessionalsOnly", policy => policy.Requirements.Add(new ProfessionalRequirement("true")));              
+            });
+            
+
+            //Add Dependency Injection Here
+            services.AddScoped<IInventory, InventoryManagementService>();
+            services.AddScoped<IAuthorizationHandler, ProfessionalHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
+            app.UseAuthentication();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //app.UseMvcWithDefaultRoute();
 
             app.UseMvc();
 

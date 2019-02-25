@@ -1,0 +1,169 @@
+﻿body {
+
+}
+
+/******** PRODUCTS *******************/
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+.product-contain {
+
+    border: solid 2px #000;
+    margin-top: 3vw;
+    margin-right: 1vw;
+    width: 18vw;
+    min-width: 300px;
+    min-height: 350px;
+    border-radius: .5em;
+    padding: 1vw;
+    box-shadow: 4px 4px 4px black;
+}
+
+#content-contain {
+    width: 95%;
+    margin-top: 7vw;
+    padding-left: 3vw;
+}
+
+#post-image {
+    width: 15vw;
+    height: 15vw;
+    min-width: 100px;
+    min-height: 100px;
+    border-radius: .5em;
+    /*box-shadow: 4px 4px 4px black; */
+}
+
+
+/**************REGISTER / LOGIN***************/
+#button {
+    padding: .3vw;
+    background-color: #fff;
+    padding-left: .7vw;
+    padding-right: .7vw;
+    border: solid 2px #000;
+    border-radius: .5em;
+    font-size: 1.5vw;
+    max-width: 95%;
+}
+
+#button:hover {
+        color: #000;
+    }
+
+#but-contain {
+    margin: 1.5vw;
+    text-align: right;
+}
+
+#form-contain {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    border: solid 2px #000;
+    margin-top: 2vw;
+    width: 40vw;
+    min-width: 300px;
+    min-height: 300px;
+    border-radius: .5em;
+    padding: 1vw;
+    box-shadow: 4px 4px 4px black;
+}
+
+#input {
+    border-radius: .5em;
+    margin-bottom: 1.5vw;
+}
+
+#form {
+    margin-top: 1vw;
+    
+}
+
+
+/*********MOBILE VERSION *****************/
+@media (max-width: 700px) {
+
+    /******** PRODUCTS *******************/
+    .container {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        margin: 0 auto;
+    }
+
+    .product-contain {
+        display: block;
+        margin: 0 auto;
+        border: solid 2px #000;
+        margin-top: 2vw;
+        width: 60vw;
+        min-width: 350px;
+        min-height: 450px;
+        border-radius: .5em;
+        padding: 0;
+    }
+
+
+    #content-contain {
+        width: 95%;
+    }
+
+    #post-image {
+        width: 30vw;
+        height: 30vw;
+        min-width: 300px;
+        min-height: 300px;
+        border-radius: .3em;
+    }
+
+    /********* REGISTER / LOGIN ****************/
+    #form-contain {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        border: solid 2px #000;
+        margin-top: 2vw;
+        width: 50vw;
+        min-width: 350px;
+        min-height: 450px;
+        border-radius: .5em;
+        padding: 0;
+        box-shadow: 4px 4px 4px black;
+    }
+
+    #button {
+        margin: 2vw;
+        background-color: #fff;
+        padding-left: 3vw;
+        padding-right: 3vw;
+        border: solid 2px #000;
+        border-radius: .5em;
+        font-size: 3vw;
+        max-width: 95%;
+    }
+
+        #button:hover {
+            color: #000;
+        }
+
+    #but-contain {
+        margin: 2.5vw;
+        text-align: right;
+    }
+}
+
+@keyframes animate-pog {
+    from {
+        background-position: 0
+    }
+
+    to {
+        background-position: -100% 0
+    }
+}
+
