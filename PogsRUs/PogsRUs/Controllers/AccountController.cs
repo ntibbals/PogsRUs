@@ -60,7 +60,7 @@ namespace PogsRUs.Controllers
                     await _userManager.AddClaimsAsync(user, claims);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index1", "Home");
                 }
             }
 
@@ -83,7 +83,7 @@ namespace PogsRUs.Controllers
                 var result = await _signInManager.PasswordSignInAsync(loginVM.Email, loginVM.Password, false, false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index1", "Home");
                 }
             }
 

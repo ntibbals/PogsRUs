@@ -1,0 +1,26 @@
+﻿@model PogsRUs.Models.Product
+@{
+    ViewData["Title"] = "PogsRUs";
+    Layout = "_Layout";
+}
+
+<div id="post-contain">
+    <div id="image-contain">
+        <img src="@Model.Image" id="post-image" alt="Post Image" />
+
+    </div>
+    <div id="content-contain">
+        <div id="auth-contain">
+            <label asp-for"Post.Author">@Model.Name</label>
+        </div>
+        <div id="detail-contain">
+            <label asp-for="@Model.Description">@Model.Description</label>
+        </div>
+        <div id="auth-contain">
+            <label asp-for"Post.Author">@Model.Price</label>
+        </div>
+        <div id="but-contain">
+            <a asp-page="/Prouct" asp-route-id="@Model.ID" id="button">Add to Cart</a>
+        </div>
+    </div>
+</div>

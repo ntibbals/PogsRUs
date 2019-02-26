@@ -19,7 +19,7 @@ font-family: 'IM Fell English SC', serif;
 header {
     background-color: #fff;
     height: 5vw;
-    min-height: 95px;
+    min-height: 50px;
     color: #000;
     text-align: left;
     /*border: solid 2px #000;*/
@@ -146,9 +146,8 @@ navToggle span:first-child {
     background-color: #fff;
     padding-left: .7vw;
     padding-right: .7vw;
-    border: solid 2px #000;
     border-radius: .5em;
-    font-size: 1.5vw;
+    font-size: 20px;
     float: right;
 }
 
@@ -168,32 +167,46 @@ footer {
     padding-top: 2vw;
 }
 
-@media (max-width: 850px) {
-    header{
-        min-height: 50px;
-    }
-
-    #indexcontain {
-        height: 14vw;
-        min-height: 50px;
-        font-family: 'Yeseva One', cursive;
-    }
+@media (max-width: 989px) {
 
     #navToggle span {
         display: block;
     }
+
     .username-head {
         display: none;
-
     }
 
     #button-new {
         display: none;
     }
-
-    footer {
-        padding-top: 4vw;
-    }
 }
+    @media (max-width: 850px) {
+        header {
+            min-height: 50px;
+        }
+
+        #indexcontain {
+            height: 14vw;
+            min-height: 50px;
+            font-family: 'Yeseva One', cursive;
+        }
+
+        #navToggle span {
+            display: block;
+        }
+
+        .username-head {
+            display: none;
+        }
+
+        #button-new {
+            display: none;
+        }
+
+        footer {
+            padding-top: 4vw;
+        }
+    }
 
 
