@@ -66,11 +66,11 @@
 
         <div class="product-contain">
             <div id="image-contain">
-                <a asp-controller="Prodcut" asp-action="Details"> <img id="post-image" src="@product.Image" alt="@product.Description"></a>
+                <a asp-controller="Product" asp-action="Details" asp-route-id="@product.ID"> <img id="post-image" src="@product.Image" alt="@product.Description"></a>
             </div>
             <div id="content-contain">
                 <div class="detail-butt-contain">
-                    <a asp-controller="Prodcut" class="detail-butt" asp-action="Details">@product.Name</a>
+                    <a asp-controller="Product" class="detail-butt" asp-action="Details" asp-route-id="@product.ID">@product.Name</a>
                 </div>
                 @*<p class="card-text">@product.Description</p>*@
                 <div class="price-contain">
