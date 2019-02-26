@@ -48,6 +48,10 @@
     /*box-shadow: 4px 4px 4px black; */
 }
 
+#post-image:hover{
+    width: 225px;
+    height: 225px;
+}
 .detail-butt {
     padding: .3vw;
     background-color: #fff;
