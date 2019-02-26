@@ -8,22 +8,80 @@
     var products = await InventoryManagementService.GetProducts();
 }
 
-
-<p>Welcome to Pogs R Us, Your Number One source for all pogs.</p>
-
-@foreach (var product in products)
-{
-
-    <div class="card bg-light mb-3 shadow p-3 " style="max-width: 40rem; margin: 1rem auto">
-        <div class="card-body">
-            <h5 class="card-header">@product.Name</h5>
-
-            <img class="card-img shadow p-3" src="@product.Image" alt="@product.Description" style="padding: 1rem">
-
-
-            <p class="card-text" style="margin-top: 1rem">@product.Description</p>
-
+<div class="carousel-container">
+    <p>Welcome to Pogs R Us, Your Number One source for all pogs.</p>
+    <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-2" data-slide-to="1"></li>
+            <li data-target="#carousel-example-2" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="view">
+                    <img id="carousel-image" class="a-block w-100" src="~/assets/group1.jpg" alt="First slide">
+                    <div class="mask rgba-black-light"></div>
+                </div>
+                <div class="carousel-caption">
+                    <h3 class="h3-responsive">Pogs for all generations!</h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="view">
+                    <img id="carousel-image"  class="a-block w-100" src="~/assets/group2.jpg" alt="Second slide">
+                    <div class="mask rgba-black-strong"></div>
+                </div>
+                <div class="carousel-caption">
+                    <h3 class="h3-responsive">Do you Pog???</h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="view">
+                    <img id="carousel-image"  class="a-block w-100" src="~/assets/group3.jpg" alt="Third slide">
+                    <div class="mask rgba-black-slight"></div>
+                </div>
+                <div class="carousel-caption">
+                    <h3 class="h3-responsive">Whose next?</h3>
+                    <p></p>
+                </div>
+            </div>
         </div>
+        <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
+</div>
+<h1 class="product-title"> Featured Pogs</h1>
 
-}
+<div class="container">
+    @foreach (var product in products)
+    {
+
+        <div class="product-contain">
+            <div id="image-contain">
+                <a asp-controller="Product" asp-action="Details" asp-route-id="@product.ID"> <img id="post-image" src="@product.Image" alt="@product.Description"></a>
+            </div>
+            <div id="content-contain">
+                <div class="detail-butt-contain">
+                    <a asp-controller="Product" class="detail-butt" asp-action="Details" asp-route-id="@product.ID">@product.Name</a>
+                </div>
+                @*<p class="card-text">@product.Description</p>*@
+                <div class="price-contain">
+                    <p class="card-price">$ @product.Price</p>
+                </div>
+
+            </div>
+            <section class="prod-details prod-hide">
+                <p>@product.Description</p>
+            </section>
+        </div>
+
+    }
+</div>
