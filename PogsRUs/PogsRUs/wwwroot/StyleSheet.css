@@ -1,44 +1,104 @@
 ﻿body {
 
 }
-
+/********************HOME *************************/
+.carousel-container{
+}
+#carousel-image{
+    height: 500px;
+}
 /******** PRODUCTS *******************/
-
 .container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin: 0 auto;
+    margin: 1vw auto;
+    border: solid 2px #000;
+    width: 100%;
+}
+.product-title{
+    font-size: 3vw;
+    padding-top: 2vw;
 }
 .product-contain {
-
+    position: relative;
     border: solid 2px #000;
-    margin-top: 3vw;
-    margin-right: 1vw;
-    width: 18vw;
-    min-width: 300px;
-    min-height: 350px;
-    border-radius: .5em;
+    margin: 3vw auto;
+    width: 350px;
+    height: 350px;
+    /*min-width: 350px;
+    min-height: 350px;*/
+    border-radius: 22.5em;
     padding: 1vw;
     box-shadow: 4px 4px 4px black;
 }
 
 #content-contain {
     width: 95%;
-    margin-top: 7vw;
+    margin-top: 1vw;
     padding-left: 3vw;
 }
 
 #post-image {
-    width: 15vw;
-    height: 15vw;
-    min-width: 100px;
-    min-height: 100px;
-    border-radius: .5em;
+    width: 200px;
+    height: 200px;
+    /*min-width: 100px;
+    min-height: 100px;*/
+    border-radius: 19.5em;
     /*box-shadow: 4px 4px 4px black; */
 }
 
+.detail-butt {
+    padding: .3vw;
+    background-color: #fff;
+    padding-left: 0;
+    padding-right: .7vw;
+    font-size: 25px;
+    max-width: 95%;
+}
 
+    .detail-butt:hover {
+        color: #000;
+    }
+
+.detail-butt-contain {
+    width: 95%;
+    text-align: center;
+}
+.price-contain{
+    margin: 20px;
+    margin-right: 45px;
+    text-align: center;
+}
+
+.prod-details {
+    box-sizing: border-box;
+    border: solid 2px #000;
+    margin: 0 auto;
+    width: 350px;
+    height: 350px;
+    border-radius: 22.5em;
+    overflow: auto;
+    background-color: rgba(136, 136, 136, 0.952);
+    padding-top: 75px;
+    position: absolute;
+    top: 0vw;
+    left: -1px;
+    z-index: 1;
+}
+
+.prod-hide {
+    display: none;
+}
+
+.details-container h3 {
+    margin-top: 0.5em;
+    font-size: 1.2em;
+}
+
+.pop-details p {
+    padding-top: 1vw;
+}
 /**************REGISTER / LOGIN***************/
 #button {
     padding: .3vw;
@@ -86,7 +146,7 @@
 
 
 /*********MOBILE VERSION *****************/
-@media (max-width: 700px) {
+@media (max-width: 769px) {
 
     /******** PRODUCTS *******************/
     .container {
@@ -94,6 +154,12 @@
         flex-direction: column;
         flex-wrap: nowrap;
         margin: 0 auto;
+        border: none;
+    }
+
+    .product-title {
+        font-size: 5vw;
+        padding-top: 2vw;
     }
 
     .product-contain {

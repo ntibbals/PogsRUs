@@ -6,22 +6,30 @@
 @{
 }
 
+<h1 class="product-title"> Available Pogs</h1>
+
 <div class="container">
     @foreach (var product in Model)
     {
 
-        <div class="product-contain">
-            <div id="image-contain">
-                <img id="post-image" src="@product.Image" alt="@product.Description">
-            </div>
-            <div id="content-contain">
-                <h5 class="card-header">@product.Name</h5>
-
-
-                <p class="card-text">@product.Description</p>
-
-            </div>
+    <div class="product-contain">
+        <div id="image-contain">
+            <img id="post-image" src="@product.Image" alt="@product.Description">
         </div>
+        <div id="content-contain">
+            <div class="detail-butt-contain">
+                <a asp-controller="Prodcut" class="detail-butt" asp-action="Details">@product.Name</a>
+            </div>
+            @*<p class="card-text">@product.Description</p>*@
+            <div class="price-contain">
+                <p class="card-price">$ @product.Price</p>
+            </div>
+
+        </div>
+        <section class="prod-details prod-hide">
+            <p>@product.Description</p>
+        </section>
+    </div>
 
     }
 </div>
