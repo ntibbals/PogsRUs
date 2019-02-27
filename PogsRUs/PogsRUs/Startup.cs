@@ -15,7 +15,7 @@ using PogsRUs.Models.Handler;
 using PogsRUs.Models.Interfaces;
 using PogsRUs.Models.Services;
 using Microsoft.AspNetCore.Authorization;
-
+using Microsoft.AspNetCore.Identity.UI;
 
 namespace PogsRUs
 {
@@ -41,16 +41,25 @@ namespace PogsRUs
                 .AddDefaultTokenProviders();
 
             services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("IdentityProductionConnection")));
+            options.UseSqlServer(Configuration.GetConnectionString("IdentityDefaultConnection")));
 
             //services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
-            services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:ProductionConnection"]));
+            services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("ProfessionalsOnly", policy => policy.Requirements.Add(new ProfessionalRequirement("true")));              
             });
 
+            //services.AddDefaultIdentity<IdentityUser>()
+            //.AddDefaultUI(UIFramework.Bootstrap4)
+            //.AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+            {
+                microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ApplicationId"];
+                microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:Password"];
+            });
 
             //Add Dependency Injection Here
             services.AddScoped<ICart, CartManagementService>();
