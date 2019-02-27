@@ -127,5 +127,38 @@ namespace PogsRUs.Controllers
 
             return Challenge(properties, provider);
         }
+
+        public async Task<IActionResult> ExternalLoginConfirmation(ExternalLoginViewModel externalVM)
+        {
+            if(ModelState.IsValid)
+            {
+                var info = await _signInManager.GetExternalLoginInfoAsync();
+                if(info == null)
+                {
+                    TempData["Error"] = "Error loading information";
+                }
+
+                var user = new ApplicationUser { UserName = externalVM.Email, Email = externalVM.Email };
+
+                var result = await _userManager.CreateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    // Add claims
+
+                    result = await _userManager.AddLoginAsync(user, info);
+                    if(result.Succeeded)
+                    {
+
+                    
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
+
+                    }
+                }
+            }
+
+            return View(externalVM);
+        }
     }
 }
