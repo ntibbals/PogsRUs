@@ -5,11 +5,19 @@ using System.Threading.Tasks;
 
 namespace PogsRUs.Models
 {
-    public class CartProducts
+    public class CartProduct
     {
 
         public int ID { get; set; }
         public int ProductID { get; set; }
         public int CartID { get; set; }
+        public int Quantity { get; set; }
+
+        public CartProduct(int productID, int cartID)
+        {
+            ProductID = productID;
+            CartID = cartID;
+            Quantity = 1;
+        }
     }
 }

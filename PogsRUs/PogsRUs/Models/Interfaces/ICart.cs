@@ -13,7 +13,7 @@ namespace PogsRUs.Models.Interfaces
         /// </summary>
         /// <param name="userID"></param>
         /// <returns>Task</returns>
-        Task CreateCartCreateCart(int userID);
+        Task CreateCart(int userID);
 
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace PogsRUs.Models.Interfaces
         /// Retreive all existing products in cart and returns as a list.
         /// </summary>
         /// <returns>List of Products</returns>
-        Task<List<KeyValuePair<Product, int>>> GetProducts(int userID);
+        Task<IEnumerable<CartProduct>> GetCartProducts(int userID);
 
         /// <summary>
         /// Deletes existing product from Cart.

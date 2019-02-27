@@ -23,18 +23,19 @@ namespace PogsRUs.Models.Services
         public async Task AddProduct(Product product, int userID)
         {
             Cart cart = await GetCart(userID);
-            if(cart.CartProducts.ContainsKey(product))
+            CartProduct cartProduct = _context.CartProducts.FirstOrDefault(cp => cp.CartID == cart.ID && cp.ProductID == product.ID);
+            if (cartProduct == null)
             {
-                int quantity;
-                cart.CartProducts.TryGetValue(product, out quantity);
-                quantity = quantity + 1;
-                cart.CartProducts[product] = quantity;
+                cartProduct.CartID = cart.ID;
+                cartProduct.ProductID = product.ID;
+                cartProduct.Quantity = 1;
+                _context.Add(cartProduct);
             }
             else
             {
-                cart.CartProducts.Add(product, 1);
+                cartProduct.Quantity = cartProduct.Quantity + 1;
+                _context.Update(cartProduct);
             }
-            _context.Carts.Update(cart);
             await _context.SaveChangesAsync();
         }
 
@@ -44,24 +45,28 @@ namespace PogsRUs.Models.Services
             _context.Carts.Add(cart);
             await _context.SaveChangesAsync();
         }
-
-        public Task CreateCartCreateCart(int userID)
-        {
-            throw new NotImplementedException();
-        }
+      
 
         public async Task DeleteCart(int userID)
         {
             Cart cart = await GetCart(userID);
+
+            var allProductsInCart = _context.CartProducts.Where(cp => cp.CartID == cart.ID);
+
+            foreach(CartProduct cartProduct in allProductsInCart)
+            {
+                _context.CartProducts.Remove(cartProduct);
+            }
             _context.Remove(cart);
+
             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteProduct(int userID, Product product)
         {
             Cart cart = await GetCart(userID);
-            cart.CartProducts.Remove(product);
-            _context.Carts.Update(cart);
+            CartProduct cartProduct = _context.CartProducts.FirstOrDefault(cp => cp.CartID == cart.ID && cp.ProductID == product.ID);
+            _context.CartProducts.Remove(cartProduct);
             await _context.SaveChangesAsync();
         }
 
@@ -70,10 +75,11 @@ namespace PogsRUs.Models.Services
             return await _context.Carts.FirstOrDefaultAsync(p => p.UserID == userID);
         }
 
-        public async Task<List<KeyValuePair<Product, int>>> GetProducts(int userID)
+        public async Task<IEnumerable<CartProduct>> GetCartProducts(int userID)
         {
             Cart cart = await GetCart(userID);
-            return cart.CartProducts.ToList();
+            var allProductsInCart = _context.CartProducts.Where(cp => cp.CartID == cart.ID);
+            return allProductsInCart;
         }
 
     }

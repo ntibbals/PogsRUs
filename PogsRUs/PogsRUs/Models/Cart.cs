@@ -9,7 +9,12 @@ namespace PogsRUs.Models
     {
         public int ID { get; set; }
         public int UserID { get; set; }
-        public IEnumerable<CartProducts> CartProductID { get; set; }
+        public IEnumerable<CartProduct> CartProducts { get; set; }
+
+        public Cart(int userID)
+        {
+            UserID = userID;
+        }
 
 
     }
