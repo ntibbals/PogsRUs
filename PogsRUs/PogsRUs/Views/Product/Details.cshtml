@@ -1,4 +1,8 @@
-﻿@model PogsRUs.Models.Product
+﻿@using Microsoft.AspNetCore.Identity
+@using PogsRUs.Models
+@model PogsRUs.Models.Product
+@inject SignInManager<ApplicationUser> signInManager
+@inject 
 @{
     ViewData["Title"] = "PogsRUs";
     Layout = "_Layout";
@@ -20,7 +24,20 @@
             <label asp-for"Post.Author">@Model.Price</label>
         </div>
         <div id="but-contain">
-            <a asp-page="/Prouct" asp-route-id="@Model.ID" id="button">Add to Cart</a>
+            @if (signInManager.IsSignedIn(User))
+            {
+            <form method="post">
+                <input type="hidden" id="userID" value="@User.Identity.Name" />
+                <input type="hidden" id="userID" value="@User.Identity.Name" />
+
+                <button asp-controller="Cart" id="button" asp-action="AddCartProduct" type="submit">Add to Cart</button>
+            </form>
+            }
+            else
+            {
+                <button asp-controller="Account" id="button-new" asp-action="Login"><i class="fas fa-sign-in-alt"></i>Add to Cart</button>
+            }
+
         </div>
     </div>
 </div>

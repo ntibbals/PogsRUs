@@ -7,6 +7,7 @@
         @if (signInManager.IsSignedIn(User))
         {
             <a id="button-new">Hello, @User.Claims.First(c => c.Type == "FullName").Value</a>
+            @User.Identity.N
         }
         else
         {
