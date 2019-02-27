@@ -7,14 +7,10 @@ namespace PogsRUs.Models
 {
     public class Cart
     {
-
+        public int ID { get; set; }
         public int UserID { get; set; }
-        public Dictionary<Product, int> CartProducts { get; set; }
+        public IEnumerable<CartProducts> CartProductID { get; set; }
 
-        public Cart(int userID)
-        {
-            UserID = userID;
-           Dictionary<Product, int> CartProducts = new Dictionary<Product, int>();
-        }
+
     }
 }
