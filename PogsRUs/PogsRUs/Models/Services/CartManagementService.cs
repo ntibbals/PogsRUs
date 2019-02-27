@@ -20,9 +20,16 @@ namespace PogsRUs.Models.Services
         }
 
 
-        public async Task AddProduct(Product product, int userID)
+        public async Task AddProduct(int productID, int userID)
         {
             Cart cart = await GetCart(userID);
+            Product product = _context.Products.FirstOrDefault(p => p.ID == productID);
+
+            if(cart == null)
+            {
+                await CreateCart(userID);
+            }
+
             CartProduct cartProduct = _context.CartProducts.FirstOrDefault(cp => cp.CartID == cart.ID && cp.ProductID == product.ID);
             if (cartProduct == null)
             {
@@ -62,9 +69,11 @@ namespace PogsRUs.Models.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteProduct(int userID, Product product)
+        public async Task DeleteProduct(int userID, int productID)
         {
             Cart cart = await GetCart(userID);
+            Product product = _context.Products.FirstOrDefault(p => p.ID == productID);
+
             CartProduct cartProduct = _context.CartProducts.FirstOrDefault(cp => cp.CartID == cart.ID && cp.ProductID == product.ID);
             _context.CartProducts.Remove(cartProduct);
             await _context.SaveChangesAsync();

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PogsRUs.Models.Interfaces
 {
-    interface ICart
+    public interface ICart
     {
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace PogsRUs.Models.Interfaces
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Product product</returns>
-        Task AddProduct(Product product, int userID);
+        Task AddProduct(int productID, int userID);
 
         /// <summary>
         /// Retreive all existing products in cart and returns as a list.
@@ -41,7 +41,7 @@ namespace PogsRUs.Models.Interfaces
         /// </summary>
         /// <param name="product"></param>
         /// <returns></returns>
-        Task DeleteProduct(int userID, Product product);
+        Task DeleteProduct(int userID, int productID);
 
         /// <summary>
         /// Deletes Cart.
