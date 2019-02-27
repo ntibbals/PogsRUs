@@ -125,5 +125,7 @@ namespace PogsRUs.Data
 
         //TODO: Add table references here.
         public DbSet<Product> Products { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartProduct> CartProducts { get; set; }
     }
 }

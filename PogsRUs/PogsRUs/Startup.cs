@@ -50,9 +50,10 @@ namespace PogsRUs
             {
                 options.AddPolicy("ProfessionalsOnly", policy => policy.Requirements.Add(new ProfessionalRequirement("true")));              
             });
-            
+
 
             //Add Dependency Injection Here
+            services.AddScoped<ICart, CartManagementService>();
             services.AddScoped<IInventory, InventoryManagementService>();
             services.AddScoped<IAuthorizationHandler, ProfessionalHandler>();
         }

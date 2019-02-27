@@ -11,7 +11,6 @@ namespace PogsRUs.Models.Services
     public class InventoryManagementService : IInventory
     {
         //Injecting DB
-
         private readonly PogsRUsDbContext _context;
 
         public InventoryManagementService(PogsRUsDbContext context)
