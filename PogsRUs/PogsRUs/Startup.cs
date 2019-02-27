@@ -41,7 +41,7 @@ namespace PogsRUs
                 .AddDefaultTokenProviders();
 
             services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("IdentityDefaultConnection")));
+            options.UseSqlServer(Configuration.GetConnectionString("IdentityProductionConnection")));
 
             //services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
             services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:ProductionConnection"]));
