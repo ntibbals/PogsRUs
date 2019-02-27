@@ -2,7 +2,6 @@
 @using PogsRUs.Models
 @model PogsRUs.Models.Product
 @inject SignInManager<ApplicationUser> signInManager
-@inject 
 @{
     ViewData["Title"] = "PogsRUs";
     Layout = "_Layout";
@@ -26,16 +25,16 @@
         <div id="but-contain">
             @if (signInManager.IsSignedIn(User))
             {
-            <form method="post">
-                <input type="hidden" id="userID" value="@User.Identity.Name" />
-                <input type="hidden" id="userID" value="@User.Identity.Name" />
+            <form asp-controller="Cart" asp-action="AddCartProduct">
+                <input type="hidden" name="userID" value="@User.Identity.Name" method="post"/>
+                <input type="hidden" name="productID" value="@Model.ID" method="post"/>
 
-                <button asp-controller="Cart" id="button" asp-action="AddCartProduct" type="submit">Add to Cart</button>
+                <button id="button" type="submit">Add to Cart</button>
             </form>
             }
             else
             {
-                <button asp-controller="Account" id="button-new" asp-action="Login"><i class="fas fa-sign-in-alt"></i>Add to Cart</button>
+                <button asp-controller="Account" id="button" asp-action="Login"><i class="fas fa-sign-in-alt"></i>Add to Cart</button>
             }
 
         </div>
