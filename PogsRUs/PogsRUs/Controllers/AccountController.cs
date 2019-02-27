@@ -91,5 +91,41 @@ namespace PogsRUs.Controllers
 
             return View(loginVM);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ExternalLoginCallback(string error = null)
+        {
+            if(error != null)
+            {
+                TempData["Error"] = "Error with Provider";
+                return RedirectToAction("Login");
+            }
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+
+            if(info == null)
+            {
+                return RedirectToAction(nameof(Login));
+            }
+
+            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+
+            if(result.Succeeded)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+
+            return View("ExternalLogin", new ExternalLoginViewModel { Email = email });
+        }
+        [HttpPost]
+        public IActionResult ExternalLogin(string provider)
+        {
+
+            var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account");
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+
+            return Challenge(properties, provider);
+        }
     }
 }
