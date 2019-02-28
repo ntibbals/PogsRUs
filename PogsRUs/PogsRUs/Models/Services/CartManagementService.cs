@@ -33,7 +33,7 @@ namespace PogsRUs.Models.Services
             CartProduct cartProduct = await _context.CartProducts.FirstOrDefaultAsync(cp => cp.CartID == cart.ID && cp.ProductID == product.ID);
             if (cartProduct == null)
             {
-                CartProduct newCartProduct = new CartProduct(product.ID, cart.ID);
+                CartProduct newCartProduct = new CartProduct(product.ID, cart.ID, product.Name);
                 
                 _context.Add(newCartProduct);
             }

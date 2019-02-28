@@ -11,13 +11,15 @@ namespace PogsRUs.Models
         public int ID { get; set; }
         public int ProductID { get; set; }
         public int CartID { get; set; }
+        public string Name { get; set; }
         public int Quantity { get; set; }
 
-        public CartProduct(int productID, int cartID)
+        public CartProduct(int productID, int cartID, string name)
         {
             ProductID = productID;
             CartID = cartID;
             Quantity = 1;
+            Name = name;
         }
     }
 }
