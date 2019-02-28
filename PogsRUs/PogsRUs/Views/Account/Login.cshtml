@@ -6,6 +6,7 @@
     ViewData["Title"] = "Login";
     Layout = "_Layout";
 }
+
 <div id="form-contain">
     <form method="post" id="form">
         <div asp-validation-summary="All"></div>
@@ -24,20 +25,21 @@
             <button type="submit" id="button">Login</button>
         </div>
     </form>
-</div>
-@{
-    var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+    <div id="but-contain">
+        @{
+            var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-    if (loginProviders.Count > 0)
-    {
-        <h1> LOGIN PROVIDERS!!!</h1>
-
-        <form asp-action="ExternalLogin" method="post">
-            @foreach (var provider in loginProviders)
+            if (loginProviders.Count > 0)
             {
-                <button type="submit" name="provider" value="@provider.Name" title="Log in using @provider.DisplayName"> @provider.Name</button>
-            }
-        </form>
 
-    }
-}
+                <form asp-action="ExternalLogin" method="post">
+                    @foreach (var provider in loginProviders)
+                    {
+                        <button type="submit" name="provider" id="button" value="@provider.Name" title="Log in using @provider.DisplayName"> @provider.Name</button>
+                    }
+                </form>
+
+            }
+        }
+    </div>
+</div>
