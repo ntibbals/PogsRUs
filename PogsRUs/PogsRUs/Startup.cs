@@ -16,6 +16,8 @@ using PogsRUs.Models.Interfaces;
 using PogsRUs.Models.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace PogsRUs
 {
@@ -55,11 +57,25 @@ namespace PogsRUs
             //.AddDefaultUI(UIFramework.Bootstrap4)
             //.AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
-            {
-                microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ApplicationId"];
-                microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:Password"];
-            });
+            services.AddAuthentication()
+                //.AddMicrosoftAccount(microsoftOptions =>
+                //{
+                //    microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ApplicationId"];
+                //    microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:Password"];
+                //})
+                .AddGoogle(googleOptions =>
+                {
+                    googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
+                    googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                    googleOptions.UserInformationEndpoint = "https://www.googleapis.com/oauth2/v2/userinfo";
+                    googleOptions.ClaimActions.Clear();
+                    googleOptions.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
+                    googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
+                    googleOptions.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "given_name");
+                    googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Surname, "family_name");
+                    googleOptions.ClaimActions.MapJsonKey("urn:google:profile", "link");
+                    googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
+                });
 
             //Add Dependency Injection Here
             services.AddScoped<ICart, CartManagementService>();
