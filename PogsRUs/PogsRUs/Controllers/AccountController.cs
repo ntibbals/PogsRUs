@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PogsRUs.Models;
@@ -90,6 +91,89 @@ namespace PogsRUs.Controllers
             ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
 
             return View(loginVM);
+        }
+        [HttpPost]
+        public IActionResult ExternalLogin(string provider)
+        {
+
+            var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account");
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+
+            return Challenge(properties, provider);
+        }
+        
+        public async Task<IActionResult> ExternalLoginCallback(string error = null)
+        {
+            if(error != null)
+            {
+                TempData["Error"] = "Error with Provider";
+                return RedirectToAction("Login");
+            }
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+
+            if(info == null)
+            {
+                return RedirectToAction(nameof(Login));
+            }
+
+            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+
+            if(result.Succeeded)
+            {
+                return RedirectToAction("Index1", "Home");
+            }
+
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+
+            return View("ExternalLogin", new ExternalLoginViewModel { Email = email });
+        }
+
+
+        public async Task<IActionResult> ExternalLoginConfirmation(ExternalLoginViewModel externalVM)
+        {
+            if(ModelState.IsValid)
+            {
+                var info = await _signInManager.GetExternalLoginInfoAsync();
+                if(info == null)
+                {
+                    TempData["Error"] = "Error loading information";
+                }
+
+                var user = new ApplicationUser { UserName = externalVM.Email, Email = externalVM.Email, Birthday = externalVM.Birthday, FirstName = externalVM.FirstName, LastName = externalVM.LastName, Professional = externalVM.Professional };
+
+                var result = await _userManager.CreateAsync(user, externalVM.Password);
+
+                if (result.Succeeded)
+                {
+                    // Add claims
+                                        Claim fullNameClaim = new Claim("FullName", $"{user.FirstName} {user.LastName}");
+                    Claim emailClaim = new Claim(ClaimTypes.Email, user.Email, ClaimValueTypes.Email);
+                    Claim birthdayClaim = new Claim(ClaimTypes.DateOfBirth, new DateTime(user.Birthday.Year, user.Birthday.Month, user.Birthday.Day).ToString("u"), ClaimValueTypes.DateTime);
+                    Claim professionalClaim = new Claim("Professional", user.Professional);
+
+                    List<Claim> claims = new List<Claim> { fullNameClaim, emailClaim, birthdayClaim, professionalClaim };
+
+                    await _userManager.AddClaimsAsync(user, claims);
+                    result = await _userManager.AddLoginAsync(user, info);
+                    if(result.Succeeded)
+                    {
+
+                    
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index1", "Home");
+
+                    }
+                }
+            }
+
+            return View(externalVM);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index1", "Home");
         }
     }
 }
