@@ -58,11 +58,11 @@ namespace PogsRUs
             //.AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddAuthentication()
-                //.AddMicrosoftAccount(microsoftOptions =>
-                //{
-                //    microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ApplicationId"];
-                //    microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:Password"];
-                //})
+                .AddMicrosoftAccount(microsoftOptions =>
+                {
+                    microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ApplicationId"];
+                    microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:Password"];
+                })
                 .AddGoogle(googleOptions =>
                 {
                     googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
