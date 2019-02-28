@@ -44,7 +44,7 @@ namespace PogsRUs
             options.UseSqlServer(Configuration.GetConnectionString("IdentityDefaultConnection")));
 
             //services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
-            services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:ProductionConnection"]));
+            services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 
             services.AddAuthorization(options =>
             {
