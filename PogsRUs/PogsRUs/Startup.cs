@@ -15,7 +15,7 @@ using PogsRUs.Models.Handler;
 using PogsRUs.Models.Interfaces;
 using PogsRUs.Models.Services;
 using Microsoft.AspNetCore.Authorization;
-
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace PogsRUs
 {
@@ -56,6 +56,7 @@ namespace PogsRUs
             services.AddScoped<ICart, CartManagementService>();
             services.AddScoped<IInventory, InventoryManagementService>();
             services.AddScoped<IAuthorizationHandler, ProfessionalHandler>();
+            services.AddScoped<IEmailSender, EmailSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
