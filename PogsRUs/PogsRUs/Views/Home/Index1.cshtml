@@ -1,14 +1,24 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@using PogsRUs.Models.Interfaces
+@using PogsRUs.Models
+
+@inject SignInManager<ApplicationUser> signInManager
+@inject IInventory InventoryManagementService
+@{
     ViewData["Title"] = "PogsRUs";
     Layout = "_Layout";
 }
-@using PogsRUs.Models.Interfaces
-@inject IInventory InventoryManagementService
+
 @{
     var products = await InventoryManagementService.GetProducts();
 }
 
 <div class="carousel-container">
+    @if (signInManager.IsSignedIn(User))
+    {
+        @await Component.InvokeAsync("Cart", @User.Identity.Name)
+    }
+
     <p>Welcome to Pogs R Us, Your Number One source for all pogs.</p>
     <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -29,7 +39,7 @@
             </div>
             <div class="carousel-item">
                 <div class="view">
-                    <img id="carousel-image"  class="a-block w-100" src="~/assets/group2.jpg" alt="Second slide">
+                    <img id="carousel-image" class="a-block w-100" src="~/assets/group2.jpg" alt="Second slide">
                     <div class="mask rgba-black-strong"></div>
                 </div>
                 <div class="carousel-caption">
@@ -39,7 +49,7 @@
             </div>
             <div class="carousel-item">
                 <div class="view">
-                    <img id="carousel-image"  class="a-block w-100" src="~/assets/group3.jpg" alt="Third slide">
+                    <img id="carousel-image" class="a-block w-100" src="~/assets/group3.jpg" alt="Third slide">
                     <div class="mask rgba-black-slight"></div>
                 </div>
                 <div class="carousel-caption">

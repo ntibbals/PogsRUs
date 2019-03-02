@@ -5,6 +5,7 @@ using PogsRUs.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace PogsRUs.Controllers
@@ -47,7 +48,7 @@ namespace PogsRUs.Controllers
             {
                 return NotFound();
             }
-
+            
             return View(product);
         }
 

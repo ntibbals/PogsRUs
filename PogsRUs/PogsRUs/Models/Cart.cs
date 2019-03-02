@@ -8,10 +8,10 @@ namespace PogsRUs.Models
     public class Cart
     {
         public int ID { get; set; }
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         public IEnumerable<CartProduct> CartProducts { get; set; }
 
-        public Cart(int userID)
+        public Cart(string userID)
         {
             UserID = userID;
         }

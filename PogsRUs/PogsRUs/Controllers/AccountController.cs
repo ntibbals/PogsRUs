@@ -58,6 +58,7 @@ namespace PogsRUs.Controllers
 
                     List<Claim> claims = new List<Claim> { fullNameClaim, emailClaim, birthdayClaim, professionalClaim };
 
+
                     await _userManager.AddClaimsAsync(user, claims);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);

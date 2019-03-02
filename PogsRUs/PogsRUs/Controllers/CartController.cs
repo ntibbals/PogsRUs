@@ -19,7 +19,7 @@ namespace PogsRUs.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(int userID)
+        public async Task<IActionResult> Index(string userID)
         {
             var cartProducts = await _context.GetCartProducts(userID);
             
@@ -28,7 +28,7 @@ namespace PogsRUs.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddCartProduct(int userID, int productID)
+        public async Task<IActionResult> AddCartProduct(string userID, int productID)
         {
             await _context.AddProduct(productID, userID);
 
@@ -37,7 +37,7 @@ namespace PogsRUs.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RemoveCartProduct(int userID, int productID)
+        public async Task<IActionResult> RemoveCartProduct(string userID, int productID)
         {
             await _context.DeleteProduct(userID, productID);
 
@@ -46,7 +46,7 @@ namespace PogsRUs.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateCartProductQuantity(int userID, int productID)
+        public async Task<IActionResult> UpdateCartProductQuantity(string userID, int productID)
         {
             await _context.AddProduct(productID, userID);
 
@@ -55,7 +55,7 @@ namespace PogsRUs.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteCart(int userID)
+        public async Task<IActionResult> DeleteCart(string userID)
         {
             await _context.DeleteCart(userID);
 
