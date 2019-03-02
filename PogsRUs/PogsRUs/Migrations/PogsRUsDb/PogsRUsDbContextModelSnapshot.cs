@@ -18,38 +18,6 @@ namespace PogsRUs.Migrations.PogsRUsDb
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("PogsRUs.Models.Cart", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("UserID");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Carts");
-                });
-
-            modelBuilder.Entity("PogsRUs.Models.CartProduct", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CartID");
-
-                    b.Property<int>("ProductID");
-
-                    b.Property<int>("Quantity");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("CartID");
-
-                    b.ToTable("CartProducts");
-                });
-
             modelBuilder.Entity("PogsRUs.Models.Product", b =>
                 {
                     b.Property<int>("ID")
