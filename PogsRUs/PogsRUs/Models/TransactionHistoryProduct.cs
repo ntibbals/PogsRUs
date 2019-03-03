@@ -13,6 +13,7 @@ namespace PogsRUs.Models
         public string Name { get; set; }
         public int Quantity { get; set; }
         public decimal SingleItemPrice { get; set; }
+        public DateTime TimeStamp { get; set; }
 
         public decimal TotalPrice
         {
