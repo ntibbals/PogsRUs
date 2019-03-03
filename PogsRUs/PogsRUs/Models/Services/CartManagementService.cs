@@ -27,7 +27,7 @@ namespace PogsRUs.Models.Services
 
             if(cart == null)
             {
-                await CreateCart(userID);
+                cart = await CreateCart(userID);
             }
 
             CartProduct cartProduct = await _context.CartProducts.FirstOrDefaultAsync(cp => cp.CartID == cart.ID && cp.ProductID == product.ID);
@@ -45,11 +45,12 @@ namespace PogsRUs.Models.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task CreateCart(string userID)
+        public async Task<Cart> CreateCart(string userID)
         {
             Cart cart = new Cart(userID);
             _context.Carts.Add(cart);
             await _context.SaveChangesAsync();
+            return cart;
         }
       
 

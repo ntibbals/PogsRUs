@@ -12,8 +12,8 @@ namespace PogsRUs.Models.Interfaces
         /// Creates Transaction History for user.
         /// </summary>
         /// <param name="userID">ID of User</param>
-        /// <returns>Task</returns>
-        Task CreateTransactionHistory(string userID);
+        /// <returns>New Transaction History</returns>
+        Task<TransactionHistory> CreateTransactionHistory(string userID);
 
 
         /// <summary>

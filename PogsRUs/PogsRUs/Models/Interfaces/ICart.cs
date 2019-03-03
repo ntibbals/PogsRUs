@@ -13,7 +13,7 @@ namespace PogsRUs.Models.Interfaces
         /// </summary>
         /// <param name="userID">ID of User</param>
         /// <returns>Task</returns>
-        Task CreateCart(string userID);
+        Task<Cart> CreateCart(string userID);
 
 
         /// <summary>

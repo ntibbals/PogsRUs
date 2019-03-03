@@ -9,7 +9,7 @@ namespace PogsRUs.Models
     {
         public int ID { get; set; }
         public int ProductID { get; set; }
-        public int CartID { get; set; }
+        public int TransactionHistoryID { get; set; }
         public string Name { get; set; }
         public int Quantity { get; set; }
         public decimal SingleItemPrice { get; set; }
@@ -23,10 +23,10 @@ namespace PogsRUs.Models
             }
         }
 
-        public TransactionHistoryProduct(int productID, int cartID, string name, decimal price, int quantity)
+        public TransactionHistoryProduct(int productID, int transactionHistoryID, string name, decimal price, int quantity, DateTime currentTime)
         {
             ProductID = productID;
-            CartID = cartID;
+            TransactionHistoryID = transactionHistoryID;
             Quantity = quantity;
             Name = name;
             SingleItemPrice = price;
