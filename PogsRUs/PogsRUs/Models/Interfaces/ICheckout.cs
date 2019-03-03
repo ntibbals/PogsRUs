@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PogsRUs.Models.Interfaces
 {
-    interface ICheckout
+    public interface ICheckout
     {
 
         /// <summary>
@@ -59,5 +59,20 @@ namespace PogsRUs.Models.Interfaces
         /// <param name="userID">ID of User</param>
         /// <returns>Returns a decimal value indicating Total Price of all items in TransactionHistory</returns>
         Task<decimal> GetTotalPrice(IEnumerable<TransactionHistoryProduct> transactionHistoryProducts);
+
+        /// <summary>
+        /// Collects all cartProducts that are associated with user id and returns them as a list.
+        /// </summary>
+        /// <param name="userID">User of logged in user</param>
+        /// <returns>List of cart products</returns>
+        Task<Cart> CreateReceipt(string userID);
+
+        /// <summary>
+        /// Finds the sum of all products in cart and returns sum
+        /// </summary>
+        /// <param name="cartProducts">List of cart products in cart</param>
+        /// <returns>Total Price of Items cart</returns>
+        Task<decimal> GetTotalCartPrice(IEnumerable<CartProduct> cartProducts);
+
     }
 }

@@ -25,17 +25,28 @@ namespace PogsRUs.Models.Services
             {
                 transactionHistory = await CreateTransactionHistory(userID);
             }
-            Cart cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserID == userID);
-            var cartProducts = _context.CartProducts.Where(cp => cp.CartID == cart.ID);
 
+            Cart cart = await CreateReceipt(userID);
+ 
             DateTime currentTime = DateTime.Today;
 
-            foreach (CartProduct cartProduct in cartProducts)
+            foreach (CartProduct cartProduct in cart.CartProducts)
             {
                 TransactionHistoryProduct newTransactionHistoryProduct = new TransactionHistoryProduct(cartProduct.ProductID, transactionHistory.ID, cartProduct.Name, cartProduct.SingleItemPrice, cartProduct.Quantity, currentTime);
                 _context.Add(newTransactionHistoryProduct);
+                _context.Remove(cartProduct);
             }
+            _context.Remove(cart);
+
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<Cart> CreateReceipt(string userID)
+        {
+            Cart cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserID == userID);
+            cart.CartProducts = _context.CartProducts.Where(cp => cp.CartID == cart.ID);
+            cart.TotalPrice = await GetTotalCartPrice(cart.CartProducts);
+            return cart;
         }
 
         public async Task<TransactionHistory> CreateTransactionHistory(string userID)
@@ -106,6 +117,18 @@ namespace PogsRUs.Models.Services
             var allProductsInTransactionHistory = _context.TransactionHistoryProducts.Where(thp => thp.TransactionHistoryID == transactionHistory.ID);
 
             return allProductsInTransactionHistory;
+        }
+
+        public async Task<decimal> GetTotalCartPrice(IEnumerable<CartProduct> cartProducts)
+        {
+            decimal totalPrice = 0;
+
+            foreach (CartProduct cartProduct in cartProducts)
+            {
+                totalPrice = totalPrice + cartProduct.TotalPrice;
+            }
+
+            return totalPrice;
         }
     }
 }
