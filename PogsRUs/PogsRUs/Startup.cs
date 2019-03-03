@@ -55,6 +55,7 @@ namespace PogsRUs
             //Add Dependency Injection Here
             services.AddScoped<ICart, CartManagementService>();
             services.AddScoped<IInventory, InventoryManagementService>();
+            services.AddScoped<ICheckout, CheckoutManagementService>();
             services.AddScoped<IAuthorizationHandler, ProfessionalHandler>();
         }
 
