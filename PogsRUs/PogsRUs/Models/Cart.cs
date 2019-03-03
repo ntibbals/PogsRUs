@@ -10,6 +10,7 @@ namespace PogsRUs.Models
         public int ID { get; set; }
         public string UserID { get; set; }
         public IEnumerable<CartProduct> CartProducts { get; set; }
+        public decimal TotalPrice { get; set; }
 
         public Cart(string userID)
         {
