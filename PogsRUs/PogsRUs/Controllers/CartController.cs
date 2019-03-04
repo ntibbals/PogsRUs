@@ -59,7 +59,7 @@ namespace PogsRUs.Controllers
         {
             await _context.AddProduct(productID, userID);
 
-            return RedirectToAction(actionName: "Index", controllerName: "Cart");
+            return RedirectToAction(actionName: "Index1", controllerName: "Home");
         }
 
         [HttpPost]

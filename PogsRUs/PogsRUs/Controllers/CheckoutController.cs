@@ -17,7 +17,7 @@ namespace PogsRUs.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Receipt(string userID)
+        public async Task<IActionResult> Summary(string userID)
         {
             var cart = await _context.CreateReceipt(userID);
 

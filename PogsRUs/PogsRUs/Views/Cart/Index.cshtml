@@ -7,31 +7,36 @@
 <div>
     <h1>Shopping Cart Items</h1>
     @if (Model != null)
-    { 
-    <button asp-controller="Checkout" id="button" asp-action="Receipt" asp-route-id="@User.Identity.Name">Checkout</button>
-
-    @foreach (var cartProduct in Model)
     {
-
-        <h3>@cartProduct.Name</h3>
-        <p>Quantity = @cartProduct.Quantity</p>
-        <form asp-controller="Cart" asp-action="UpdateCartProductQuantity">
+        <form asp-controller="Checkout" asp-action="Summary">
             <input type="hidden" name="userID" value="@User.Identity.Name" method="post" />
-            <input type="hidden" name="productID" value="@User.Identity.Name" method="post" />
 
-            <button id="button" type="submit">Update Quantity</button>
+            <button id="button-new" type="submit">Checkout</button>
         </form>
-        <form asp-controller="Cart" asp-action="RemoveCartProduct">
-            <input type="hidden" name="userID" value="@User.Identity.Name" method="post" />
-            <input type="hidden" name="productID" value="@cartProduct.ProductID" method="post" />
+        @*<button asp-controller="Checkout" id="button" asp-action="Receipt" asp-route-id="@User.Identity.Name">Checkout</button>*@
 
-            <button id="button" type="submit">Remove from Cart</button>
-        </form>
+        @foreach (var cartProduct in Model)
+        {
+
+            <h3>@cartProduct.Name</h3>
+            <p>Quantity = @cartProduct.Quantity</p>
+            <form asp-controller="Cart" asp-action="UpdateCartProductQuantity">
+                <input type="hidden" name="userID" value="@User.Identity.Name" method="post" />
+                <input type="hidden" name="productID" value="@cartProduct.ProductID" method="post" />
+
+                <button id="button" type="submit">Update Quantity</button>
+            </form>
+            <form asp-controller="Cart" asp-action="RemoveCartProduct">
+                <input type="hidden" name="userID" value="@User.Identity.Name" method="post" />
+                <input type="hidden" name="productID" value="@cartProduct.ProductID" method="post" />
+
+                <button id="button" type="submit">Remove from Cart</button>
+            </form>
+        }
     }
-}
-else
-{
-    <p>Shopping Cart Empty</p>
-}
+    else
+    {
+        <p>Shopping Cart Empty</p>
+    }
 
 </div>
