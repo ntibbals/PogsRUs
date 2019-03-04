@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PogsRUs.Migrations.PogsRUsDb
 {
-    public partial class oauth3 : Migration
+    public partial class frankenMerge : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +14,8 @@ namespace PogsRUs.Migrations.PogsRUsDb
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserID = table.Column<int>(nullable: false)
+                    UserID = table.Column<string>(nullable: true),
+                    TotalPrice = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,6 +41,20 @@ namespace PogsRUs.Migrations.PogsRUsDb
                 });
 
             migrationBuilder.CreateTable(
+                name: "TransactionHistories",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserID = table.Column<string>(nullable: true),
+                    TotalPrice = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TransactionHistories", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CartProducts",
                 columns: table => new
                 {
@@ -46,7 +62,9 @@ namespace PogsRUs.Migrations.PogsRUsDb
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ProductID = table.Column<int>(nullable: false),
                     CartID = table.Column<int>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(nullable: true),
+                    Quantity = table.Column<int>(nullable: false),
+                    SingleItemPrice = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,6 +73,30 @@ namespace PogsRUs.Migrations.PogsRUsDb
                         name: "FK_CartProducts_Carts_CartID",
                         column: x => x.CartID,
                         principalTable: "Carts",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TransactionHistoryProducts",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ProductID = table.Column<int>(nullable: false),
+                    TransactionHistoryID = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Quantity = table.Column<int>(nullable: false),
+                    SingleItemPrice = table.Column<decimal>(nullable: false),
+                    TimeStamp = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TransactionHistoryProducts", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_TransactionHistoryProducts_TransactionHistories_TransactionHistoryID",
+                        column: x => x.TransactionHistoryID,
+                        principalTable: "TransactionHistories",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -80,6 +122,11 @@ namespace PogsRUs.Migrations.PogsRUsDb
                 name: "IX_CartProducts_CartID",
                 table: "CartProducts",
                 column: "CartID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TransactionHistoryProducts_TransactionHistoryID",
+                table: "TransactionHistoryProducts",
+                column: "TransactionHistoryID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -91,7 +138,13 @@ namespace PogsRUs.Migrations.PogsRUsDb
                 name: "Products");
 
             migrationBuilder.DropTable(
+                name: "TransactionHistoryProducts");
+
+            migrationBuilder.DropTable(
                 name: "Carts");
+
+            migrationBuilder.DropTable(
+                name: "TransactionHistories");
         }
     }
 }

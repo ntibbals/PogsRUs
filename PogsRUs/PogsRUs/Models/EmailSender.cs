@@ -27,7 +27,7 @@ namespace PogsRUs.Models
             msg.SetFrom("admin@pogrus.com", "Pog's R Us Admin");
 
             msg.AddTo(email);
-            msg.SetSubject("Thanks for registering!!");
+            msg.SetSubject("Thanks for Choosing Pog's R Us");
             msg.AddContent(MimeType.Html, htmlMessage);
 
             await client.SendEmailAsync(msg);

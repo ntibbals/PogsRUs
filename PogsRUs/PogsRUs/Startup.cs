@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace PogsRUs
 {
@@ -82,6 +83,8 @@ namespace PogsRUs
             services.AddScoped<IInventory, InventoryManagementService>();
             services.AddScoped<ICheckout, CheckoutManagementService>();
             services.AddScoped<IAuthorizationHandler, ProfessionalHandler>();
+            services.AddScoped<IEmailSender, EmailSender>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PogsRUs.Migrations
 {
-    public partial class oauth1 : Migration
+    public partial class frankenMerge : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
