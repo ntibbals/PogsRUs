@@ -44,7 +44,7 @@ namespace PogsRUs.Models.Services
         public async Task<Cart> CreateReceipt(string userID)
         {
             Cart cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserID == userID);
-            cart.CartProducts = _context.CartProducts.Where(cp => cp.CartID == cart.ID);
+            cart.CartProducts = _context.CartProducts.Where(cp => cp.CartID == cart.ID).ToList();
             cart.TotalPrice = await GetTotalCartPrice(cart.CartProducts);
             return cart;
         }

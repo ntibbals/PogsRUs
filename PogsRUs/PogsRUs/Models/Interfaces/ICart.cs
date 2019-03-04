@@ -36,7 +36,7 @@ namespace PogsRUs.Models.Interfaces
         /// </summary>
         /// <param name="userID">ID of User</param>
         /// <returns></returns>
-        Task<IEnumerable<CartProduct>> GetCartProducts(string userID);
+        Task<ICollection<CartProduct>> GetCartProducts(Cart cart);
 
         /// <summary>
         /// Deletes existing product from Cart.
@@ -58,6 +58,6 @@ namespace PogsRUs.Models.Interfaces
         /// </summary>
         /// <param name="userID">ID of User</param>
         /// <returns>Returns a decimal value indicating Total Price of all items in cart</returns>
-        Task<decimal> GetTotalPrice(IEnumerable<CartProduct> cartProducts);
+        Task<decimal> GetTotalPrice(ICollection<CartProduct> cartProducts);
     }
 }

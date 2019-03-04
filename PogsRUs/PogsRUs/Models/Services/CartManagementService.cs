@@ -82,27 +82,25 @@ namespace PogsRUs.Models.Services
         public async Task<Cart> GetCart(string userID)
         {
             Cart cart = await _context.Carts.FirstOrDefaultAsync(p => p.UserID == userID);
-
-            cart.CartProducts = await GetCartProducts(userID);
-
-            cart.TotalPrice = await GetTotalPrice(cart.CartProducts);
-
-            if (cart == null)
+            if (cart != null)
             {
-                return null;
+                cart.CartProducts = await GetCartProducts(cart);
+
+                cart.TotalPrice = await GetTotalPrice(cart.CartProducts);
             }
+                    
             return cart;
         }
 
-        public async Task<IEnumerable<CartProduct>> GetCartProducts(string userID)
+        public async Task<ICollection<CartProduct>> GetCartProducts(Cart cart)
         {
-            Cart cart = await GetCart(userID);
-            var allProductsInCart = _context.CartProducts.Where(cp => cp.CartID == cart.ID);
+            
+            var allProductsInCart = await _context.CartProducts.Where(cp => cp.CartID == cart.ID).ToListAsync();
             
             return allProductsInCart;
         }
 
-        public async Task<decimal> GetTotalPrice(IEnumerable<CartProduct> cartProducts)
+        public async Task<decimal> GetTotalPrice(ICollection<CartProduct> cartProducts)
         {
             decimal totalPrice = 0;
 

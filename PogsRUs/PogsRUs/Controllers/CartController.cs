@@ -19,11 +19,18 @@ namespace PogsRUs.Controllers
             _context = context;
         }
 
+        public async Task<IActionResult> Index(string userID)
+        {
+            Cart cart = await _context.GetCart(userID);
+
+            return View(cart.CartProducts);
+        }
+
         public async Task<IActionResult> Checkout(string userID)
         {
-            var cartProducts = await _context.GetCartProducts(userID);
+            Cart cart = await _context.GetCart(userID);          
             
-            return View(cartProducts.ToList());
+            return View(cart);
         }
 
         [HttpPost]
@@ -40,8 +47,10 @@ namespace PogsRUs.Controllers
         public async Task<IActionResult> RemoveCartProduct(string userID, int productID)
         {
             await _context.DeleteProduct(userID, productID);
+            Cart cart = await _context.GetCart(userID);
 
-            return RedirectToAction(actionName: "Index", controllerName: "Cart");
+            return RedirectToAction(actionName: "Index1", controllerName: "Home");
+
         }
 
         [HttpPost]
