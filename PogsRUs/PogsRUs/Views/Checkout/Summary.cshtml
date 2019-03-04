@@ -1,0 +1,20 @@
+﻿@model PogsRUs.Models.Cart
+@{
+    ViewData["Title"] = "Order Summary";
+    Layout = "_Layout";
+}
+
+<h1>Order Summary</h1>
+
+<div class="container">
+    
+    @foreach (var product in Model.CartProducts)
+    {
+        <h3>@product.Name</h3>
+        <p>Total Price of Product = @product.TotalPrice</p>
+        <p>Quantity = @product.Quantity</p>
+    }
+
+    <h3>Total Cost of Purchase = @Model.TotalPrice</h3>
+
+</div>

@@ -27,13 +27,13 @@ namespace PogsRUs.Models.Services
 
             if(cart == null)
             {
-                await CreateCart(userID);
+                cart = await CreateCart(userID);
             }
 
             CartProduct cartProduct = await _context.CartProducts.FirstOrDefaultAsync(cp => cp.CartID == cart.ID && cp.ProductID == product.ID);
             if (cartProduct == null)
             {
-                CartProduct newCartProduct = new CartProduct(product.ID, cart.ID, product.Name);
+                CartProduct newCartProduct = new CartProduct(product.ID, cart.ID, product.Name, product.Price);
                 
                 _context.Add(newCartProduct);
             }
@@ -45,11 +45,12 @@ namespace PogsRUs.Models.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task CreateCart(string userID)
+        public async Task<Cart> CreateCart(string userID)
         {
             Cart cart = new Cart(userID);
             _context.Carts.Add(cart);
             await _context.SaveChangesAsync();
+            return cart;
         }
       
 
@@ -81,19 +82,34 @@ namespace PogsRUs.Models.Services
         public async Task<Cart> GetCart(string userID)
         {
             Cart cart = await _context.Carts.FirstOrDefaultAsync(p => p.UserID == userID);
-            if (cart == null)
+            if (cart != null)
             {
-                return null;
+                cart.CartProducts = await GetCartProducts(cart);
+
+                cart.TotalPrice = await GetTotalPrice(cart.CartProducts);
             }
+                    
             return cart;
         }
 
-        public async Task<IEnumerable<CartProduct>> GetCartProducts(string userID)
+        public async Task<ICollection<CartProduct>> GetCartProducts(Cart cart)
         {
-            Cart cart = await GetCart(userID);
-            var allProductsInCart = _context.CartProducts.Where(cp => cp.CartID == cart.ID);
+            
+            var allProductsInCart = await _context.CartProducts.Where(cp => cp.CartID == cart.ID).ToListAsync();
+            
             return allProductsInCart;
         }
 
+        public async Task<decimal> GetTotalPrice(ICollection<CartProduct> cartProducts)
+        {
+            decimal totalPrice = 0;
+
+            foreach (CartProduct cartProduct in cartProducts)
+            {
+                totalPrice = totalPrice + cartProduct.TotalPrice;
+            }
+
+            return totalPrice;
+        }
     }
 }

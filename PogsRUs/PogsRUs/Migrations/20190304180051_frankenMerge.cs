@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace PogsRUs.Migrations.ApplicationDb
+namespace PogsRUs.Migrations
 {
-    public partial class identity : Migration
+    public partial class frankenMerge : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -43,7 +43,8 @@ namespace PogsRUs.Migrations.ApplicationDb
                     AccessFailedCount = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    Birthday = table.Column<DateTime>(nullable: false)
+                    Birthday = table.Column<DateTime>(nullable: false),
+                    Professional = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
