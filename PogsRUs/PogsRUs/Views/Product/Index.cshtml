@@ -1,35 +1,47 @@
 ﻿@model IEnumerable<PogsRUs.Models.Product>
+@using Microsoft.AspNetCore.Identity
+@using PogsRUs.Models.Interfaces
+@using PogsRUs.Models
+@inject SignInManager<ApplicationUser> signInManager
+
+@inject IInventory InventoryManagementService
+
 @{
     ViewData["Title"] = "Products";
     Layout = "_Layout";
 }
 @{
+    var products = await InventoryManagementService.GetProducts();
 }
 
+@if (signInManager.IsSignedIn(User))
+{
+    @await Component.InvokeAsync("Cart", @User.Identity.Name)
+}
 <h1 class="product-title"> Available Pogs</h1>
 
 <div class="container">
     @foreach (var product in Model)
     {
 
-    <div class="product-contain">
-        <div id="image-contain">
-            <a asp-controller="Product" asp-action="Details" asp-route-id="@product.ID"><img id="post-image" src="@product.Image" alt="@product.Description"></a>
-        </div>
-        <div id="content-contain">
-            <div class="detail-butt-contain">
-                <a asp-controller="Product" class="detail-butt" asp-route-id="@product.ID" asp-action="Details">@product.Name</a>
+        <div class="product-contain">
+            <div id="image-contain">
+                <a asp-controller="Product" asp-action="Details" asp-route-id="@product.ID"><img id="post-image" src="@product.Image" alt="@product.Description"></a>
             </div>
-            @*<p class="card-text">@product.Description</p>*@
-            <div class="price-contain">
-                <p class="card-price">$ @product.Price</p>
-            </div>
+            <div id="content-contain">
+                <div class="detail-butt-contain">
+                    <a asp-controller="Product" class="detail-butt" asp-route-id="@product.ID" asp-action="Details">@product.Name</a>
+                </div>
+                @*<p class="card-text">@product.Description</p>*@
+                <div class="price-contain">
+                    <p class="card-price">$ @product.Price</p>
+                </div>
 
+            </div>
+            <section class="prod-details prod-hide">
+                <p>@product.Description</p>
+            </section>
         </div>
-        <section class="prod-details prod-hide">
-            <p>@product.Description</p>
-        </section>
-    </div>
 
     }
 </div>
