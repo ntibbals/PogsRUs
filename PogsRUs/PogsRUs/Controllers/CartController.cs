@@ -19,7 +19,7 @@ namespace PogsRUs.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(string userID)
+        public async Task<IActionResult> Checkout(string userID)
         {
             var cartProducts = await _context.GetCartProducts(userID);
             
