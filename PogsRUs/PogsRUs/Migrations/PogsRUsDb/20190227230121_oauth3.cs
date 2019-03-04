@@ -1,12 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace PogsRUs.Migrations
+namespace PogsRUs.Migrations.PogsRUsDb
 {
-    public partial class addedSeeds : Migration
+    public partial class oauth3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => x.ID);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
@@ -25,6 +38,27 @@ namespace PogsRUs.Migrations
                     table.PrimaryKey("PK_Products", x => x.ID);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "CartProducts",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ProductID = table.Column<int>(nullable: false),
+                    CartID = table.Column<int>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartProducts", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_CartProducts_Carts_CartID",
+                        column: x => x.CartID,
+                        principalTable: "Carts",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "ID", "Description", "Image", "Name", "PogType", "Price", "Sku" },
@@ -41,12 +75,23 @@ namespace PogsRUs.Migrations
                     { 9, "A super sick Orange Slammer.", "https://static1.milkcapmania.co.uk/Img/Fun%20Caps/031-060%20Aladdin/Slammers/300DPI/Lamp-orange.png", "Orange Slammer", 0, 1.00m, "S-Orange-9" },
                     { 10, "A super sick Orange Milk Cap.", "https://mightyjabba.files.wordpress.com/2010/08/jabba_pog_slammer2.jpg?w=300&h=282", "Orange Milk Cap", 1, 0.50m, "MC-Orange-10" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartProducts_CartID",
+                table: "CartProducts",
+                column: "CartID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "CartProducts");
+
+            migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Carts");
         }
     }
 }
