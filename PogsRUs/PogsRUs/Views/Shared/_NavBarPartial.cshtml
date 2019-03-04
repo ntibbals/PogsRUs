@@ -22,7 +22,12 @@
         {
             <a asp-controller="Account" id="button-new" asp-action="Logout"><i class="fas fa-sign-out-alt">Log Out</i></a>
         }
-        <a asp-controller="Cart" id="button-new" asp-action="Checkout"><i class="fas fa-shopping-cart"></i>Cart</a>
+            <form asp-controller="Cart" asp-action="Index">
+                <input type="hidden" name="userID" value="@User.Identity.Name" method="post" />
+              
+                <button id="button-new" type="submit">Cart</button>
+            </form>
+        @*<a asp-controller="Cart" id="button-new" asp-action="Index" asp-route-id="@User.Identity.Name"><i class="fas fa-shopping-cart"></i>Cart</a>*@
         <a asp-controller="Policy" id="button-new" asp-action="Professionals">Professionals</a>
         <a asp-controller="Product" id="button-new" asp-action="Index">Products</a>
         <a asp-controller="Home" id="button-new" asp-action="Index1"><i class="fas fa-home"></i>Home</a>
