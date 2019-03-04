@@ -90,15 +90,16 @@ namespace PogsRUs.Controllers
                 var result = await _signInManager.PasswordSignInAsync(loginVM.Email, loginVM.Password, false, false);
                 if (result.Succeeded)
                 {
-                    StringBuilder stringBuilder = new StringBuilder();
-
-                    stringBuilder.Append("<p>strings go here");
-                    stringBuilder.AppendLine("Strings go here</p>");
-
-                    await _emailSender.SendEmailAsync(loginVM.Email, "Thank you for logging into Pog's R Us", stringBuilder.ToString());
-
                     var ourUser = await _userManager.FindByEmailAsync(loginVM.Email);
                     string id = ourUser.Id;
+                    StringBuilder stringBuilder = new StringBuilder();
+                    string userName = $"{ourUser.FirstName} {ourUser.LastName}";
+                    stringBuilder.Append($"<p>Thank you for logging into Pog's R Us {userName}!");
+                    stringBuilder.AppendLine("</p>");
+
+                    await _emailSender.SendEmailAsync(loginVM.Email, "", stringBuilder.ToString());
+
+                    
 
                     return RedirectToAction("Index1", "Home");
                 }

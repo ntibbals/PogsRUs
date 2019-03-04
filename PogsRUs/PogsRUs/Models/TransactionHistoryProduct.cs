@@ -23,13 +23,14 @@ namespace PogsRUs.Models
             }
         }
 
-        public TransactionHistoryProduct(int productID, int transactionHistoryID, string name, decimal price, int quantity, DateTime currentTime)
+        public TransactionHistoryProduct(int productID, int transactionHistoryID, string name, decimal singleItemPrice, int quantity, DateTime timeStamp)
         {
             ProductID = productID;
             TransactionHistoryID = transactionHistoryID;
             Quantity = quantity;
             Name = name;
-            SingleItemPrice = price;
+            SingleItemPrice = singleItemPrice;
+            TimeStamp = timeStamp;
         }
     }
 }

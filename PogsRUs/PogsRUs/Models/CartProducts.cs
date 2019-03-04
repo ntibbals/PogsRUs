@@ -23,13 +23,13 @@ namespace PogsRUs.Models
             }
         }
 
-        public CartProduct(int productID, int cartID, string name, decimal price)
+        public CartProduct(int productID, int cartID, string name, decimal singleItemPrice)
         {
             ProductID = productID;
             CartID = cartID;
             Quantity = 1;
             Name = name;
-            SingleItemPrice = price;
+            SingleItemPrice = singleItemPrice;
         }
     }
 }

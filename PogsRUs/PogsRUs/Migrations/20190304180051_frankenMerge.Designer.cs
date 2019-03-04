@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PogsRUs.Data;
 
-namespace PogsRUs.Migrations.ApplicationDb
+namespace PogsRUs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190227212228_changetostring")]
-    partial class changetostring
+    [Migration("20190304180051_frankenMerge")]
+    partial class frankenMerge
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
