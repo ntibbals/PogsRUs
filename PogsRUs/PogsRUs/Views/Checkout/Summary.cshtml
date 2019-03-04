@@ -7,12 +7,20 @@
 <h1>Order Summary</h1>
 
 <div class="container">
-    
+
+    <h3> Total Products Being Purchased= @Model.CartProducts.Count</h3>
+
     @foreach (var product in Model.CartProducts)
     {
+    <div>
         <h3>@product.Name</h3>
-        <p>Total Price of Product = @product.TotalPrice</p>
+    </div>
+    <div>
         <p>Quantity = @product.Quantity</p>
+    </div>
+    <div>
+        <p>Total Price of Product = @product.TotalPrice</p>
+    </div>                 
     }
 
     <h3>Total Cost of Purchase = @Model.TotalPrice</h3>
