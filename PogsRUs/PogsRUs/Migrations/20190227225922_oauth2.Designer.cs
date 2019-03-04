@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PogsRUs.Data;
 
-namespace PogsRUs.Migrations.ApplicationDb
+namespace PogsRUs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190221185144_login2")]
-    partial class login2
+    [Migration("20190227225922_oauth2")]
+    partial class oauth2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -167,6 +167,8 @@ namespace PogsRUs.Migrations.ApplicationDb
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("Professional");
 
                     b.Property<string>("SecurityStamp");
 

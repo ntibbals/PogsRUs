@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace PogsRUs.Migrations
+namespace PogsRUs.Migrations.PogsRUsDb
 {
-    public partial class pro2 : Migration
+    public partial class testing : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

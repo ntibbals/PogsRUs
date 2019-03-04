@@ -6,19 +6,51 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PogsRUs.Data;
 
-namespace PogsRUs.Migrations
+namespace PogsRUs.Migrations.PogsRUsDb
 {
     [DbContext(typeof(PogsRUsDbContext))]
-    [Migration("20190220183507_addedSeeds")]
-    partial class addedSeeds
+    [Migration("20190227230121_oauth3")]
+    partial class oauth3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
+                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("PogsRUs.Models.Cart", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("UserID");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("PogsRUs.Models.CartProduct", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CartID");
+
+                    b.Property<int>("ProductID");
+
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CartID");
+
+                    b.ToTable("CartProducts");
+                });
 
             modelBuilder.Entity("PogsRUs.Models.Product", b =>
                 {
@@ -147,6 +179,14 @@ namespace PogsRUs.Migrations
                             Price = 0.50m,
                             Sku = "MC-Orange-10"
                         });
+                });
+
+            modelBuilder.Entity("PogsRUs.Models.CartProduct", b =>
+                {
+                    b.HasOne("PogsRUs.Models.Cart")
+                        .WithMany("CartProducts")
+                        .HasForeignKey("CartID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
