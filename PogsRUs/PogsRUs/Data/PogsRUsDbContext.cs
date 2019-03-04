@@ -127,5 +127,7 @@ namespace PogsRUs.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartProduct> CartProducts { get; set; }
+        public DbSet<TransactionHistory> TransactionHistories { get; set; }
+        public DbSet<TransactionHistoryProduct> TransactionHistoryProducts { get; set; }
     }
 }

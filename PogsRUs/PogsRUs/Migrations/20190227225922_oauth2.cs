@@ -2,7 +2,7 @@
 
 namespace PogsRUs.Migrations
 {
-    public partial class pro2 : Migration
+    public partial class oauth2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

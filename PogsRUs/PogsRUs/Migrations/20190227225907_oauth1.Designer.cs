@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PogsRUs.Data;
 
-namespace PogsRUs.Migrations.ApplicationDb
+namespace PogsRUs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190223183240_pro1")]
-    partial class pro1
+    [Migration("20190227225907_oauth1")]
+    partial class oauth1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
