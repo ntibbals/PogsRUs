@@ -4,6 +4,8 @@
     <h1>Shopping Cart Items</h1>
     @if (Model != null)
     {
+        <button asp-controller="Checkout" id="button" asp-action="Receipt" asp-route-id="@User.Identity.Name">Checkout</button>
+
         @foreach (var cartProduct in Model)
         {
             <h3>@cartProduct.Name</h3>
