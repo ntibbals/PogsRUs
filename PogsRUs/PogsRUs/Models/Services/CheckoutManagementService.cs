@@ -83,7 +83,7 @@ namespace PogsRUs.Models.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<decimal> GetTotalPrice(IEnumerable<TransactionHistoryProduct> transactionHistoryProducts)
+        public async Task<decimal> GetTotalPrice(ICollection<TransactionHistoryProduct> transactionHistoryProducts)
         {
             decimal totalPrice = 0;
 
@@ -110,16 +110,16 @@ namespace PogsRUs.Models.Services
             return transactionHistory;
         }
 
-        public async Task<IEnumerable<TransactionHistoryProduct>> GetTransactionHistoryProducts(string userID)
+        public async Task<ICollection<TransactionHistoryProduct>> GetTransactionHistoryProducts(string userID)
         {
             TransactionHistory transactionHistory = await GetTransactionHistory(userID);
 
             var allProductsInTransactionHistory = _context.TransactionHistoryProducts.Where(thp => thp.TransactionHistoryID == transactionHistory.ID);
 
-            return allProductsInTransactionHistory;
+            return allProductsInTransactionHistory.ToList();
         }
 
-        public async Task<decimal> GetTotalCartPrice(IEnumerable<CartProduct> cartProducts)
+        public async Task<decimal> GetTotalCartPrice(ICollection<CartProduct> cartProducts)
         {
             decimal totalPrice = 0;
 
