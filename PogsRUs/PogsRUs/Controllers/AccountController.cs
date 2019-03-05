@@ -109,6 +109,12 @@ namespace PogsRUs.Controllers
 
             return View(loginVM);
         }
+
+        /// <summary>
+        /// This method handles all login from an external provider such as Microsoft or Google
+        /// </summary>
+        /// <param name="provider">name of provider</param>
+        /// <returns>A redirect view to home page or site external login callback</returns>
         [HttpPost]
         public IActionResult ExternalLogin(string provider)
         {
@@ -146,6 +152,11 @@ namespace PogsRUs.Controllers
         }
 
 
+        /// <summary>
+        /// This method handles login if the user utilizing a third party provider has not yet registered on the site. Creates a new user and attaches claims.
+        /// </summary>
+        /// <param name="externalVM">Externale Login View Model</param>
+        /// <returns>Home page or error message</returns>
         public async Task<IActionResult> ExternalLoginConfirmation(ExternalLoginViewModel externalVM)
         {
             if(ModelState.IsValid)
@@ -186,6 +197,10 @@ namespace PogsRUs.Controllers
             return View(externalVM);
         }
 
+        /// <summary>
+        /// This method logs the user out
+        /// </summary>
+        /// <returns>Home Page View</returns>
         [Authorize]
         public async Task<IActionResult> Logout()
         {

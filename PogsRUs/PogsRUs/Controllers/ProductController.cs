@@ -14,6 +14,10 @@ namespace PogsRUs.Controllers
     {
         private readonly IInventory _context;
 
+        /// <summary>
+        /// Product Controller Constructor
+        /// </summary>
+        /// <param name="context">Inventory context</param>
         public ProductController(IInventory context)
         {
             _context = context;
@@ -52,6 +56,10 @@ namespace PogsRUs.Controllers
             return View(product);
         }
 
+        /// <summary>
+        /// This method is for future use for Creating a product
+        /// </summary>
+        /// <returns>Create product view</returns>
         public IActionResult Create()
         {
             return View();

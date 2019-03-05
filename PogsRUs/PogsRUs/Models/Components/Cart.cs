@@ -11,13 +11,23 @@ namespace PogsRUs.Models.Components
 {
     public class Cart : ViewComponent
     {
+        //Injecting DB
         private readonly PogsRUsDbContext _context;
 
+        /// <summary>
+        /// Cart constructor
+        /// </summary>
+        /// <param name="context">PogsRUS DB Context</param>
         public Cart(PogsRUsDbContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// This method displays given View Components asyncronously
+        /// </summary>
+        /// <param name="userID">User ID</param>
+        /// <returns>View Component</returns>
         public async Task<IViewComponentResult> InvokeAsync(string userID)
         {
             var cart = await _context.Carts.FirstOrDefaultAsync(p => p.UserID == userID);
