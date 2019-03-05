@@ -9,6 +9,9 @@ namespace PogsRUs.Models.ViewModels
     public class PaymentViewModel
     {
         [Required]
+        public string UserID { get; set; }
+
+        [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
