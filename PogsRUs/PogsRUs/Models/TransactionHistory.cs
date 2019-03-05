@@ -9,7 +9,7 @@ namespace PogsRUs.Models
     {
         public int ID { get; set; }
         public string UserID { get; set; }
-        public IEnumerable<TransactionHistoryProduct> PurchasedProducts { get; set; }
+        public ICollection<TransactionHistoryProduct> PurchasedProducts { get; set; }
         public decimal TotalPrice { get; set; }
 
         public TransactionHistory(string userID)

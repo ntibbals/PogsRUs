@@ -10,23 +10,13 @@ namespace PogsRUs.Models.Services
 {
     public class CheckoutManagementService : ICheckout
     {
-        //Injecting DB
         private readonly PogsRUsDbContext _context;
 
-        /// <summary>
-        /// This is the Checkout Management service constructor
-        /// </summary>
-        /// <param name="context">Pogs DB</param>
         public CheckoutManagementService(PogsRUsDbContext context)
         {
             _context = context;
         }
 
-        /// <summary>
-        /// This method adds given transaction history products to table
-        /// </summary>
-        /// <param name="userID">User ID</param>
-        /// <returns></returns>
         public async Task AddTransactionHistoryProducts(string userID)
         {
             TransactionHistory transactionHistory = await GetTransactionHistory(userID);
@@ -51,11 +41,6 @@ namespace PogsRUs.Models.Services
             await _context.SaveChangesAsync();
         }
 
-        /// <summary>
-        /// This method creates a receipt for the user
-        /// </summary>
-        /// <param name="userID">user id</param>
-        /// <returns>cart</returns>
         public async Task<Cart> CreateReceipt(string userID)
         {
             Cart cart = await _context.Carts.FirstOrDefaultAsync(c => c.UserID == userID);
@@ -64,11 +49,6 @@ namespace PogsRUs.Models.Services
             return cart;
         }
 
-        /// <summary>
-        /// This method creates the transtion history for table
-        /// </summary>
-        /// <param name="userID">user id</param>
-        /// <returns></returns>
         public async Task<TransactionHistory> CreateTransactionHistory(string userID)
         {
             TransactionHistory transactionHistory = new TransactionHistory(userID);
@@ -77,12 +57,6 @@ namespace PogsRUs.Models.Services
             return transactionHistory;
         }
 
-        /// <summary>
-        /// This method deletes a transaction history product from table
-        /// </summary>
-        /// <param name="userID">user id</param>
-        /// <param name="productID">product id</param>
-        /// <returns></returns>
         public async Task DeleteTransactionHistoryProduct(string userID, int productID)
         {
             TransactionHistory transactionHistory = await GetTransactionHistory(userID);
@@ -94,11 +68,6 @@ namespace PogsRUs.Models.Services
             await _context.SaveChangesAsync();
         }
 
-        /// <summary>
-        /// This method deletes the transaction history from table
-        /// </summary>
-        /// <param name="userID">user id</param>
-        /// <returns></returns>
         public async Task DeletTransactionHistory(string userID)
         {
             TransactionHistory transactionHistory = await GetTransactionHistory(userID);
@@ -114,12 +83,7 @@ namespace PogsRUs.Models.Services
             await _context.SaveChangesAsync();
         }
 
-        /// <summary>
-        /// This method gets the total price of transaction history products
-        /// </summary>
-        /// <param name="transactionHistoryProducts">transaction history products</param>
-        /// <returns>total price</returns>
-        public async Task<decimal> GetTotalPrice(IEnumerable<TransactionHistoryProduct> transactionHistoryProducts)
+        public async Task<decimal> GetTotalPrice(ICollection<TransactionHistoryProduct> transactionHistoryProducts)
         {
             decimal totalPrice = 0;
 
@@ -131,11 +95,6 @@ namespace PogsRUs.Models.Services
             return totalPrice;
         }
 
-        /// <summary>
-        /// This method gets the transaction history from table
-        /// </summary>
-        /// <param name="userID">user id</param>
-        /// <returns>transaction history data</returns>
         public async Task<TransactionHistory> GetTransactionHistory(string userID)
         {
             TransactionHistory transactionHistory = await _context.TransactionHistories.FirstOrDefaultAsync(p => p.UserID == userID);
@@ -151,26 +110,16 @@ namespace PogsRUs.Models.Services
             return transactionHistory;
         }
 
-        /// <summary>
-        /// This method gets the transaction history products from table
-        /// </summary>
-        /// <param name="userID">User ID</param>
-        /// <returns>transaction history products</returns>
-        public async Task<IEnumerable<TransactionHistoryProduct>> GetTransactionHistoryProducts(string userID)
+        public async Task<ICollection<TransactionHistoryProduct>> GetTransactionHistoryProducts(string userID)
         {
             TransactionHistory transactionHistory = await GetTransactionHistory(userID);
 
             var allProductsInTransactionHistory = _context.TransactionHistoryProducts.Where(thp => thp.TransactionHistoryID == transactionHistory.ID);
 
-            return allProductsInTransactionHistory;
+            return allProductsInTransactionHistory.ToList();
         }
 
-        /// <summary>
-        /// This method gets the total price of the cart
-        /// </summary>
-        /// <param name="cartProducts">cart products in given cart</param>
-        /// <returns>total price</returns>
-        public async Task<decimal> GetTotalCartPrice(IEnumerable<CartProduct> cartProducts)
+        public async Task<decimal> GetTotalCartPrice(ICollection<CartProduct> cartProducts)
         {
             decimal totalPrice = 0;
 
