@@ -1,6 +1,6 @@
-﻿@model PogsRUs.Models.Cart
+﻿@model PogsRUs.Models.TransactionHistory
 @{
-    ViewData["Title"] = "Order Summary";
+    ViewData["Title"] = "Receipt";
     Layout = "_Layout";
 }
 
@@ -8,9 +8,9 @@
 
 <div class="container">
 
-    <h3> Total Products Being Purchased= @Model.CartProducts.Count</h3>
+    <h3> Total Products Purchased= @Model.PurchasedProducts.Count</h3>
 
-    @foreach (var product in Model.CartProducts)
+    @foreach (var product in Model.PurchasedProducts)
     {
         <div>
             <h3>@product.Name</h3>
@@ -25,6 +25,6 @@
 
     <h3>Total Cost of Purchase = @Model.TotalPrice</h3>
 
-    <a asp-controller="Checkout" id="button-new" asp-action="PaymentInfo">Add Payment Info</a>
+    <a asp-controller="Home" id="button-new" asp-action="Index1">Return to Home</a>
 
 </div>

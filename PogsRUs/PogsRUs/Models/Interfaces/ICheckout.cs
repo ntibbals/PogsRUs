@@ -36,7 +36,7 @@ namespace PogsRUs.Models.Interfaces
         /// </summary>
         /// <param name="userID">ID of User</param>
         /// <returns></returns>
-        Task<IEnumerable<TransactionHistoryProduct>> GetTransactionHistoryProducts(string userID);
+        Task<ICollection<TransactionHistoryProduct>> GetTransactionHistoryProducts(string userID);
 
         /// <summary>
         /// Deletes existing product from TransactionHistoryProduct.
@@ -58,7 +58,7 @@ namespace PogsRUs.Models.Interfaces
         /// </summary>
         /// <param name="userID">ID of User</param>
         /// <returns>Returns a decimal value indicating Total Price of all items in TransactionHistory</returns>
-        Task<decimal> GetTotalPrice(IEnumerable<TransactionHistoryProduct> transactionHistoryProducts);
+        Task<decimal> GetTotalPrice(ICollection<TransactionHistoryProduct> transactionHistoryProducts);
 
         /// <summary>
         /// Collects all cartProducts that are associated with user id and returns them as a list.
@@ -72,7 +72,7 @@ namespace PogsRUs.Models.Interfaces
         /// </summary>
         /// <param name="cartProducts">List of cart products in cart</param>
         /// <returns>Total Price of Items cart</returns>
-        Task<decimal> GetTotalCartPrice(IEnumerable<CartProduct> cartProducts);
+        Task<decimal> GetTotalCartPrice(ICollection<CartProduct> cartProducts);
 
     }
 }
