@@ -18,13 +18,23 @@ namespace PogsRUs.Controllers
         private IEmailSender _emailSender;
         private UserManager<ApplicationUser> _userManager;
 
-
+        /// <summary>
+        /// Interface Constructor
+        /// </summary>
+        /// <param name="context">checkout context</param>
+        /// <param name="userManager">user manager</param>
+        /// <param name="emailSender">email sender</param>
         public CheckoutController(ICheckout context, UserManager<ApplicationUser> userManager, IEmailSender emailSender)
         {
             _context = context;
             _emailSender = emailSender;
         }
 
+        /// <summary>
+        /// This method takes the user to the summary page and currently utilizes Email sender to send a receipt email
+        /// </summary>
+        /// <param name="userID">user id</param>
+        /// <returns>Cart View to see summary</returns>
         public async Task<IActionResult> Summary(string userID)
         {
             var cart = await _context.CreateReceipt(userID);           

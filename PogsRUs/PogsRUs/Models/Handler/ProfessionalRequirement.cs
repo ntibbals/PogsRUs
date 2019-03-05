@@ -11,6 +11,10 @@ namespace PogsRUs.Models.Handler
     {
         public string IsProfessional { get; set; }
 
+        /// <summary>
+        /// Professional requirement constructor
+        /// </summary>
+        /// <param name="isProfessional">status of user professiaon property</param>
         public ProfessionalRequirement(string isProfessional)
         {
             IsProfessional = isProfessional;
