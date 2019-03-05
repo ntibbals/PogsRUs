@@ -26,9 +26,9 @@ namespace PogsRUs.Models
 
             ApiOperationBase<ANetApiRequest, ANetApiResponse>.MerchantAuthentication = new merchantAuthenticationType()
             {
-                name = "8kFqnV87m",
+                name = _configuration["Auth_Api_ID"],
                 ItemElementName = ItemChoiceType.transactionKey,
-                Item = "44NeM8G9gMd96xJa"
+                Item = _configuration["Auth_Transaction_Key"]
             };
 
             var creditCardVisa = new creditCardType
