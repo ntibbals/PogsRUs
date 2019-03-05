@@ -44,7 +44,30 @@ namespace PogsRUs.Models.Services
             }
             await _context.SaveChangesAsync();
         }
+        public async Task UpdateProductQuantity(int productID, string userID, int quantity)
+        {
+            Cart cart = await GetCart(userID);
+            Product product = _context.Products.FirstOrDefault(p => p.ID == productID);
 
+            if (cart == null)
+            {
+                cart = await CreateCart(userID);
+            }
+
+            CartProduct cartProduct = await _context.CartProducts.FirstOrDefaultAsync(cp => cp.CartID == cart.ID && cp.ProductID == product.ID);
+            if (cartProduct == null)
+            {
+                CartProduct newCartProduct = new CartProduct(product.ID, cart.ID, product.Name, product.Price);
+
+                _context.Add(newCartProduct);
+            }
+            else
+            {
+                cartProduct.Quantity = quantity;
+                _context.Update(cartProduct);
+            }
+            await _context.SaveChangesAsync();
+        }
         public async Task<Cart> CreateCart(string userID)
         {
             Cart cart = new Cart(userID);
