@@ -49,7 +49,7 @@ namespace PogsRUs
 
             /********************** DEFAULT **************************************/
 
-            //services.AddDbContext<ApplicationDbContext>(options => 
+            //services.AddDbContext<ApplicationDbContext>(options =>
             //options.UseSqlServer(Configuration["ConnectionStrings:IdentityDefaultConnection"]));
 
             //services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
@@ -83,21 +83,21 @@ namespace PogsRUs
 
             services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
             {
-            microsoftOptions.ClientId = Configuration["MicrosoftApplicationId"];
-            microsoftOptions.ClientSecret = Configuration["MicrosoftPassword"];
+                microsoftOptions.ClientId = Configuration["MicrosoftApplicationId"];
+                microsoftOptions.ClientSecret = Configuration["MicrosoftPassword"];
             })
             .AddGoogle(googleOptions =>
             {
-            googleOptions.ClientId = Configuration["GoogleClientId"];
-            googleOptions.ClientSecret = Configuration["GoogleClientSecret"];
-            googleOptions.UserInformationEndpoint = "https://www.googleapis.com/oauth2/v2/userinfo";
-            googleOptions.ClaimActions.Clear();
-            googleOptions.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
-            googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
-            googleOptions.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "given_name");
-            googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Surname, "family_name");
-            googleOptions.ClaimActions.MapJsonKey("urn:google:profile", "link");
-            googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
+                googleOptions.ClientId = Configuration["GoogleClientId"];
+                googleOptions.ClientSecret = Configuration["GoogleClientSecret"];
+                googleOptions.UserInformationEndpoint = "https://www.googleapis.com/oauth2/v2/userinfo";
+                googleOptions.ClaimActions.Clear();
+                googleOptions.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
+                googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
+                googleOptions.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "given_name");
+                googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Surname, "family_name");
+                googleOptions.ClaimActions.MapJsonKey("urn:google:profile", "link");
+                googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
             });
 
 
