@@ -163,7 +163,7 @@ namespace PogsRUs.Controllers
                 if (result.Succeeded)
                 {
                     // Add claims
-                                        Claim fullNameClaim = new Claim("FullName", $"{user.FirstName} {user.LastName}");
+                    Claim fullNameClaim = new Claim("FullName", $"{user.FirstName} {user.LastName}");
                     Claim emailClaim = new Claim(ClaimTypes.Email, user.Email, ClaimValueTypes.Email);
                     Claim birthdayClaim = new Claim(ClaimTypes.DateOfBirth, new DateTime(user.Birthday.Year, user.Birthday.Month, user.Birthday.Day).ToString("u"), ClaimValueTypes.DateTime);
                     Claim professionalClaim = new Claim("Professional", user.Professional);

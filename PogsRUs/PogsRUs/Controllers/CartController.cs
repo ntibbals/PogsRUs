@@ -55,9 +55,9 @@ namespace PogsRUs.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateCartProductQuantity(string userID, int productID)
+        public async Task<IActionResult> UpdateCartProductQuantity(string userID, int productID, int quantity)
         {
-            await _context.AddProduct(productID, userID);
+            await _context.UpdateProductQuantity(productID, userID, quantity);
 
             return RedirectToAction(actionName: "Index1", controllerName: "Home");
         }

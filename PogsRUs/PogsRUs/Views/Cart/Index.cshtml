@@ -19,10 +19,10 @@
         {
 
             <h3>@cartProduct.Name</h3>
-            <p>Quantity = @cartProduct.Quantity</p>
             <form asp-controller="Cart" asp-action="UpdateCartProductQuantity">
                 <input type="hidden" name="userID" value="@User.Identity.Name" method="post" />
                 <input type="hidden" name="productID" value="@cartProduct.ProductID" method="post" />
+                <input type="number" name="quantity" value="@cartProduct.Quantity" method="post" />
 
                 <button id="button" type="submit">Update Quantity</button>
             </form>

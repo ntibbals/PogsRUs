@@ -31,6 +31,7 @@ namespace PogsRUs.Models.Interfaces
         /// <returns></returns>
         Task AddProduct(int productID, string userID);
 
+        Task UpdateProductQuantity(int productID, string userID, int quantity);
         /// <summary>
         /// Retreive all existing products in cart and returns as a list.
         /// </summary>

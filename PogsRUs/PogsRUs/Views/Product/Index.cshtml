@@ -1,9 +1,8 @@
-﻿@model IEnumerable<PogsRUs.Models.Product>
-@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
 @using PogsRUs.Models.Interfaces
 @using PogsRUs.Models
-@inject SignInManager<ApplicationUser> signInManager
 
+@inject SignInManager<ApplicationUser> signInManager
 @inject IInventory InventoryManagementService
 
 @{
@@ -14,14 +13,16 @@
     var products = await InventoryManagementService.GetProducts();
 }
 
-@if (signInManager.IsSignedIn(User))
+@*@if (signInManager.IsSignedIn(User))
 {
     @await Component.InvokeAsync("Cart", @User.Identity.Name)
-}
+}*@
+
+
 <h1 class="product-title"> Available Pogs</h1>
 
 <div class="container">
-    @foreach (var product in Model)
+    @foreach (var product in products)
     {
 
         <div class="product-contain">
