@@ -33,7 +33,6 @@ namespace PogsRUs.Models.ViewModels
 
         [Required]
         [Display(Name = "Credit Card")]
-        [DataType(DataType.CreditCard)]
         public string CreditCardNumber{ get; set; }
 
 
@@ -41,5 +40,8 @@ namespace PogsRUs.Models.ViewModels
         [Display(Name = "Expiration Date")]
         [DataType(DataType.Date)]
         public string ExpirationDate { get; set; }
+
+
+
     }
 }

@@ -32,8 +32,11 @@
         <span asp-validation-for="Zipcode"></span>
 
         <label asp-for="CreditCardNumber"></label>
-        <select asp-for="CreditCardNumber" asp-items="@Html.DropDownList(typeof(PogsRUs.Models.ViewModels.Payment.CreditCardList))"></select>
-        <span asp-validation-for="CreditCardNumber"></span>
+        <select asp-for="CreditCardNumber">
+            <option value="4007000000027">4007000000027</option>
+            <option value="5424000000000015">5424000000000015</option>
+            <option value="6011000000000012">6011000000000012</option>
+        </select> 
 
         <label asp-for="ExpirationDate"></label>
         <input asp-for="ExpirationDate" id="input" />

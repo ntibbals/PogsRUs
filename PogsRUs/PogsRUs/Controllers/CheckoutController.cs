@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using PogsRUs.Models;
 using PogsRUs.Models.Interfaces;
 using PogsRUs.Models.ViewModels;
@@ -20,6 +21,7 @@ namespace PogsRUs.Controllers
         private IEmailSender _emailSender;
         private UserManager<ApplicationUser> _userManager;
         private Payment Payment;
+        IConfiguration _configuration;
 
         /// <summary>
         /// Interface Constructor
@@ -31,6 +33,7 @@ namespace PogsRUs.Controllers
         {
             _context = context;
             _emailSender = emailSender;
+
         }
 
         /// <summary>
@@ -77,8 +80,8 @@ namespace PogsRUs.Controllers
                 
 
                 decimal amount = cart.TotalPrice;
-
-                Payment.Run(userCard, pvm.UserID, billingAddress, amount);
+                Payment payment = new Payment(_configuration);
+                payment.Run(userCard, pvm.UserID, billingAddress, amount);
                 //var ourUser = await _userManager.FindByEmailAsync(userID);
                 //string id = ourUser.Id;
                 StringBuilder stringBuilder = new StringBuilder();
