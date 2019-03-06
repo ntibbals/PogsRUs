@@ -99,7 +99,7 @@ namespace PogsRUs.Controllers
 
         public async Task<IActionResult> Receipt(string userID)
         {           
-            await _context.AddTransactionHistoryProducts(userID);
+            await _context.AddOrderProducts(userID);
             return View();
         }
 

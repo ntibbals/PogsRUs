@@ -17,13 +17,20 @@ namespace PogsRUs.Models.Services
             _context = context;
         }
 
-        public async Task AddTransactionHistoryProducts(string userID)
+        public async Task AddOrderProducts(string userID)
         {
-            TransactionHistory transactionHistory = await GetTransactionHistory(userID);
+            Order order = await GetOrder(userID);
 
-            if (transactionHistory == null)
+            if (order == null)
             {
-                transactionHistory = await CreateTransactionHistory(userID);
+                order = await CreateOrder(userID);
+            }
+
+            OrderHistory orderHistory = await GetOrderHistory(userID);
+
+            if(orderHistory == null)
+            {
+                orderHistory = await CreateOrderHistory(userID);
             }
 
             Cart cart = await CreateReceipt(userID);
@@ -32,8 +39,8 @@ namespace PogsRUs.Models.Services
 
             foreach (CartProduct cartProduct in cart.CartProducts)
             {
-                TransactionHistoryProduct newTransactionHistoryProduct = new TransactionHistoryProduct(cartProduct.ProductID, transactionHistory.ID, cartProduct.Name, cartProduct.SingleItemPrice, cartProduct.Quantity, currentTime);
-                _context.Add(newTransactionHistoryProduct);
+                OrderProduct newOrderProduct = new OrderProduct(cartProduct.ProductID, order.ID, cartProduct.Name, cartProduct.SingleItemPrice, cartProduct.Quantity, currentTime);
+                _context.Add(newOrderProduct);
                 _context.Remove(cartProduct);
             }
             _context.Remove(cart);
@@ -49,74 +56,75 @@ namespace PogsRUs.Models.Services
             return cart;
         }
 
-        public async Task<TransactionHistory> CreateTransactionHistory(string userID)
+        public async Task<Order> CreateOrder(string userID)
         {
-            TransactionHistory transactionHistory = new TransactionHistory(userID);
-            _context.TransactionHistories.Add(transactionHistory);
+            DateTime currentTime = DateTime.Today;
+            Order order = new Order(userID, currentTime);
+            _context.Orders.Add(order);
             await _context.SaveChangesAsync();
-            return transactionHistory;
+            return order;
         }
 
-        public async Task DeleteTransactionHistoryProduct(string userID, int productID)
+        public async Task DeleteOrderProduct(string userID, int productID)
         {
-            TransactionHistory transactionHistory = await GetTransactionHistory(userID);
+            Order order = await GetOrder(userID);
 
             Product product = _context.Products.FirstOrDefault(p => p.ID == productID);
 
-            TransactionHistoryProduct transactionHistoryProduct = _context.TransactionHistoryProducts.FirstOrDefault(thp => thp.TransactionHistoryID == transactionHistory.ID && thp.ProductID == product.ID);
-            _context.TransactionHistoryProducts.Remove(transactionHistoryProduct);
+            OrderProduct orderProduct = _context.OrderProducts.FirstOrDefault(thp => thp.OrderID == order.ID && thp.ProductID == product.ID);
+            _context.OrderProducts.Remove(orderProduct);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeletTransactionHistory(string userID)
+        public async Task DeleteOrder(string userID)
         {
-            TransactionHistory transactionHistory = await GetTransactionHistory(userID);
+            Order order = await GetOrder(userID);
 
-            var allProductsInTransactionHistory = _context.TransactionHistoryProducts.Where(thp => thp.TransactionHistoryID == transactionHistory.ID);
+            var allProductsInOrder = _context.OrderProducts.Where(op => op.OrderID == order.ID);
 
-            foreach (TransactionHistoryProduct transactionHistoryProduct in allProductsInTransactionHistory)
+            foreach (OrderProduct orderProduct in allProductsInOrder)
             {
-                _context.TransactionHistoryProducts.Remove(transactionHistoryProduct);
+                _context.OrderProducts.Remove(orderProduct);
             }
-            _context.Remove(transactionHistory);
+            _context.Remove(order);
 
             await _context.SaveChangesAsync();
         }
 
-        public async Task<decimal> GetTotalPrice(ICollection<TransactionHistoryProduct> transactionHistoryProducts)
+        public async Task<decimal> GetTotalPrice(ICollection<OrderProduct> orderProducts)
         {
             decimal totalPrice = 0;
 
-            foreach (TransactionHistoryProduct transactionHistoryProduct in transactionHistoryProducts)
+            foreach (OrderProduct orderProduct in orderProducts)
             {
-                totalPrice = totalPrice + transactionHistoryProduct.TotalPrice;
+                totalPrice = totalPrice + orderProduct.TotalPrice;
             }
 
             return totalPrice;
         }
 
-        public async Task<TransactionHistory> GetTransactionHistory(string userID)
+        public async Task<Order> GetOrder(string userID)
         {
-            TransactionHistory transactionHistory = await _context.TransactionHistories.FirstOrDefaultAsync(p => p.UserID == userID);
+            Order order = await _context.Orders.FirstOrDefaultAsync(p => p.UserID == userID);
 
-            transactionHistory.PurchasedProducts = await GetTransactionHistoryProducts(userID);
+            order.PurchasedProducts = await GetOrderProducts(userID);
 
-            transactionHistory.TotalPrice = await GetTotalPrice(transactionHistory.PurchasedProducts);
+            order.TotalPrice = await GetTotalPrice(order.PurchasedProducts);
 
-            if (transactionHistory == null)
+            if (order == null)
             {
                 return null;
             }
-            return transactionHistory;
+            return order;
         }
 
-        public async Task<ICollection<TransactionHistoryProduct>> GetTransactionHistoryProducts(string userID)
+        public async Task<ICollection<OrderProduct>> GetOrderProducts(string userID)
         {
-            TransactionHistory transactionHistory = await GetTransactionHistory(userID);
+            Order order = await GetOrder(userID);
 
-            var allProductsInTransactionHistory = _context.TransactionHistoryProducts.Where(thp => thp.TransactionHistoryID == transactionHistory.ID);
+            var allProductsInOrder = _context.OrderProducts.Where(thp => thp.OrderID == order.ID);
 
-            return allProductsInTransactionHistory.ToList();
+            return allProductsInOrder.ToList();
         }
 
         public async Task<decimal> GetTotalCartPrice(ICollection<CartProduct> cartProducts)
@@ -129,6 +137,48 @@ namespace PogsRUs.Models.Services
             }
 
             return totalPrice;
+        }
+
+        public async Task<OrderHistory> CreateOrderHistory(string userID)
+        {
+            OrderHistory orderHistory = new OrderHistory(userID);
+            _context.OrderHistories.Add(orderHistory);
+            await _context.SaveChangesAsync();
+            return orderHistory;
+        }
+
+        public async Task<OrderHistory> GetOrderHistory(string userID)
+        {
+            OrderHistory orderHistory = await _context.OrderHistories.FirstOrDefaultAsync(oh => oh.UserID == userID);
+
+            if (orderHistory == null)
+            {
+                orderHistory = await CreateOrderHistory(userID);
+            }
+
+            orderHistory.AllUserOrders = await GetAllUserOrders(userID);
+
+            
+            return orderHistory;
+        }
+
+        public async Task<ICollection<Order>> GetAllOrders()
+        {
+            return await _context.Orders.ToListAsync();
+        }
+
+        public async Task<ICollection<Order>> GetAllUserOrders(string userID)
+        {
+            OrderHistory orderHistory = await GetOrderHistory(userID);
+
+            if (orderHistory == null)
+            {
+                orderHistory = await CreateOrderHistory(userID);
+            }
+
+            var allUsersOrders = _context.Orders.Where(o => o.UserID == orderHistory.UserID);
+
+            return allUsersOrders.ToList();
         }
     }
 }
