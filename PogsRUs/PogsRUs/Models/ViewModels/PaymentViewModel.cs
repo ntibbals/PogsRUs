@@ -38,7 +38,7 @@ namespace PogsRUs.Models.ViewModels
 
         [Required]
         [Display(Name = "Expiration Date")]
-        //[RegularExpression("^ ([0 - 9]{2})/([0 - 9]{2})|([0 - 9]{2})([0 - 9]{2})|([0 - 9]{4})")]
+        //[RegularExpression("^ ([0 - 9]{2})/([0 - 9]{2})$|([0 - 9]{2})([0 - 9]{2})$|([0 - 9]{4})$")]
         public string ExpirationDate { get; set; }
 
 

@@ -36,7 +36,7 @@ namespace PogsRUs.Models.Interfaces
         /// </summary>
         /// <param name="userID">ID of User</param>
         /// <returns></returns>
-        Task<ICollection<OrderProduct>> GetOrderProducts(string userID);
+        Task<ICollection<OrderProduct>> GetOrderProducts(int orderID);
 
         /// <summary>
         /// Deletes existing product from TransactionHistoryProduct.

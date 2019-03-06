@@ -106,8 +106,11 @@ namespace PogsRUs.Models.Services
         public async Task<Order> GetOrder(string userID)
         {
             Order order = await _context.Orders.FirstOrDefaultAsync(p => p.UserID == userID);
-
-            order.PurchasedProducts = await GetOrderProducts(userID);
+            if (order == null)
+            {
+                return null;
+            }
+            order.PurchasedProducts = await GetOrderProducts(order.ID);
 
             order.TotalPrice = await GetTotalPrice(order.PurchasedProducts);
 
@@ -118,11 +121,15 @@ namespace PogsRUs.Models.Services
             return order;
         }
 
-        public async Task<ICollection<OrderProduct>> GetOrderProducts(string userID)
+        public async Task<ICollection<OrderProduct>> GetOrderProducts(int orderID)
         {
-            Order order = await GetOrder(userID);
+            //Order order = await GetOrder(userID);
 
-            var allProductsInOrder = _context.OrderProducts.Where(thp => thp.OrderID == order.ID);
+            var allProductsInOrder = _context.OrderProducts.Where(thp => thp.OrderID == orderID);
+            if(allProductsInOrder == null)
+            {
+                return null;
+            }
 
             return allProductsInOrder.ToList();
         }
@@ -169,14 +176,14 @@ namespace PogsRUs.Models.Services
 
         public async Task<ICollection<Order>> GetAllUserOrders(string userID)
         {
-            OrderHistory orderHistory = await GetOrderHistory(userID);
+            //OrderHistory orderHistory = await GetOrderHistory(userID);
 
-            if (orderHistory == null)
-            {
-                orderHistory = await CreateOrderHistory(userID);
-            }
+            //if (orderHistory == null)
+            //{
+            //    orderHistory = await CreateOrderHistory(userID);
+            //}
 
-            var allUsersOrders = _context.Orders.Where(o => o.UserID == orderHistory.UserID);
+            var allUsersOrders = _context.Orders.Where(o => o.UserID == userID);
 
             return allUsersOrders.ToList();
         }
