@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PogsRUs.Data;
 
 namespace PogsRUs.Migrations.PogsRUsDb
 {
     [DbContext(typeof(PogsRUsDbContext))]
-    partial class PogsRUsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190306180541_admin2")]
+    partial class admin2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
