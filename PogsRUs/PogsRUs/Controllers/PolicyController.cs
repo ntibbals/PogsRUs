@@ -11,11 +11,21 @@ namespace PogsRUs.Controllers
     public class PolicyController : Controller
     {
         /// <summary>
-        /// This is our polcy Constructor
+        /// This is our professional policy page
         /// </summary>
         /// <returns>Professional page if authorized</returns>
         [Authorize(Policy = "ProfessionalsOnly")]
         public IActionResult Professionals()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// This is our admin dashboard
+        /// </summary>
+        /// <returns>Authorized view for admin</returns>
+        [Authorize]
+        public IActionResult Admin()
         {
             return View();
         }

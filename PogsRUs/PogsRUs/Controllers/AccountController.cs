@@ -64,8 +64,11 @@ namespace PogsRUs.Controllers
 
 
                     await _userManager.AddClaimsAsync(user, claims);
-
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    if(user.Email == "Jasonhi@crazyredhead.com" || user.Email == "jimmy.f.chang@gmail.com" || user.Email == "amanda@codefellows.com" || user.Email == "ntibbals@outlook.com" )
+                        {
+                        await _userManager.AddToRoleAsync(user, ApplicationRoles.Admin);
+                        }
+                        await _signInManager.SignInAsync(user, isPersistent: false);
 
                     return RedirectToAction("Index1", "Home");
                 }
