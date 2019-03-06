@@ -2,7 +2,7 @@ using System;
 using Xunit;
 using PogsRUs.Models;
 
-namespace ProductModelTestSuite
+namespace TestSuite
 {
     public class ProductModelTestSuite
     {
