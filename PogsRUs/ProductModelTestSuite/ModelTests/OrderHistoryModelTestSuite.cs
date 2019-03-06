@@ -6,5 +6,7 @@ namespace TestSuite.ModelTests
 {
     public class OrderHistoryModelTestSuite
     {
+
+
     }
 }
