@@ -29,10 +29,11 @@ namespace PogsRUs.Controllers
         /// <param name="context">checkout context</param>
         /// <param name="userManager">user manager</param>
         /// <param name="emailSender">email sender</param>
-        public CheckoutController(ICheckout context, UserManager<ApplicationUser> userManager, IEmailSender emailSender)
+        public CheckoutController(ICheckout context, UserManager<ApplicationUser> userManager, IEmailSender emailSender, IConfiguration configuration)
         {
             _context = context;
             _emailSender = emailSender;
+            _configuration = configuration;
 
         }
 
