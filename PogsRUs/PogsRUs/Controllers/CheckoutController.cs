@@ -92,15 +92,16 @@ namespace PogsRUs.Controllers
 
                 await _emailSender.SendEmailAsync(pvm.UserID, "", stringBuilder.ToString());
 
-                return RedirectToAction(nameof(Receipt), pvm.UserID);
+                return RedirectToAction("Receipt", new { pvm.UserID });
             }
-            return RedirectToAction(nameof(PaymentInfo), pvm.UserID);
+            return RedirectToAction("PaymentInfo", new { pvm.UserID });
         }
 
         public async Task<IActionResult> Receipt(string userID)
         {           
             await _context.AddOrderProducts(userID);
-            return View();
+            Order order = await _context.GetOrder(userID);
+            return View(order);
         }
 
     }
