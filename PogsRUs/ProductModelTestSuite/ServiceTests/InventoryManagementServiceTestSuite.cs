@@ -11,7 +11,7 @@ using Xunit;
 using Microsoft.EntityFrameworkCore.Design;
 using System.Threading.Tasks;
 
-namespace TestSuite
+namespace TestSuite.ServiceTests
 {
     public class InventoryManagementServiceTestSuite
     {
