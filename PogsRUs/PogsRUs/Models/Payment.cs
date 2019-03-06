@@ -19,7 +19,7 @@ namespace PogsRUs.Models
             _configuration = configuration;
         }
 
-        public string Run()
+        public string Run(creditCardType creditCard, string userID, customerAddressType billingAddress, decimal totalPrice )
         {
 
             ApiOperationBase<ANetApiRequest, ANetApiResponse>.RunEnvironment = AuthorizeNet.Environment.SANDBOX;
@@ -31,30 +31,31 @@ namespace PogsRUs.Models
                 Item = _configuration["Auth_Transaction_Key"]
             };
 
-            var creditCardVisa = new creditCardType
-            {
-                cardNumber = "4007000000027",
-                expirationDate = "1221"
-            };
-            var creditCardMaster = new creditCardType
-            {
-                cardNumber = "5424000000000015",
-                expirationDate = "1121"
-            };
-            var creditCardDiscover = new creditCardType
-            {
-                cardNumber = "6011000000000012",
-                expirationDate = "0921"
-            };
+            /******************* CARD NUMBERS *******************/
+            //var creditCardVisa = new creditCardType
+            //{
+            //    cardNumber = "4007000000027",
+            //    expirationDate = "1221"
+            //};
+            //var creditCardMaster = new creditCardType
+            //{
+            //    cardNumber = "5424000000000015",
+            //    expirationDate = "1121"
+            //};
+            //var creditCardDiscover = new creditCardType
+            //{
+            //    cardNumber = "6011000000000012",
+            //    expirationDate = "0921"
+            //};
 
-            customerAddressType billingAddress = GetAddress();
+            //customerAddressType billingAddress = GetAddress(userID);
 
-            paymentType paymentType = new paymentType { Item = creditCardVisa };
+            paymentType paymentType = new paymentType { Item = creditCard };
 
             transactionRequestType transactionRequest = new transactionRequestType
             {
                 transactionType = transactionTypeEnum.authCaptureTransaction.ToString(),
-                amount = 104.75m,
+                amount = totalPrice,
                 payment = paymentType,
                 billTo = billingAddress
             };
@@ -88,42 +89,42 @@ namespace PogsRUs.Models
                 return "Not OK";
             }
 
-            private customerAddressType GetAddress()
-            {
+        //    private customerAddressType GetAddress(string userID)
+        //    {
 
-                customerAddressType address = new customerAddressType()
-                {
-                    firstName = "first",
-                    lastName = "Last",
-                    address = "123",
-                    city = "city",
-                    zip = "zipcode"
-                };
+        //        customerAddressType address = new customerAddressType()
+        //        {
+        //            firstName = "first",
+        //            lastName = "Last",
+        //            address = "123",
+        //            city = "city",
+        //            zip = "zipcode"
+        //        };
 
-                return address;
-            }
+        //        return address;
+        //    }
 
-        private lineItemType[] GetLineItems(List<CartProduct> products)
-        {
-            lineItemType[] lineitems = new lineItemType[products.Count];
+        //private lineItemType[] GetLineItems(List<CartProduct> products)
+        //{
+        //    lineItemType[] lineitems = new lineItemType[products.Count];
 
-            int count = 0;
+        //    int count = 0;
 
-            foreach (var item in products)
-            {
-                lineitems[count] = new lineItemType
-                {
+        //    foreach (var item in products)
+        //    {
+        //        lineitems[count] = new lineItemType
+        //        {
 
-                    itemId = "1",
-                    name = "productName",
-                    quantity = 2,
-                    unitPrice = new decimal(3.50)
-                };
-                count++;
-            }
+        //            itemId = "1",
+        //            name = "productName",
+        //            quantity = 2,
+        //            unitPrice = new decimal(3.50)
+        //        };
+        //        count++;
+        //    }
 
-            return lineitems;
-        }
+        //    return lineitems;
+        //}
     }
 
  }

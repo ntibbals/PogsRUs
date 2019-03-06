@@ -9,6 +9,9 @@ namespace PogsRUs.Models.ViewModels
     public class PaymentViewModel
     {
         [Required]
+        public string UserID { get; set; }
+
+        [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
@@ -30,13 +33,15 @@ namespace PogsRUs.Models.ViewModels
 
         [Required]
         [Display(Name = "Credit Card")]
-        [DataType(DataType.CreditCard)]
         public string CreditCardNumber{ get; set; }
 
 
         [Required]
         [Display(Name = "Expiration Date")]
-        [DataType(DataType.Date)]
+        //[RegularExpression("^ ([0 - 9]{2})/([0 - 9]{2})|([0 - 9]{2})([0 - 9]{2})|([0 - 9]{4})")]
         public string ExpirationDate { get; set; }
+
+
+
     }
 }
