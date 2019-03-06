@@ -105,7 +105,6 @@ namespace TestSuite.ModelTests
             expected.Add(testOrderProduct);
 
             ICollection<OrderProduct> actual = testOrder.PurchasedProducts;
-          
         }
 
         [Fact]

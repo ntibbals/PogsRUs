@@ -13,7 +13,7 @@ namespace PogsRUs.Models
 
         public OrderHistory(string userID)
         {
-            UserID = UserID;
+            UserID = userID;
         }
     }
 }
