@@ -21,7 +21,7 @@ namespace TestSuite.ModelTests
 
             return testProduct;
 
-            }
+        }
 
 
         [Fact]

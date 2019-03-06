@@ -4,7 +4,7 @@ using PogsRUs.Models;
 
 namespace TestSuite.ModelTests
 {
-    public class OrderHistoryTestSuite
+    public class OrderHistoryModelTestSuite
     {
     }
 }
