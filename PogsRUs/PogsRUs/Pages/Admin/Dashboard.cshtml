@@ -1,0 +1,35 @@
+﻿@page
+@model PogsRUs.Pages.Admin.DashboardModel
+@using PogsRUs.Models.Interfaces
+@inject ICheckout CheckoutManagementService
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "_Layout";
+}
+
+<h1>Dashboard</h1>
+
+@{
+    var orderHistory = await CheckoutManagementService.GetAllOrders();
+
+}
+
+@foreach (var item in orderHistory)
+{
+    <h3>@item.UserID</h3>
+    {
+        var userOrders = await CheckoutManagementService.GetAllUserOrders(item.UserID);
+
+
+        foreach (var order in userOrders)
+        {
+            var products = await CheckoutManagementService.GetOrderProducts(order.ID);
+            foreach (var product in products)
+            {
+                <p>@product.Name</p>
+            }
+            <p>@order.TotalPrice</p>
+            <p>@order.TimeStamp</p>
+        }
+    }
+}

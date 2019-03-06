@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AuthorizeNet.Api.Contracts.V1;
+using Microsoft.EntityFrameworkCore;
 using PogsRUs.Data;
 using PogsRUs.Models.Interfaces;
 using System;

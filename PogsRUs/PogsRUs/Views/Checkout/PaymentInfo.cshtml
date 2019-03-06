@@ -1,4 +1,4 @@
-﻿@model PogsRUs.Models.ViewModels.Payment
+﻿@model PogsRUs.Models.ViewModels.PaymentViewModel
 @{
     ViewData["Title"] = "Payment Info";
     Layout = "_Layout";
@@ -10,7 +10,7 @@
         <div asp-validation-summary="ModelOnly"></div>
 
         <input asp-for="UserID" type="hidden" name="userID" value="@User.Identity.Name" id="input" />
-        
+
         <label asp-for="FirstName"></label>
         <input asp-for="FirstName" id="input" />
         <span asp-validation-for="FirstName"></span>
@@ -32,12 +32,18 @@
         <span asp-validation-for="Zipcode"></span>
 
         <label asp-for="CreditCardNumber"></label>
-        <select asp-for="CreditCardNumber" asp-items="@Html.DropDownList(typeof(PogsRUs.Models.ViewModels.Payment.CreditCardList))"></select>
-        <span asp-validation-for="CreditCardNumber"></span>
+        <select asp-for="CreditCardNumber">
+            <option value="4007000000027">4007000000027</option>
+            <option value="5424000000000015">5424000000000015</option>
+            <option value="6011000000000012">6011000000000012</option>
+        </select>
 
         <label asp-for="ExpirationDate"></label>
-        <input asp-for="ExpirationDate" id="input" />
-        <span asp-validation-for="ExpirationDate"></span>
+        <select asp-for="ExpirationDate">
+            <option value="10/21">10/21</option>
+            <option value="12/22">12/22</option>
+            <option value="01/23">01/23</option>
+        </select>
         <div class="form-group">
             <input type="submit" value="Make Payment" id="button" />
         </div>

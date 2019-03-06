@@ -108,7 +108,7 @@ namespace TestSuite
                 InventoryManagementService inventoryService = new InventoryManagementService(context);
 
                 await inventoryService.CreateProduct(testProductOne);
-                await inventoryService.CreateProduct(testProductOne);
+                await inventoryService.CreateProduct(testProductTwo);
 
                 IEnumerable<Product> expected = new List<Product> { testProductOne, testProductTwo };
                 IEnumerable<Product> actual = await inventoryService.GetProducts();
