@@ -64,11 +64,17 @@ namespace PogsRUs.Controllers
 
 
                     await _userManager.AddClaimsAsync(user, claims);
-                    if(user.Email == "Jasonhi@crazyredhead.com" || user.Email == "jimmy.f.chang@gmail.com" || user.Email == "amanda@codefellows.com" || user.Email == "ntibbals@outlook.com" )
-                        {
+                    if(user.Email == "jasonhi@crazyredhead.com" || user.Email == "jimmy.f.chang@gmail.com" || user.Email == "amanda@codefellows.com" || user.Email == "ntibbals@outlook.com" )
+                    {
                         await _userManager.AddToRoleAsync(user, ApplicationRoles.Admin);
-                        }
+                    }
                         await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    if (await _userManager.IsInRoleAsync(user, ApplicationRoles.Admin))
+                    {
+                        return LocalRedirect("~/Admin/Dashboard");
+
+                    }
 
                     return RedirectToAction("Index1", "Home");
                 }
@@ -102,7 +108,11 @@ namespace PogsRUs.Controllers
 
                     await _emailSender.SendEmailAsync(loginVM.Email, "", stringBuilder.ToString());
 
-                    
+                    if (await _userManager.IsInRoleAsync(ourUser, ApplicationRoles.Admin))
+                    {
+                        return LocalRedirect("~/Admin/Dashboard");
+
+                    }
 
                     return RedirectToAction("Index1", "Home");
                 }

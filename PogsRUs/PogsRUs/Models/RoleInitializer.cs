@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace PogsRUs.Models
 {
     public class RoleInitializer
@@ -17,8 +18,7 @@ namespace PogsRUs.Models
         /// </summary>
         private static readonly List<IdentityRole> Roles = new List<IdentityRole>()
         {
-            new IdentityRole{Name = ApplicationRoles.Member, NormalizedName = ApplicationRoles.Member.ToUpper(), ConcurrencyStamp = Guid.NewGuid().ToString() },
-
+            new IdentityRole{Name= ApplicationRoles.Member, NormalizedName = ApplicationRoles.Member.ToUpper(), ConcurrencyStamp = Guid.NewGuid().ToString() },
             new IdentityRole{Name = ApplicationRoles.Admin, NormalizedName = ApplicationRoles.Admin.ToUpper(), ConcurrencyStamp = Guid.NewGuid().ToString() }
         };
 
@@ -29,12 +29,12 @@ namespace PogsRUs.Models
         public static void SeedData(IServiceProvider serviceProvider)
         {
 
+            // looking at our database
             using (var dbContext = new ApplicationDbContext(serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
             {
                 dbContext.Database.EnsureCreated();
                 AddRoles(dbContext);
             }
-
         }
 
         private static void AddRoles(ApplicationDbContext context)
