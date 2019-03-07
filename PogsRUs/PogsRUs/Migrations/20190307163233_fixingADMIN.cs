@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PogsRUs.Migrations
 {
-    public partial class frankenMerge : Migration
+    public partial class fixingADMIN : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
