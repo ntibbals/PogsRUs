@@ -64,7 +64,15 @@ namespace PogsRUs.Controllers
 
 
                     await _userManager.AddClaimsAsync(user, claims);
-                    if(user.Email == "jasonhi@crazyredhead.com" || user.Email == "jimmy.f.chang@gmail.com" || user.Email == "amanda@codefellows.com" || user.Email == "ntibbals@outlook.com" )
+
+                    StringBuilder stringBuilder = new StringBuilder();
+                    string userName = $"{regViewM.FirstName} {regViewM.LastName}";
+                    stringBuilder.Append($"<p>Thank you for Registering at Pog's R Us {userName}!");
+                    stringBuilder.AppendLine("</p>");
+
+                    await _emailSender.SendEmailAsync(regViewM.Email, "", stringBuilder.ToString());
+
+                    if (user.Email == "jasonhi@crazyredhead.com" || user.Email == "jimmy.f.chang@gmail.com" || user.Email == "amanda@codefellows.com" || user.Email == "ntibbals@outlook.com" )
                     {
                         await _userManager.AddToRoleAsync(user, ApplicationRoles.Admin);
                     }
@@ -100,13 +108,7 @@ namespace PogsRUs.Controllers
                 if (result.Succeeded)
                 {
                     var ourUser = await _userManager.FindByEmailAsync(loginVM.Email);
-                    string id = ourUser.Id;
-                    StringBuilder stringBuilder = new StringBuilder();
-                    string userName = $"{ourUser.FirstName} {ourUser.LastName}";
-                    stringBuilder.Append($"<p>Thank you for logging into Pog's R Us {userName}!");
-                    stringBuilder.AppendLine("</p>");
-
-                    await _emailSender.SendEmailAsync(loginVM.Email, "", stringBuilder.ToString());
+              
 
                     if (await _userManager.IsInRoleAsync(ourUser, ApplicationRoles.Admin))
                     {

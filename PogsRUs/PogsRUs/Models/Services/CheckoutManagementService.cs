@@ -194,5 +194,23 @@ namespace PogsRUs.Models.Services
             var orders = allOrders.OrderByDescending(o => o.ID).Take(number).ToList();
             return orders;
         }
+
+        public async Task<Order> GetOrderByOrderID(int ID)
+        {
+            Order order = await _context.Orders.FirstOrDefaultAsync(p => p.ID == ID);
+            if (order == null)
+            {
+                return null;
+            }
+            order.PurchasedProducts = await GetOrderProducts(order.ID);
+
+            order.TotalPrice = await GetTotalPrice(order.PurchasedProducts);
+
+            if (order == null)
+            {
+                return null;
+            }
+            return order;
+        }
     }
 }

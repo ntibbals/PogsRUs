@@ -106,5 +106,12 @@ namespace PogsRUs.Models.Interfaces
         /// <param name="number">number of orders to retreive</param>
         /// <returns>List of ten orders</returns>
         Task<ICollection<Order>> GetLastTenOrders(int number);
+
+        /// <summary>
+        /// Get an order specifically based on order ID
+        /// </summary>
+        /// <param name="ID">order ID</param>
+        /// <returns>individual order</returns>
+        Task<Order> GetOrderByOrderID(int ID);
     }
 }
