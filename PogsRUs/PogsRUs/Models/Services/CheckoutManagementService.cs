@@ -42,6 +42,8 @@ namespace PogsRUs.Models.Services
                 _context.Add(newOrderProduct);
                 _context.Remove(cartProduct);
             }
+            order.TotalPrice = await GetTotalPrice(order.PurchasedProducts);
+            _context.Update(order);
             _context.Remove(cart);
 
             await _context.SaveChangesAsync();
