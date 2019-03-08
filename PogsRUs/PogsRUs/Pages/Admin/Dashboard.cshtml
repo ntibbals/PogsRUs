@@ -1,0 +1,24 @@
+﻿@page
+@model PogsRUs.Pages.Admin.DashboardModel
+@using PogsRUs.Models.Interfaces
+@inject ICheckout CheckoutManagementService
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "_Layout";
+}
+
+<h1>Dashboard</h1>
+
+@{
+    var orders= await CheckoutManagementService.GetLastTenOrders(10);
+
+}
+
+@foreach (var item in orders)
+{
+            <h3>@item.CustName</h3>
+   
+            <p>@item.TotalPrice</p>
+            <p>@item.TimeStamp</p>
+            <a asp-page="/Admin/OrderDetail" asp-route-id="@item.ID" id="button-new">@item.ID</a>
+}

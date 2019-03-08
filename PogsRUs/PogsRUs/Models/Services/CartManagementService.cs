@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AuthorizeNet.Api.Contracts.V1;
+using Microsoft.EntityFrameworkCore;
 using PogsRUs.Data;
 using PogsRUs.Models.Interfaces;
 using System;
@@ -149,6 +150,10 @@ namespace PogsRUs.Models.Services
                 cart.CartProducts = await GetCartProducts(cart);
 
                 cart.TotalPrice = await GetTotalPrice(cart.CartProducts);
+            }
+            else
+            {
+                cart = await CreateCart(userID);
             }
                     
             return cart;
