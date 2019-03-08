@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using PogsRUs.Data;
 using PogsRUs.Models.Interfaces;
 using System;
@@ -11,21 +12,19 @@ namespace PogsRUs.Models.Services
     public class CheckoutManagementService : ICheckout
     {
         private readonly PogsRUsDbContext _context;
+        private UserManager<ApplicationUser> _userManager;
 
-        public CheckoutManagementService(PogsRUsDbContext context)
+        public CheckoutManagementService(PogsRUsDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        public async Task AddOrderProducts(string userID)
+        public async Task AddOrderProducts(string userID, string custName)
         {
-            Order order = await GetOrder(userID);
-
-            if (order == null)
-            {
-                order = await CreateOrder(userID);
-            }
-
+ 
+            Order order = await CreateOrder(userID, custName);
+     
             OrderHistory orderHistory = await GetOrderHistory(userID);
 
             if(orderHistory == null)
@@ -56,10 +55,11 @@ namespace PogsRUs.Models.Services
             return cart;
         }
 
-        public async Task<Order> CreateOrder(string userID)
+        public async Task<Order> CreateOrder(string userID, string custName)
         {
             DateTime currentTime = DateTime.Today;
-            Order order = new Order(userID, currentTime);
+            //string custName = "Test Name";
+            Order order = new Order(userID, currentTime, custName);
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
             return order;
@@ -186,6 +186,13 @@ namespace PogsRUs.Models.Services
             var allUsersOrders = _context.Orders.Where(o => o.UserID == userID);
 
             return allUsersOrders.ToList();
+        }
+
+        public async Task<ICollection<Order>> GetLastTenOrders(int number)
+        {
+            var allOrders = _context.Orders.ToList();
+            var orders = allOrders.OrderByDescending(o => o.ID).Take(number).ToList();
+            return orders;
         }
     }
 }
