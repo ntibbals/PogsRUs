@@ -12,11 +12,14 @@ namespace PogsRUs.Models
         public ICollection<OrderProduct> PurchasedProducts { get; set; }
         public decimal TotalPrice { get; set; }
         public DateTime TimeStamp { get; set; }
+        public string CustName { get; set; }
 
-        public Order(string userID, DateTime timeStamp)
+        public Order(string userID, DateTime timeStamp, string custName)
         {
             UserID = userID;
             TimeStamp = timeStamp;
+            CustName = custName;
+
         }
     }
 }

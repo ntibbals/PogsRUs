@@ -151,6 +151,10 @@ namespace PogsRUs.Models.Services
 
                 cart.TotalPrice = await GetTotalPrice(cart.CartProducts);
             }
+            else
+            {
+                cart = await CreateCart(userID);
+            }
                     
             return cart;
         }

@@ -98,8 +98,9 @@ namespace PogsRUs.Controllers
         }
 
         public async Task<IActionResult> Receipt(string userID)
-        {           
-            await _context.AddOrderProducts(userID);
+        {
+            string custName = User.Claims.First(n => n.Type == "FullName").Value;
+            await _context.AddOrderProducts(userID, custName);
             Order order = await _context.GetOrder(userID);
             return View(order);
         }
