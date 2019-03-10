@@ -5,14 +5,13 @@ using System.Threading.Tasks;
 
 namespace PogsRUs.Models
 {
-    public class TransactionHistory
+    public class OrderHistory
     {
         public int ID { get; set; }
         public string UserID { get; set; }
-        public ICollection<TransactionHistoryProduct> PurchasedProducts { get; set; }
-        public decimal TotalPrice { get; set; }
+        public ICollection<Order> AllUserOrders { get; set; }
 
-        public TransactionHistory(string userID)
+        public OrderHistory(string userID)
         {
             UserID = userID;
         }

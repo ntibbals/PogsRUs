@@ -15,7 +15,7 @@ namespace PogsRUs.Migrations.PogsRUsDb
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
+                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -55,6 +55,67 @@ namespace PogsRUs.Migrations.PogsRUsDb
                     b.HasIndex("CartID");
 
                     b.ToTable("CartProducts");
+                });
+
+            modelBuilder.Entity("PogsRUs.Models.Order", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CustName");
+
+                    b.Property<int?>("OrderHistoryID");
+
+                    b.Property<DateTime>("TimeStamp");
+
+                    b.Property<decimal>("TotalPrice");
+
+                    b.Property<string>("UserID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("OrderHistoryID");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("PogsRUs.Models.OrderHistory", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("UserID");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("OrderHistories");
+                });
+
+            modelBuilder.Entity("PogsRUs.Models.OrderProduct", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("OrderID");
+
+                    b.Property<int>("ProductID");
+
+                    b.Property<int>("Quantity");
+
+                    b.Property<decimal>("SingleItemPrice");
+
+                    b.Property<DateTime>("TimeStamp");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("OrderID");
+
+                    b.ToTable("OrderProducts");
                 });
 
             modelBuilder.Entity("PogsRUs.Models.Product", b =>
@@ -186,46 +247,6 @@ namespace PogsRUs.Migrations.PogsRUsDb
                         });
                 });
 
-            modelBuilder.Entity("PogsRUs.Models.TransactionHistory", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("TotalPrice");
-
-                    b.Property<string>("UserID");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("TransactionHistories");
-                });
-
-            modelBuilder.Entity("PogsRUs.Models.TransactionHistoryProduct", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.Property<int>("ProductID");
-
-                    b.Property<int>("Quantity");
-
-                    b.Property<decimal>("SingleItemPrice");
-
-                    b.Property<DateTime>("TimeStamp");
-
-                    b.Property<int>("TransactionHistoryID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("TransactionHistoryID");
-
-                    b.ToTable("TransactionHistoryProducts");
-                });
-
             modelBuilder.Entity("PogsRUs.Models.CartProduct", b =>
                 {
                     b.HasOne("PogsRUs.Models.Cart")
@@ -234,11 +255,18 @@ namespace PogsRUs.Migrations.PogsRUsDb
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("PogsRUs.Models.TransactionHistoryProduct", b =>
+            modelBuilder.Entity("PogsRUs.Models.Order", b =>
                 {
-                    b.HasOne("PogsRUs.Models.TransactionHistory")
+                    b.HasOne("PogsRUs.Models.OrderHistory")
+                        .WithMany("AllUserOrders")
+                        .HasForeignKey("OrderHistoryID");
+                });
+
+            modelBuilder.Entity("PogsRUs.Models.OrderProduct", b =>
+                {
+                    b.HasOne("PogsRUs.Models.Order")
                         .WithMany("PurchasedProducts")
-                        .HasForeignKey("TransactionHistoryID")
+                        .HasForeignKey("OrderID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

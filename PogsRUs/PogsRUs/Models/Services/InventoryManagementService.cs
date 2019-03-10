@@ -19,17 +19,6 @@ namespace PogsRUs.Models.Services
         }
 
         /// <summary>
-        /// Create Product
-        /// </summary>
-        /// <param name="product"></param>
-        /// <returns>Task</returns>
-        public async Task CreateProduct(Product product)
-        {
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
-        }
-
-        /// <summary>
         /// Deletes existing product.
         /// </summary>
         /// <param name="product"></param>
@@ -60,13 +49,22 @@ namespace PogsRUs.Models.Services
         }
 
         /// <summary>
-        /// Updates existing product.
+        /// Either creates or updates a product.
         /// </summary>
-        /// <param name="product"></param>
-        /// <returns>Task</returns>
-        public async Task UpdateProduct(Product product)
+        /// <param name="product">Incoming product</param>
+        /// <returns>Either adds new product to db or updates exisiting product</returns>
+        public async Task SaveAsync(Product product)
         {
-            _context.Products.Update(product);
+            //If existing post isnt found then post is added.
+            if (await _context.Products.FirstOrDefaultAsync(p => p.ID == product.ID) == null)
+            {
+                _context.Products.Add(product);
+            }
+            //If existing post is found then post is updated
+            else
+            {
+                _context.Products.Update(product);
+            }
             await _context.SaveChangesAsync();
         }
     }

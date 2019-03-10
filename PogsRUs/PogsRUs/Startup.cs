@@ -42,63 +42,65 @@ namespace PogsRUs
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("ProfessionalsOnly", policy => policy.Requirements.Add(new ProfessionalRequirement("true")));
+                options.AddPolicy("AdminOnly", policy => policy.RequireRole(ApplicationRoles.Admin));
             });
 
             /********************** DEFAULT **************************************/
 
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //options.UseSqlServer(Configuration["ConnectionStrings:IdentityDefaultConnection"]));
+            services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(Configuration["ConnectionStrings:IdentityDefaultConnection"]));
 
-            //services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+            services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 
 
-            //services.AddAuthentication()
-            //    .AddMicrosoftAccount(microsoftOptions =>
-            //    {
-            //        microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ApplicationId"];
-            //        microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:Password"];
-            //    })
-            //    .AddGoogle(googleOptions =>
-            //    {
-            //        googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
-            //        googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
-            //        googleOptions.UserInformationEndpoint = "https://www.googleapis.com/oauth2/v2/userinfo";
-            //        googleOptions.ClaimActions.Clear();
-            //        googleOptions.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
-            //        googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
-            //        googleOptions.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "given_name");
-            //        googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Surname, "family_name");
-            //        googleOptions.ClaimActions.MapJsonKey("urn:google:profile", "link");
-            //        googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
-            //    });
+            services.AddAuthentication()
+                .AddMicrosoftAccount(microsoftOptions =>
+                {
+                    microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ApplicationId"];
+                    microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:Password"];
+                })
+                .AddGoogle(googleOptions =>
+                {
+                    googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
+                    googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                    googleOptions.UserInformationEndpoint = "https://www.googleapis.com/oauth2/v2/userinfo";
+                    googleOptions.ClaimActions.Clear();
+                    googleOptions.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
+                    googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
+                    googleOptions.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "given_name");
+                    googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Surname, "family_name");
+                    googleOptions.ClaimActions.MapJsonKey("urn:google:profile", "link");
+                    googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
+                });
 
             /**********************Production***********************/
 
-            services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:ProductionConnection"]));
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:IdentityProductionConnection"]));
+            //services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:ProductionConnection"]));
+            //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:IdentityProductionConnection"]));
 
 
-            services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
-            {
-                microsoftOptions.ClientId = Configuration["MicrosoftApplicationId"];
-                microsoftOptions.ClientSecret = Configuration["MicrosoftPassword"];
-            })
-            .AddGoogle(googleOptions =>
-            {
-                googleOptions.ClientId = Configuration["GoogleClientId"];
-                googleOptions.ClientSecret = Configuration["GoogleClientSecret"];
-                googleOptions.UserInformationEndpoint = "https://www.googleapis.com/oauth2/v2/userinfo";
-                googleOptions.ClaimActions.Clear();
-                googleOptions.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
-                googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
-                googleOptions.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "given_name");
-                googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Surname, "family_name");
-                googleOptions.ClaimActions.MapJsonKey("urn:google:profile", "link");
-                googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
-            });
+            //services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+            //{
+            //    microsoftOptions.ClientId = Configuration["MicrosoftApplicationId"];
+            //    microsoftOptions.ClientSecret = Configuration["MicrosoftPassword"];
+            //})
+            //.AddGoogle(googleOptions =>
+            //{
+            //    googleOptions.ClientId = Configuration["GoogleClientId"];
+            //    googleOptions.ClientSecret = Configuration["GoogleClientSecret"];
+            //    googleOptions.UserInformationEndpoint = "https://www.googleapis.com/oauth2/v2/userinfo";
+            //    googleOptions.ClaimActions.Clear();
+            //    googleOptions.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
+            //    googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
+            //    googleOptions.ClaimActions.MapJsonKey(ClaimTypes.GivenName, "given_name");
+            //    googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Surname, "family_name");
+            //    googleOptions.ClaimActions.MapJsonKey("urn:google:profile", "link");
+            //    googleOptions.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
+            //});
 
 
             //Add Dependency Injection Here

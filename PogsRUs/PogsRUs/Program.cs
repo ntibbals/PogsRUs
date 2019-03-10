@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using PogsRUs.Models;
 
 namespace PogsRUs
 {
@@ -14,7 +16,23 @@ namespace PogsRUs
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            var host = CreateWebHostBuilder(args).Build();
+            using (var scope = host.Services.CreateScope())
+            {
+                // Get service provider
+                var services = scope.ServiceProvider;
+
+                // Call seeded role data
+                try
+                {
+                    RoleInitializer.SeedData(services);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            host.Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -22,3 +40,4 @@ namespace PogsRUs
                 .UseStartup<Startup>();
     }
 }
+
