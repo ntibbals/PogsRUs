@@ -40,6 +40,7 @@
             <ul id="nav">
                 <li><a id="links" href='/Home/Index1'> Home </a></li>
                 <li><a id="links" href='/Product/Index'> Products </a></li>
+                <li><a asp-page="/Admin/ManageProducts" id="button-new">Manage Products</a></li>
                 <li><a id="links" href='/Policy/Professionals'> Professionals </a></li>
                 @if (!signInManager.IsSignedIn(User))
                 {
@@ -47,7 +48,7 @@
                 }
                 else
                 {
-                    <li><a  id="button-new" href='/Account/Logout'><i class="fas fa-sign-out-alt">Log Out</i></a></li>
+                    <li><a id="button-new" href='/Account/Logout'><i class="fas fa-sign-out-alt">Log Out</i></a></li>
                 }
                 @if (signInManager.IsSignedIn(User))
                 {

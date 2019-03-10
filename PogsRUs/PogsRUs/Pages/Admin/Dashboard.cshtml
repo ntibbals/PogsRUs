@@ -9,6 +9,9 @@
 
 <h1>Dashboard</h1>
 
+<a asp-page="/Admin/ManageProducts" id="button-new">Manage Products</a>
+
+<h1>Last 10 Completed Orders</h1>
 @{
     var orders= await CheckoutManagementService.GetLastTenOrders(10);
 

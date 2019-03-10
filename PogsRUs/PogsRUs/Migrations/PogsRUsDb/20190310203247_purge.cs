@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PogsRUs.Migrations.PogsRUsDb
 {
-    public partial class fixingADMIN : Migration
+    public partial class purge : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -85,6 +85,7 @@ namespace PogsRUs.Migrations.PogsRUsDb
                     UserID = table.Column<string>(nullable: true),
                     TotalPrice = table.Column<decimal>(nullable: false),
                     TimeStamp = table.Column<DateTime>(nullable: false),
+                    CustName = table.Column<string>(nullable: true),
                     OrderHistoryID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

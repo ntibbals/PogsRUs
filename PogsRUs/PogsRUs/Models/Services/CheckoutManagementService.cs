@@ -192,7 +192,7 @@ namespace PogsRUs.Models.Services
 
         public async Task<ICollection<Order>> GetLastTenOrders(int number)
         {
-            var allOrders = _context.Orders.ToList();
+            var allOrders = await GetAllOrders();
             var orders = allOrders.OrderByDescending(o => o.ID).Take(number).ToList();
             return orders;
         }
@@ -214,5 +214,7 @@ namespace PogsRUs.Models.Services
             }
             return order;
         }
+
+        
     }
 }
