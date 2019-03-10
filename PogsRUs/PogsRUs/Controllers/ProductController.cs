@@ -78,7 +78,7 @@ namespace PogsRUs.Controllers
             {
                 if(ModelState.IsValid)
                 {
-                    await _context.CreateProduct(product);
+                    await _context.SaveAsync(product);
                     return RedirectToAction(nameof(Index));
                 }
                 return View(product);
@@ -120,7 +120,7 @@ namespace PogsRUs.Controllers
             {
                 try
                 {
-                    await _context.UpdateProduct(product);
+                    await _context.SaveAsync(product);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

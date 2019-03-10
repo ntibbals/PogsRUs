@@ -14,7 +14,7 @@
 
 <h1 class="product-title"> All Pogs R Us Products</h1>
 
-<a asp-page="/Admin/CreateProduct" id="button-new">Create New Product</a>
+<a asp-page="/Admin/CreateEditProduct" id="button-new">Create New Product</a>
 
 
 
@@ -38,8 +38,7 @@
         <section class="prod-details prod-hide">
             <p>@product.Description</p>
         </section>
-        <a asp-page="/Admin/EditProduct" id="button-new" asp-route-id="@product.ID">Edit Product</a>
-        <a asp-page="/Admin/DeleteProduct" id="button-new" asp-route-id="@product.ID">Delete Product</a>
+        <a asp-page="/Admin/CreateEditProduct" id="button-new" asp-route-id="@product.ID">Edit/Delete Product</a>
     </div>
 
     }
