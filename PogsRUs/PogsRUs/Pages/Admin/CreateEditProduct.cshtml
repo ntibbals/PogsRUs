@@ -1,0 +1,43 @@
+﻿@page "{id?}"
+@model PogsRUs.Pages.Admin.CreateEditProductModel
+@{
+    ViewData["Title"] = "Create/Edit Product";
+    Layout = "_Layout";
+}
+
+<div id="post-contain">
+    <form method="post" enctype="multipart/form-data">
+        <div id="name-contain">
+            <label asp-for="@Model.Product.Name">Product Name</label>
+            <input asp-for="@Model.Product.Name" />
+        </div>
+
+        <div id="sku-contain">
+            <label asp-for="@Model.Product.Sku">Product SKU</label>
+            <input asp-for="@Model.Product.Sku" />
+        </div>
+
+        <div id="pogType-contain">
+            <label asp-for="@Model.Product.PogType">PogType</label>
+            <select asp-for="@Model.Product.PogType" asp-items="@Html.GetEnumSelectList(typeof(PogsRUs.Models.PogType))"></select>
+        </div>
+
+        <div id="auth-contain">
+            <label asp-for="@Model.Product.Price">Product Price</label>
+            <input asp-for="@Model.Product.Price" />
+        </div>
+
+        <div id="auth-contain">
+            <label asp-for="@Model.Product.Image">Product Image URL</label>
+            <input asp-for="@Model.Product.Image" />
+        </div>
+
+        <div id="detail-contain">
+            <label asp-for="@Model.Product.Description">Product Description</label>
+            <textarea rows="10" cols="65" asp-for="@Model.Product.Description"></textarea>
+        </div>
+
+        <button class="detail-butt" type="submit">Save Product</button>
+        <button class="detail-butt" type="submit" asp-page-handler="Delete">Delete Product</button>
+    </form>
+</div>
