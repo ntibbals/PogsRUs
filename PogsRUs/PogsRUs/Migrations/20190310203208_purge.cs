@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PogsRUs.Migrations
 {
-    public partial class fixingADMIN : Migration
+    public partial class purge : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

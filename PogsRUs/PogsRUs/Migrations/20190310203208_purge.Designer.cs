@@ -10,8 +10,8 @@ using PogsRUs.Data;
 namespace PogsRUs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190308002025_order1")]
-    partial class order1
+    [Migration("20190310203208_purge")]
+    partial class purge
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
