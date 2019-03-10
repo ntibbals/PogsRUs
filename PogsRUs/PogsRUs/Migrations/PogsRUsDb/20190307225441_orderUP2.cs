@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace PogsRUs.Migrations
+namespace PogsRUs.Migrations.PogsRUsDb
 {
-    public partial class admin1 : Migration
+    public partial class orderUP2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

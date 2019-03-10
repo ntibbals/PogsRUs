@@ -10,14 +10,14 @@ using PogsRUs.Data;
 namespace PogsRUs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190305004603_quant1")]
-    partial class quant1
+    [Migration("20190308002025_order1")]
+    partial class order1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
+                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 

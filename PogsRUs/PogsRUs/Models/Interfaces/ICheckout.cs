@@ -13,7 +13,7 @@ namespace PogsRUs.Models.Interfaces
         /// </summary>
         /// <param name="userID">ID of User</param>
         /// <returns>New Transaction History</returns>
-        Task<Order> CreateOrder(string userID);
+        Task<Order> CreateOrder(string userID, string custName);
 
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace PogsRUs.Models.Interfaces
         /// <param name="productID">ID of Product</param>
         /// <param name="userID">ID of User</param>
         /// <returns></returns>
-        Task AddOrderProducts(string userID);
+        Task AddOrderProducts(string userID, string custName);
 
         /// <summary>
         /// Retreive all existing products in TransactionHistoryProduct and returns as a list.
@@ -99,5 +99,19 @@ namespace PogsRUs.Models.Interfaces
         /// </summary>
         /// <returns>Returns an ICollection of All User Orders in DB</returns>
         Task<ICollection<Order>> GetAllUserOrders(string userID);
+
+        /// <summary>
+        /// Retreive the last ten orders for admin page
+        /// </summary>
+        /// <param name="number">number of orders to retreive</param>
+        /// <returns>List of ten orders</returns>
+        Task<ICollection<Order>> GetLastTenOrders(int number);
+
+        /// <summary>
+        /// Get an order specifically based on order ID
+        /// </summary>
+        /// <param name="ID">order ID</param>
+        /// <returns>individual order</returns>
+        Task<Order> GetOrderByOrderID(int ID);
     }
 }

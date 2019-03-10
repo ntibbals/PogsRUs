@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PogsRUs.Migrations.PogsRUsDb
 {
-    public partial class frankenMerge : Migration
+    public partial class fixingADMIN : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,6 +23,19 @@ namespace PogsRUs.Migrations.PogsRUsDb
                 });
 
             migrationBuilder.CreateTable(
+                name: "OrderHistories",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserID = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderHistories", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -38,20 +51,6 @@ namespace PogsRUs.Migrations.PogsRUsDb
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TransactionHistories",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserID = table.Column<string>(nullable: true),
-                    TotalPrice = table.Column<decimal>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TransactionHistories", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,13 +77,35 @@ namespace PogsRUs.Migrations.PogsRUsDb
                 });
 
             migrationBuilder.CreateTable(
-                name: "TransactionHistoryProducts",
+                name: "Orders",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserID = table.Column<string>(nullable: true),
+                    TotalPrice = table.Column<decimal>(nullable: false),
+                    TimeStamp = table.Column<DateTime>(nullable: false),
+                    OrderHistoryID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Orders_OrderHistories_OrderHistoryID",
+                        column: x => x.OrderHistoryID,
+                        principalTable: "OrderHistories",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderProducts",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ProductID = table.Column<int>(nullable: false),
-                    TransactionHistoryID = table.Column<int>(nullable: false),
+                    OrderID = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Quantity = table.Column<int>(nullable: false),
                     SingleItemPrice = table.Column<decimal>(nullable: false),
@@ -92,11 +113,11 @@ namespace PogsRUs.Migrations.PogsRUsDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TransactionHistoryProducts", x => x.ID);
+                    table.PrimaryKey("PK_OrderProducts", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_TransactionHistoryProducts_TransactionHistories_TransactionHistoryID",
-                        column: x => x.TransactionHistoryID,
-                        principalTable: "TransactionHistories",
+                        name: "FK_OrderProducts_Orders_OrderID",
+                        column: x => x.OrderID,
+                        principalTable: "Orders",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -124,9 +145,14 @@ namespace PogsRUs.Migrations.PogsRUsDb
                 column: "CartID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TransactionHistoryProducts_TransactionHistoryID",
-                table: "TransactionHistoryProducts",
-                column: "TransactionHistoryID");
+                name: "IX_OrderProducts_OrderID",
+                table: "OrderProducts",
+                column: "OrderID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_OrderHistoryID",
+                table: "Orders",
+                column: "OrderHistoryID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -135,16 +161,19 @@ namespace PogsRUs.Migrations.PogsRUsDb
                 name: "CartProducts");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "OrderProducts");
 
             migrationBuilder.DropTable(
-                name: "TransactionHistoryProducts");
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Carts");
 
             migrationBuilder.DropTable(
-                name: "TransactionHistories");
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "OrderHistories");
         }
     }
 }

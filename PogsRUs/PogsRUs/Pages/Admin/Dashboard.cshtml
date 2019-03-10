@@ -10,26 +10,15 @@
 <h1>Dashboard</h1>
 
 @{
-    var orderHistory = await CheckoutManagementService.GetAllOrders();
+    var orders= await CheckoutManagementService.GetLastTenOrders(10);
 
 }
 
-@foreach (var item in orderHistory)
+@foreach (var item in orders)
 {
-    <h3>@item.UserID</h3>
-    {
-        var userOrders = await CheckoutManagementService.GetAllUserOrders(item.UserID);
-
-
-        foreach (var order in userOrders)
-        {
-            var products = await CheckoutManagementService.GetOrderProducts(order.ID);
-            foreach (var product in products)
-            {
-                <p>@product.Name</p>
-            }
-            <p>@order.TotalPrice</p>
-            <p>@order.TimeStamp</p>
-        }
-    }
+            <h3>@item.CustName</h3>
+   
+            <p>@item.TotalPrice</p>
+            <p>@item.TimeStamp</p>
+            <a asp-page="/Admin/OrderDetail" asp-route-id="@item.ID" id="button-new">@item.ID</a>
 }

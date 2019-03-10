@@ -24,10 +24,10 @@ namespace PogsRUs.Controllers
         /// This is our admin dashboard
         /// </summary>
         /// <returns>Authorized view for admin</returns>
-        [Authorize]
+        [Authorize(Policy = "AdminOnly")]
         public IActionResult Admin()
         {
-            return View();
+            return LocalRedirect("~/Pages/Admin/Dashboard");
         }
 
     }

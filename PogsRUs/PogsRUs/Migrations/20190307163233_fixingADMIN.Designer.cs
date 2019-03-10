@@ -10,8 +10,8 @@ using PogsRUs.Data;
 namespace PogsRUs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190306180520_admin1")]
-    partial class admin1
+    [Migration("20190307163233_fixingADMIN")]
+    partial class fixingADMIN
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

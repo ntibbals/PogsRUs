@@ -10,8 +10,8 @@ using PogsRUs.Data;
 namespace PogsRUs.Migrations.PogsRUsDb
 {
     [DbContext(typeof(PogsRUsDbContext))]
-    [Migration("20190306180541_admin2")]
-    partial class admin2
+    [Migration("20190308002044_order1")]
+    partial class order1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,6 +64,8 @@ namespace PogsRUs.Migrations.PogsRUsDb
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CustName");
 
                     b.Property<int?>("OrderHistoryID");
 

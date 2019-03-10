@@ -42,9 +42,11 @@ namespace PogsRUs
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("ProfessionalsOnly", policy => policy.Requirements.Add(new ProfessionalRequirement("true")));
+                options.AddPolicy("AdminOnly", policy => policy.RequireRole(ApplicationRoles.Admin));
             });
 
             /********************** DEFAULT **************************************/
