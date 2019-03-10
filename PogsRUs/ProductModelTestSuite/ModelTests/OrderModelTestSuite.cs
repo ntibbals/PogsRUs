@@ -29,7 +29,7 @@ namespace TestSuite.ModelTests
             OrderProduct testOrderProduct = CreateOrderProduct();
             List<OrderProduct> purchasedProducts = new List<OrderProduct>();
 
-            Order testOrder = new Order("jimbob@pogs.com", DateTime.Today);
+            Order testOrder = new Order("jimbob@pogs.com", DateTime.Today, "JimBob");
             testOrder.ID = 1;
             testOrder.TotalPrice = 1;
             testOrder.PurchasedProducts = purchasedProducts;

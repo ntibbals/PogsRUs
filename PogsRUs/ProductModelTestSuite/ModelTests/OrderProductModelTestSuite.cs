@@ -25,7 +25,7 @@ namespace TestSuite.ModelTests
 
         public Order CreateOrder()
         {
-            Order testOrder = new Order("jimbob@pogs.com", DateTime.Today);
+            Order testOrder = new Order("jimbob@pogs.com", DateTime.Today, "JimBob");
             testOrder.ID = 1;
             return testOrder;
         }
