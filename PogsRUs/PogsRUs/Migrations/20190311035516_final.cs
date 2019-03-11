@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace PogsRUs.Migrations.ApplicationDb
+namespace PogsRUs.Migrations
 {
-    public partial class cart1 : Migration
+    public partial class final : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

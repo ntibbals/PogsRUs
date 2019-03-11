@@ -7,13 +7,7 @@ namespace PogsRUs.Models.Interfaces
 {
     public interface IInventory
     {
-        /// <summary>
-        /// Create Product
-        /// </summary>
-        /// <param name="product"></param>
-        /// <returns>Task</returns>
-        Task CreateProduct(Product product);
-
+        
         /// <summary>
         /// Searches all products and returns product that matches input id.
         /// </summary>
@@ -26,13 +20,7 @@ namespace PogsRUs.Models.Interfaces
         /// </summary>
         /// <returns>List of Products</returns>
         Task<IEnumerable<Product>> GetProducts();
-
-        /// <summary>
-        /// Updates existing product.
-        /// </summary>
-        /// <param name="product"></param>
-        /// <returns>Task</returns>
-        Task UpdateProduct(Product product);
+     
 
         /// <summary>
         /// Deletes existing product.
@@ -40,5 +28,12 @@ namespace PogsRUs.Models.Interfaces
         /// <param name="product"></param>
         /// <returns></returns>
         Task DeleteProduct(Product product);
+
+        /// <summary>
+        /// Either creates or updates a product.
+        /// </summary>
+        /// <param name="product">Incoming product</param>
+        /// <returns>Either adds new product to db or updates exisiting product</returns>
+        Task SaveAsync(Product product);
     }
 }

@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace PogsRUs.Models
 {
-    public class TransactionHistoryProduct
+    public class OrderProduct
     {
         public int ID { get; set; }
         public int ProductID { get; set; }
-        public int TransactionHistoryID { get; set; }
+        public int OrderID { get; set; }
         public string Name { get; set; }
         public int Quantity { get; set; }
         public decimal SingleItemPrice { get; set; }
@@ -23,10 +23,10 @@ namespace PogsRUs.Models
             }
         }
 
-        public TransactionHistoryProduct(int productID, int transactionHistoryID, string name, decimal singleItemPrice, int quantity, DateTime timeStamp)
+        public OrderProduct(int productID, int orderID, string name, decimal singleItemPrice, int quantity, DateTime timeStamp)
         {
             ProductID = productID;
-            TransactionHistoryID = transactionHistoryID;
+            OrderID = orderID;
             Quantity = quantity;
             Name = name;
             SingleItemPrice = singleItemPrice;

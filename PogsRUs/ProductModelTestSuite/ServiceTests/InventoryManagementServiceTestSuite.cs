@@ -11,7 +11,7 @@ using Xunit;
 using Microsoft.EntityFrameworkCore.Design;
 using System.Threading.Tasks;
 
-namespace TestSuite
+namespace TestSuite.ServiceTests
 {
     public class InventoryManagementServiceTestSuite
     {
@@ -44,7 +44,7 @@ namespace TestSuite
 
                 InventoryManagementService inventoryService = new InventoryManagementService(context);
 
-                await inventoryService.CreateProduct(testProduct);
+                await inventoryService.SaveAsync(testProduct);
 
                 Product result = context.Products.FirstOrDefault(p => p.ID == testProduct.ID);
 
@@ -63,7 +63,7 @@ namespace TestSuite
 
                 InventoryManagementService inventoryService = new InventoryManagementService(context);
 
-                await inventoryService.CreateProduct(testProduct);
+                await inventoryService.SaveAsync(testProduct);
 
                 await inventoryService.DeleteProduct(testProduct);
 
@@ -84,7 +84,7 @@ namespace TestSuite
 
                 InventoryManagementService inventoryService = new InventoryManagementService(context);
 
-                await inventoryService.CreateProduct(testProduct);
+                await inventoryService.SaveAsync(testProduct);
 
                 Product expected = context.Products.FirstOrDefault(p => p.ID == testProduct.ID);
 
@@ -107,8 +107,8 @@ namespace TestSuite
 
                 InventoryManagementService inventoryService = new InventoryManagementService(context);
 
-                await inventoryService.CreateProduct(testProductOne);
-                await inventoryService.CreateProduct(testProductOne);
+                await inventoryService.SaveAsync(testProductOne);
+                await inventoryService.SaveAsync(testProductTwo);
 
                 IEnumerable<Product> expected = new List<Product> { testProductOne, testProductTwo };
                 IEnumerable<Product> actual = await inventoryService.GetProducts();
@@ -128,11 +128,11 @@ namespace TestSuite
 
                 InventoryManagementService inventoryService = new InventoryManagementService(context);
 
-                await inventoryService.CreateProduct(testProduct);
+                await inventoryService.SaveAsync(testProduct);
 
                 testProduct.Name = "New Name";
 
-                await inventoryService.UpdateProduct(testProduct);
+                await inventoryService.SaveAsync(testProduct);
 
                 Product result = context.Products.FirstOrDefault(p => p.ID == testProduct.ID);
 

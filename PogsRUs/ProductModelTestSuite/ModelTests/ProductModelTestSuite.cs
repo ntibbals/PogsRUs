@@ -2,7 +2,7 @@ using System;
 using Xunit;
 using PogsRUs.Models;
 
-namespace TestSuite
+namespace TestSuite.ModelTests
 {
     public class ProductModelTestSuite
     {
@@ -21,7 +21,7 @@ namespace TestSuite
 
             return testProduct;
 
-            }
+        }
 
 
         [Fact]

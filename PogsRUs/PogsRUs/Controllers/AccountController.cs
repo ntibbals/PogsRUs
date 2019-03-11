@@ -59,13 +59,31 @@ namespace PogsRUs.Controllers
                     Claim emailClaim = new Claim(ClaimTypes.Email, user.Email, ClaimValueTypes.Email);
                     Claim birthdayClaim = new Claim(ClaimTypes.DateOfBirth, new DateTime(user.Birthday.Year, user.Birthday.Month, user.Birthday.Day).ToString("u"), ClaimValueTypes.DateTime);
                     Claim professionalClaim = new Claim("Professional", user.Professional);
+                    Claim userEmailClaim = new Claim("Email", user.Email );
 
-                    List<Claim> claims = new List<Claim> { fullNameClaim, emailClaim, birthdayClaim, professionalClaim };
+                    List<Claim> claims = new List<Claim> { fullNameClaim, emailClaim, birthdayClaim, professionalClaim, userEmailClaim };
 
 
                     await _userManager.AddClaimsAsync(user, claims);
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    StringBuilder stringBuilder = new StringBuilder();
+                    string userName = $"{regViewM.FirstName} {regViewM.LastName}";
+                    stringBuilder.Append($"<p>Thank you for Registering at Pog's R Us {userName}!");
+                    stringBuilder.AppendLine("</p>");
+
+                    await _emailSender.SendEmailAsync(regViewM.Email, "", stringBuilder.ToString());
+
+                    if (user.Email == "jasonhi@crazyredhead.com" || user.Email == "jimmy.f.chang@gmail.com" || user.Email == "amanda@codefellows.com" || user.Email == "ntibbals@outlook.com" )
+                    {
+                        await _userManager.AddToRoleAsync(user, ApplicationRoles.Admin);
+                    }
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    if (await _userManager.IsInRoleAsync(user, ApplicationRoles.Admin))
+                    {
+                        return LocalRedirect("~/Admin/Dashboard");
+
+                    }
 
                     return RedirectToAction("Index1", "Home");
                 }
@@ -91,15 +109,13 @@ namespace PogsRUs.Controllers
                 if (result.Succeeded)
                 {
                     var ourUser = await _userManager.FindByEmailAsync(loginVM.Email);
-                    string id = ourUser.Id;
-                    StringBuilder stringBuilder = new StringBuilder();
-                    string userName = $"{ourUser.FirstName} {ourUser.LastName}";
-                    stringBuilder.Append($"<p>Thank you for logging into Pog's R Us {userName}!");
-                    stringBuilder.AppendLine("</p>");
+              
 
-                    await _emailSender.SendEmailAsync(loginVM.Email, "", stringBuilder.ToString());
+                    if (await _userManager.IsInRoleAsync(ourUser, ApplicationRoles.Admin))
+                    {
+                        return LocalRedirect("~/Admin/Dashboard");
 
-                    
+                    }
 
                     return RedirectToAction("Index1", "Home");
                 }

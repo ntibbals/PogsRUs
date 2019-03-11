@@ -2,7 +2,7 @@
 
 namespace PogsRUs.Migrations.PogsRUsDb
 {
-    public partial class quant1 : Migration
+    public partial class final : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -1,0 +1,36 @@
+﻿@page "{id}"
+@model PogsRUs.Pages.Admin.OrderDetailModel
+@{
+    ViewData["Title"] = "OrderDetail";
+    Layout = "_Layout";
+}
+@{
+    var email = @User.Claims.First(c => c.Type == "Email").Value;
+}
+<h1>OrderDetail</h1>
+
+<div id="formcontain">
+    <div id="content-contain">
+        <div id="detail-contain">
+            <label asp-for="Order.ID">Order Number: @Model.Order.ID</label>
+        </div>
+        <div id="detail-contain">
+            <label asp-for="Order.CustName">Customer Name: @Model.Order.CustName</label>
+        </div>
+        <div id="detail-contain">
+            <label asp-for="Order.CustName">
+                @foreach (var item in Model.Order.PurchasedProducts)
+                {
+                    <p>Product Name: @item.Name</p>
+                    <p>Product Price: @item.SingleItemPrice</p>
+                }
+            </label>
+        </div>
+        <div id="detail-contain">
+            <label asp-for="Order.TotalPrice">Total Order Price: @Model.Order.TotalPrice</label>
+        </div>
+        <div id="but-contain">
+            <a href="/Profile/UserProfile/@email" id="button">Back to Profile</a>
+        </div>
+    </div>
+</div>
