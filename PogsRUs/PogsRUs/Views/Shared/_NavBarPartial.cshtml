@@ -3,9 +3,7 @@
 @inject SignInManager<ApplicationUser> signInManager
 @inject UserManager<ApplicationUser> userManager
 
-@{
-    var email = @User.Claims.First(c => c.Type == "Email").Value;
-}
+
 
 <div id="headcontain">
     <div id="head-but-contain">
@@ -20,7 +18,11 @@
         }
         @if (signInManager.IsSignedIn(User))
         {
+            {
+                var email = @User.Claims.First(c => c.Type == "Email").Value;
+           
             <a href='/Profile/UserProfile/@email' id="button-new">User Profile</a>
+            }
 
         }
         @if (!signInManager.IsSignedIn(User))
