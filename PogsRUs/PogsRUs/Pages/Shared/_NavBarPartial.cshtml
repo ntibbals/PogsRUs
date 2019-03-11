@@ -1,16 +1,30 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using PogsRUs.Models
 @inject SignInManager<ApplicationUser> signInManager
+@inject UserManager<ApplicationUser> userManager
+
+
 
 <div id="headcontain">
     <div id="head-but-contain">
         @if (signInManager.IsSignedIn(User))
         {
             <a id="button-new">Hello, @User.Claims.First(c => c.Type == "FullName").Value</a>
+
+
         }
         else
         {
             <a asp-controller="Account" id="button-new" asp-action="Login"><i class="fas fa-sign-in-alt"></i>Log In</a>
+
+        }
+        @if (signInManager.IsSignedIn(User))
+        {
+            {
+                var email = @User.Claims.First(c => c.Type == "Email").Value;
+           
+            <a href='/Profile/UserProfile/@email' id="button-new">User Profile</a>
+            }
 
         }
         @if (!signInManager.IsSignedIn(User))
@@ -24,12 +38,12 @@
         }
         @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
         {
-            <a asp-page="/Admin/Dashboard" id="button-new" >Admin Dashboard</a>
+            <a asp-page="/Admin/Dashboard" id="button-new">Admin Dashboard</a>
 
         }
         <a id="button-new" href='/Policy/Professionals'>Professionals</a>
-        <a  id="button-new" href='/Product/Index'>Products</a>
-        <a  id="button-new" href='/Home/Index1'><i class="fas fa-home"></i>Home</a>
+        <a id="button-new" href='/Product/Index'>Products</a>
+        <a id="button-new" href='/Home/Index1'><i class="fas fa-home"></i>Home</a>
     </div>
     <nav id="hamburger" role="navigation">
         <div id="navToggle">
@@ -61,10 +75,10 @@
                     <li><a id="links" href='/Account/Login'> Login </a></li>
                 }
             </ul>
-            </div>
-        </nav>
-        <div id="indexcontain">
-            <img src="~/assets/Logo.png" alt="Pogs R Us Logo" class="head-logo" />
-
         </div>
+    </nav>
+    <div id="indexcontain">
+        <img src="~/assets/Logo.png" alt="Pogs R Us Logo" class="head-logo" />
+
     </div>
+</div>

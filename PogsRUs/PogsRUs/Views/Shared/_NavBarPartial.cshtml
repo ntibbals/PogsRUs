@@ -1,6 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using PogsRUs.Models
 @inject SignInManager<ApplicationUser> signInManager
+@inject UserManager<ApplicationUser> userManager
+
+
 
 <div id="headcontain">
     <div id="head-but-contain">
@@ -11,6 +14,15 @@
         else
         {
             <a asp-controller="Account" id="button-new" asp-action="Login"><i class="fas fa-sign-in-alt"></i>Log In</a>
+
+        }
+        @if (signInManager.IsSignedIn(User))
+        {
+            {
+                var email = @User.Claims.First(c => c.Type == "Email").Value;
+           
+            <a href='/Profile/UserProfile/@email' id="button-new">User Profile</a>
+            }
 
         }
         @if (!signInManager.IsSignedIn(User))
@@ -24,7 +36,7 @@
         }
         @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
         {
-            <a asp-page="/Admin/Dashboard" id="button-new" >Admin Dashboard</a>
+            <a asp-page="/Admin/Dashboard" id="button-new">Admin Dashboard</a>
 
         }
         <a asp-controller="Cart" id="button-new" asp-action="Index" asp-route-userID="@User.Identity.Name"><i class="fas fa-shopping-cart"></i>Cart</a>
@@ -62,10 +74,10 @@
                     <li><a id="links" href='/Account/Login'> Login </a></li>
                 }
             </ul>
-            </div>
-        </nav>
-        <div id="indexcontain">
-            <img src="~/assets/Logo.png" alt="Pogs R Us Logo" class="head-logo" />
-
         </div>
+    </nav>
+    <div id="indexcontain">
+        <img src="~/assets/Logo.png" alt="Pogs R Us Logo" class="head-logo" />
+
     </div>
+</div>
