@@ -115,6 +115,15 @@ https://pogsrus.azurewebsites.net/
 - Name: ProfessionalsOnly
 - Purpose: Only allows users who checked the Professional box on account creation to access the Professional Page.
 
+# Vulnerability Report
+-![Vulnerability]()
+
+# Contributors
+- Jason Hiskey
+- Nate Tibbals
+-
+
+
 
 
 
