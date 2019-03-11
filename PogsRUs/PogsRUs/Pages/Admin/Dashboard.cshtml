@@ -11,17 +11,19 @@
 
 <a asp-page="/Admin/ManageProducts" id="button-new">Manage Products</a>
 
-<h1>Last 10 Completed Orders</h1>
+
 @{
     var orders= await CheckoutManagementService.GetLastTenOrders(10);
 
 }
+<div id="form-contain">
+    <h1>Last 10 Completed Orders</h1>
+    @foreach (var item in orders)
+    {
+        <h3>@item.CustName</h3>
 
-@foreach (var item in orders)
-{
-            <h3>@item.CustName</h3>
-   
-            <p>@item.TotalPrice</p>
-            <p>@item.TimeStamp</p>
-            <a asp-page="/Admin/OrderDetail" asp-route-id="@item.ID" id="button-new">@item.ID</a>
-}
+        <p>@item.TotalPrice</p>
+        <p>@item.TimeStamp</p>
+        <a asp-page="/Admin/OrderDetail" asp-route-id="@item.ID" id="button">View Details</a>
+    }
+</div>
