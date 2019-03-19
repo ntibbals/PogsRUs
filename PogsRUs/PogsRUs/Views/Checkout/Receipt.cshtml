@@ -1,0 +1,30 @@
+﻿@model PogsRUs.Models.Order
+@{
+    ViewData["Title"] = "Receipt";
+    Layout = "_Layout";
+}
+
+<h1>Order Summary</h1>
+
+<div class="container">
+
+    <h3> Total Products Purchased= @Model.PurchasedProducts.Count</h3>
+
+    @foreach (var product in Model.PurchasedProducts)
+    {
+        <div>
+            <h3>@product.Name</h3>
+        </div>
+        <div>
+            <p>Quantity = @product.Quantity</p>
+        </div>
+        <div>
+            <p>Total Price of Product = @product.TotalPrice</p>
+        </div>
+    }
+
+    <h3>Total Cost of Purchase = @Model.TotalPrice</h3>
+
+    <a asp-controller="Home" id="button-new" asp-action="Index1">Return to Home</a>
+
+</div>

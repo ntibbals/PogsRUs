@@ -1,0 +1,42 @@
+﻿@model List<PogsRUs.Models.CartProduct>
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "_Layout";
+}
+
+<div>
+    <h1>Shopping Cart Items</h1>
+    @if (Model.Count() > 0)
+    {
+        <form asp-controller="Checkout" asp-action="Summary">
+            <input type="hidden" name="userID" value="@User.Identity.Name" method="post" />
+
+            <button id="button-new" type="submit">Checkout</button>
+        </form>
+        
+
+        @foreach (var cartProduct in Model)
+        {
+
+            <h3>@cartProduct.Name</h3>
+            <form asp-controller="Cart" asp-action="UpdateCartProductQuantity">
+                <input type="hidden" name="userID" value="@User.Identity.Name" method="post" />
+                <input type="hidden" name="productID" value="@cartProduct.ProductID" method="post" />
+                <input type="number" name="quantity" value="@cartProduct.Quantity" method="post" />
+
+                <button id="button" type="submit">Update Quantity</button>
+            </form>
+            <form asp-controller="Cart" asp-action="RemoveCartProduct">
+                <input type="hidden" name="userID" value="@User.Identity.Name" method="post" />
+                <input type="hidden" name="productID" value="@cartProduct.ProductID" method="post" />
+
+                <button id="button" type="submit">Remove from Cart</button>
+            </form>
+        }
+    }
+    else
+    {
+        <p>Shopping Cart Empty</p>
+    }
+
+</div>

@@ -1,0 +1,21 @@
+﻿body {
+    background-color: teal;
+    background: url("assets/pog-home.jfif") bottom;
+}
+.enter{
+    margin: 26vw;
+    width: 15vw;
+    margin-top: 15vw;
+}
+
+.enter-butt{
+    width: 15vw;
+    color: deeppink;
+    font-size: 3.5vw;
+    padding-left: 20vw;
+}
+
+.enter-logo{
+    height: 15vw;
+
+}

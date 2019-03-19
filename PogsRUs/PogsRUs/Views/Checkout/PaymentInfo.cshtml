@@ -1,0 +1,51 @@
+﻿@model PogsRUs.Models.ViewModels.PaymentViewModel
+@{
+    ViewData["Title"] = "Payment Info";
+    Layout = "_Layout";
+}
+
+
+<div id="form-contain">
+    <form asp-action="MakePayment">
+        <div asp-validation-summary="ModelOnly"></div>
+
+        <input asp-for="UserID" type="hidden" name="userID" value="@User.Identity.Name" id="input" />
+
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" id="input" />
+        <span asp-validation-for="FirstName"></span>
+
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" id="input" />
+        <span asp-validation-for="LastName"></span>
+
+        <label asp-for="Address"></label>
+        <input asp-for="Address" id="input" />
+        <span asp-validation-for="Address"></span>
+
+        <label asp-for="City"></label>
+        <input asp-for="City" id="input" />
+        <span asp-validation-for="City"></span>
+
+        <label asp-for="Zipcode"></label>
+        <input asp-for="Zipcode" id="input" />
+        <span asp-validation-for="Zipcode"></span>
+
+        <label asp-for="CreditCardNumber"></label>
+        <select asp-for="CreditCardNumber">
+            <option value="4007000000027">4007000000027</option>
+            <option value="5424000000000015">5424000000000015</option>
+            <option value="6011000000000012">6011000000000012</option>
+        </select>
+
+        <label asp-for="ExpirationDate"></label>
+        <select asp-for="ExpirationDate">
+            <option value="10/21">10/21</option>
+            <option value="12/22">12/22</option>
+            <option value="01/23">01/23</option>
+        </select>
+        <div class="form-group">
+            <input type="submit" value="Make Payment" id="button" />
+        </div>
+    </form>
+</div>

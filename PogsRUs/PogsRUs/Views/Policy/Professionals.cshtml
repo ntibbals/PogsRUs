@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using PogsRUs.Models.Interfaces
+@using PogsRUs.Models
+
+@inject SignInManager<ApplicationUser> signInManager
+@inject IInventory InventoryManagementService
+@{
+    ViewData["Title"] = "Professionals";
+    Layout = "_Layout";
+}
+@if (signInManager.IsSignedIn(User))
+{
+    @await Component.InvokeAsync("Cart", @User.Identity.Name)
+}
+<h1>Welcome to the circle of Champions</h1>
+<div class="circle">
+    <img class="circle-pic" src="~/assets/pogcircle.jfif" />
+</div>

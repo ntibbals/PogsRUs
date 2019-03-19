@@ -1,0 +1,54 @@
+﻿@page "{id}"
+@model PogsRUs.Pages.Profile.UserProfileModel
+@inject UserManager<ApplicationUser> userManager
+@using PogsRUs.Models.Interfaces
+@inject ICheckout CheckoutManagementService
+
+@using Microsoft.AspNetCore.Identity
+@using PogsRUs.Models
+@{
+    ViewData["Title"] = "UserProfile";
+    Layout = "_Layout";
+}
+@{
+    var email = @User.Claims.First(c => c.Type == "Email").Value;
+    var user = await userManager.FindByEmailAsync(email);
+}
+<h1>User Profile</h1>
+<div id="form-contain">
+    <form method="post" enctype="multipart/form-data" id="form">
+        <div>
+            <label asp-for="User.FirstName">First Name:</label>
+            <input asp-for="User.FirstName" value=" @user.FirstName" id="input" />
+        </div>
+        <div>
+            <label asp-for="User.LastName">Last Name:</label>
+            <input asp-for="User.LastName" value=" @user.LastName" id="input" />
+        </div>
+        <div>
+            <label asp-for="User.Email">Email:</label>
+            <span asp-for="Post.Details" id="input">@email</span>
+        </div>
+        <div id="but-contain">
+            <button type="submit" value="Save" id="button">Save</button>
+        </div>
+    </form>
+</div>
+
+@{
+    var orders = await CheckoutManagementService.GetLastTenOrders(10);
+
+}
+
+<div id="form-contain">
+    <h1>Last 5 Completed Orders</h1>
+    @foreach (var item in orders)
+
+    {
+        <h3>@item.CustName</h3>
+
+        <p>@item.TotalPrice</p>
+        <p>@item.TimeStamp</p>
+        <a asp-page="/Profile/OrderDetail" asp-route-id="@item.ID" id="button-new">View Details</a>
+    }
+</div>
