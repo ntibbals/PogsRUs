@@ -1,11 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\PogsRUs",
-    "\\PogsRUs\\PogsRUs",
-    "\\PogsRUs\\PogsRUs\\Models",
-    "\\PogsRUs\\PogsRUs\\Models\\ViewModels"
+    "\\PogsRUs"
   ],
-  "SelectedNode": "\\PogsRUs\\PogsRUs\\Properties",
+  "SelectedNode": "\\PogsRUs\\PogsRUs.sln",
   "PreviewInSolutionExplorer": false
 }
