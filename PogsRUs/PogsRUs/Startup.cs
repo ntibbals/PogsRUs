@@ -58,15 +58,15 @@ namespace PogsRUs
 
             /**********************Production***********************/
 
-            services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:IdentityDefaultConnection"]));
+            services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:ProductionConnection"]));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:IdentityProductionConnection"]));
 
-            //services.AddAuthentication()
-            //    .AddMicrosoftAccount(microsoftOptions =>
-            //    {
-            //        microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ApplicationId"];
-            //        microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:Password"];
-            //    })
+            services.AddAuthentication()
+                .AddMicrosoftAccount(microsoftOptions =>
+                {
+                    microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ApplicationId"];
+                    microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:Password"];
+                });
             //    .AddGoogle(googleOptions =>
             //    {
             //        googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
