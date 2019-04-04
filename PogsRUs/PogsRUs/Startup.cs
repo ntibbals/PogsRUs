@@ -61,12 +61,12 @@ namespace PogsRUs
             services.AddDbContext<PogsRUsDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:ProductionConnection"]));
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:IdentityProductionConnection"]));
 
-            services.AddAuthentication()
-                .AddMicrosoftAccount(microsoftOptions =>
-                {
-                    microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ApplicationId"];
-                    microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:Password"];
-                });
+            //services.AddAuthentication()
+            //    .AddMicrosoftAccount(microsoftOptions =>
+            //    {
+            //        microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ApplicationId"];
+            //        microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:Password"];
+            //    })
             //    .AddGoogle(googleOptions =>
             //    {
             //        googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
@@ -88,7 +88,7 @@ namespace PogsRUs
             //{
             //    microsoftOptions.ClientId = Configuration["MicrosoftApplicationId"];
             //    microsoftOptions.ClientSecret = Configuration["MicrosoftPassword"];
-            //})
+            //});
             //.AddGoogle(googleOptions =>
             //{
             //    googleOptions.ClientId = Configuration["GoogleClientId"];
