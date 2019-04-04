@@ -4,8 +4,18 @@
 /********************HOME *************************/
 .carousel-container{
 }
+#welcome{
+    padding-top: 10px;
+    font-size: 2vw;
+    height: 50px;
+}
 #carousel-image{
-    height: 500px;
+    background-position: top;
+    background-size:auto;
+}
+
+#img-contain{
+    height: 300px;
 }
 /******** PRODUCTS *******************/
 .container {
@@ -204,6 +214,20 @@
     box-shadow: 4px 4px 4px black;
 }
 
+#reg-form-contain {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    border: solid 2px #000;
+    margin-top: 2vw;
+    width: 40vw;
+    min-width: 300px;
+    min-height: 500px;
+    border-radius: .5em;
+    padding: 1vw;
+    box-shadow: 4px 4px 4px black;
+}
+
 #input {
     border-radius: .5em;
     margin-bottom: 1.5vw;
@@ -218,6 +242,11 @@
 /*********MOBILE VERSION *****************/
 @media (max-width: 769px) {
 
+    #welcome {
+        padding-top: 10px;
+        font-size: 4vw;
+        height: 50px;
+    }
     /******** PRODUCTS *******************/
     .container {
         display: flex;
@@ -330,6 +359,20 @@
         width: 50vw;
         min-width: 350px;
         min-height: 450px;
+        border-radius: .5em;
+        padding: 0;
+        box-shadow: 4px 4px 4px black;
+    }
+
+    #reg-form-contain {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        border: solid 2px #000;
+        margin-top: 2vw;
+        width: 50vw;
+        min-width: 200px;
+        min-height: 550px;
         border-radius: .5em;
         padding: 0;
         box-shadow: 4px 4px 4px black;
