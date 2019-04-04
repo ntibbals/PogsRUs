@@ -84,11 +84,11 @@ namespace PogsRUs
 
 
 
-            //services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
-            //{
-            //    microsoftOptions.ClientId = Configuration["MicrosoftApplicationId"];
-            //    microsoftOptions.ClientSecret = Configuration["MicrosoftPassword"];
-            //});
+            services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+            {
+                microsoftOptions.ClientId = Configuration["MicrosoftApplicationId"];
+                microsoftOptions.ClientSecret = Configuration["MicrosoftPassword"];
+            });
             //.AddGoogle(googleOptions =>
             //{
             //    googleOptions.ClientId = Configuration["GoogleClientId"];
