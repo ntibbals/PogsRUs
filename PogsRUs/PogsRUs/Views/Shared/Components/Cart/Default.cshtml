@@ -1,13 +1,15 @@
 ﻿@model List<PogsRUs.Models.CartProduct>
 
-<div>
+<div class="cart-component">
     <h1>Shopping Cart Items</h1>
     @if (Model != null)
     {
         @foreach (var cartProduct in Model)
         {
+         <div class="cart-item">
             <h3>@cartProduct.Name</h3>
             <p>Quantity = @cartProduct.Quantity</p>
+         </div>
         }
     }
     else
