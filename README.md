@@ -2,9 +2,11 @@
 # Introduction 
 Pogs R Us offers a one stop shop for for all of you Pogs and Pog Accessories. We also offer a special set of merchandise for Professional Pog Competitors.
 
-#### Link to Deployed Site
+#### Link to Deployed Site and Azure DevOps
 
 https://pogsrus.azurewebsites.net/
+
+https://dev.azure.com/TeamGrey/PogsRUs
 
 # Products Avaliable
 - Slammers
@@ -115,13 +117,17 @@ https://pogsrus.azurewebsites.net/
 - Name: ProfessionalsOnly
 - Purpose: Only allows users who checked the Professional box on account creation to access the Professional Page.
 
-# Vulnerability Report
--![Vulnerability]()
+# Visuals
+
+![HOME](./Graphics/landing.PNG)
+![HOME](./Graphics/Home.PNG)
+![HOME](./Graphics/products.PNG)
+
 
 # Contributors
 - Jason Hiskey
 - Nate Tibbals
--
+
 
 
 
