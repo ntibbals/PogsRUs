@@ -119,9 +119,19 @@ https://dev.azure.com/TeamGrey/PogsRUs
 
 # Visuals
 
-![HOME](./Graphics/landing.PNG)
+![Landing](./Graphics/landing.PNG)
 ![HOME](./Graphics/Home.PNG)
-![HOME](./Graphics/products.PNG)
+![Products](./Graphics/products.PNG)
+![Product-detail](./Graphics/product-detail.PNG)
+![Login](./Graphics/login.PNG)
+![Profile](./Graphics/profile.PNG)
+![Cart](./Graphics/cart.PNG)
+![Payment](./Graphics/payment.PNG)
+![Order-Summary](./Graphics/Order-summary.PNG)
+![Admin-Home](./Graphics/admin-login.PNG)
+![Admin-Details](./Graphics/admin-details-view.PNG)
+![Manage-Products](./Graphics/Manage-products.PNG)
+
 
 
 # Contributors
