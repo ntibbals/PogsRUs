@@ -85,7 +85,7 @@ namespace PogsRUs.Controllers
 
                     }
 
-                    return RedirectToAction("Index1", "Home");
+                    return RedirectToAction("Index", "Home");
                 }
             }
 
